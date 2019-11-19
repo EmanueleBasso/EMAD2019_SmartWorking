@@ -1,16 +1,16 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { IonicModule } from '@ionic/angular';
-import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 
 import { HomePage } from './home.page';
+//import { CalendarioModule } from '../calendar/calendario.module';
 
 @NgModule({
   imports: [
     CommonModule,
-    FormsModule,
     IonicModule,
+    //CalendarioModule,
     RouterModule.forChild([
       {
         path: '',
@@ -18,6 +18,8 @@ import { HomePage } from './home.page';
       }
     ])
   ],
-  declarations: [HomePage]
+  declarations: [HomePage],
 })
-export class HomePageModule {}
+export class HomePageModule {
+  constructor() { }
+}

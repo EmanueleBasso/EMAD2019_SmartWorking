@@ -1,0 +1,28 @@
+.div_general {
+  margin: 20px;
+}
+.div_mayor {
+  margin-bottom: 20px;
+  width: auto;
+  margin: auto;
+  height: 200px auto;
+
+  border-radius: 10px;
+  ion-button {
+    height: 45px;
+    margin-top: 20px 0 !important;
+  }
+  ion-item {
+    padding: 3px;
+    margin: 20px 0 !important;
+    border-radius: 10px;
+    border-style: solid;
+    border-color: #3880ff;
+  }
+}
+.logo {
+  display: block;
+  margin: auto;
+  width: 250px;
+  margin-top: 30px;
+}

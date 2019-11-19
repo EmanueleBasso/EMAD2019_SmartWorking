@@ -1,0 +1,43 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>Login</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-card style="height: 97%">
+  <div class="div_general">
+    <div class="div_mayor">
+      <ion-img src="../../assets/img/Capgemini.png" class="logo"></ion-img>
+      <ion-list no-lines>
+        <ion-item lines="none">
+          <ion-label>
+            <ion-icon name="person"></ion-icon>
+          </ion-label>
+          <ion-input
+            placeholder="esempio@capgemini.it"
+            type="email"
+            id="email"
+            required
+            [(ngModel)]="enteredEmail"
+          ></ion-input>
+        </ion-item>
+        <ion-item lines="none">
+          <ion-label>
+            <ion-icon name="key"></ion-icon>
+          </ion-label>
+          <ion-input
+            placeholder="La tua password"
+            type="password"
+            value=""
+            id="password"
+            required
+            [(ngModel)]="enteredPassword"
+          ></ion-input>
+        </ion-item>
+        <ion-button expand="block" (click)="onClickLogin()">
+          Login
+        </ion-button>
+      </ion-list>
+    </div>
+  </div>
+</ion-card>
