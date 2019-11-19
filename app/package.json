@@ -28,6 +28,7 @@
     "@ngx-translate/http-loader": "^4.0.0",
     "cordova-android": "8.1.0",
     "core-js": "^2.5.4",
+    "firebase": "^7.4.0",
     "ion2-calendar": "^3.0.0-rc.0",
     "ion4-calendar": "^3.0.4-beta.17",
     "leaflet": "^1.5.1",
