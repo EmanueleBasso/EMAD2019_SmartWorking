@@ -59,15 +59,16 @@ export class LoginPage {
     if (!this.enteredPassword || !this.enteredEmail) {
       // email o password non inserita
       this.presentAlertConfirm();
+      return;
     }
-    else if (this.enteredEmail.includes('@capgemini.com') && !this.enteredEmail.startsWith('@')) {
+
+    if (!this.enteredEmail.includes('@')) {
+      // facciamo che lo aggiunge automaticamente se non c'è
+      this.enteredEmail = this.enteredEmail.concat('@capgemini.com');
+    }
+
+    if (this.enteredEmail.includes('@capgemini.com') && !this.enteredEmail.startsWith('@')) {
       // è tutto apposto
-
-      if (!this.enteredEmail.includes('@')) {
-        // facciamo che lo aggiunge automaticamente
-        this.enteredEmail = this.enteredEmail.concat('@capgemini.com');
-      }
-
       this.presentLoadingWithOptions();
 
       this.authService.login(this.enteredEmail, this.enteredPassword).then( (logged) => {
@@ -79,8 +80,7 @@ export class LoginPage {
           this.presentAlertConfirm();
         }
       });
-    }
-    else {
+    } else {
       // errore! non è una mail valida
       this.presentAlertConfirm();
     }
