@@ -18,7 +18,7 @@ export class LoginPage {
   constructor(public loadingController: LoadingController, public alertController: AlertController,
               private authService: AuthService, private router: Router) { }
 
-  async presentAlertConfirm() {
+  async presentAlertUnknown() {
     const alert = await this.alertController.create({
       header: 'Dati non validi!',
       message: 'Inserire dati validi',
@@ -36,6 +36,21 @@ export class LoginPage {
             console.log('Confirm Okay');
           }
         }
+      ]
+    });
+    await alert.present();
+  }
+
+  async presentAlertError() {
+    const alert = await this.alertController.create({
+      header: 'Errore!',
+      message: 'Errore in fase di login',
+      buttons: [{
+        text: 'Okay',
+        handler: () => {
+          console.log('Confirm Okay');
+        }
+      }
       ]
     });
 
@@ -58,7 +73,7 @@ export class LoginPage {
 
     if (!this.enteredPassword || !this.enteredEmail) {
       // email o password non inserita
-      this.presentAlertConfirm();
+      this.presentAlertUnknown();
       return;
     }
 
@@ -71,18 +86,18 @@ export class LoginPage {
       // è tutto apposto
       this.presentLoadingWithOptions();
 
-      this.authService.login(this.enteredEmail, this.enteredPassword).then( (logged) => {
+      this.authService.login(this.enteredEmail, this.enteredPassword).then((logged) => {
         this.loading.dismiss();
 
         if (logged === true) {
           this.router.navigate(['/home']);
         } else {
-          this.presentAlertConfirm();
+          this.presentAlertError();
         }
       });
     } else {
       // errore! non è una mail valida
-      this.presentAlertConfirm();
+      this.presentAlertUnknown();
     }
   }
 }

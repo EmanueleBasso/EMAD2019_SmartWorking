@@ -25,4 +25,4 @@ import AuthService from './providers/auth.service';
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule {}
+export class AppModule { }
