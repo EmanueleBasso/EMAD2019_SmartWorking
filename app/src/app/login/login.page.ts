@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { LoadingController, NavController } from '@ionic/angular';
 import { AlertController } from '@ionic/angular';
-import { Router } from '@angular/router';
 
 import AuthService from '../providers/auth.service';
 
@@ -20,21 +19,10 @@ export class LoginPage {
 
   async presentAlertUnknown() {
     const alert = await this.alertController.create({
-      header: 'Dati non validi!',
-      message: 'Inserire dati validi',
-      buttons: [
-        {
-          text: 'Cancel',
-          role: 'cancel',
-          cssClass: 'secondary',
-          handler: (blah) => {
-            console.log('Confirm Cancel');
-          }
-        }, {
-          text: 'Okay',
-          handler: () => {
-            console.log('Confirm Okay');
-          }
+      header: 'Credenziali non valide!',
+      message: 'Inserire credenziali valide',
+      buttons: [{
+        text: 'OK',
         }
       ]
     });
@@ -43,14 +31,11 @@ export class LoginPage {
 
   async presentAlertError() {
     const alert = await this.alertController.create({
-      header: 'Errore!',
-      message: 'Errore in fase di login',
+      header: 'Autenticazione non riuscita!',
+      message: 'Credenziali non corrette',
       buttons: [{
-        text: 'Okay',
-        handler: () => {
-          console.log('Confirm Okay');
+        text: 'OK'
         }
-      }
       ]
     });
 
