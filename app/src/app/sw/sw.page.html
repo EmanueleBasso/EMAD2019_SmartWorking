@@ -1,0 +1,35 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Smart Working</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card>
+    <ion-card-header class="ion-text-center">
+      <ion-label style="font-weight: bold;" color="primary" class="ion-text-center">Pianifica il tuo smartworking
+      </ion-label>
+    </ion-card-header>
+    <!-- QUESTO FA RESTITUIRE IL GIORNO COME STRINGA -->
+    <ion-calendar [(ngModel)]="date2" (change)="onChange($event)" [options]="options" type="string" format="YYYY-MM-DD"
+      (monthChange)="monthChange($event)">
+    </ion-calendar>
+    <ion-button expand="block" (click)="onClickPrenotaSW()">
+      Pianifica
+    </ion-button>
+  </ion-card>
+
+
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title class="ion-text-center">
+        <ion-icon ios="ios-warning" md="md-warning"></ion-icon>
+        <br />
+        Ricorda che puoi scegliere al massimo 3 giorni di SW a settimana
+      </ion-card-title>
+    </ion-card-header>
+  </ion-card>
+</ion-content>

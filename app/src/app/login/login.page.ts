@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { LoadingController } from '@ionic/angular';
+import { LoadingController, NavController } from '@ionic/angular';
 import { AlertController } from '@ionic/angular';
 import { Router } from '@angular/router';
 
@@ -16,7 +16,7 @@ export class LoginPage {
   private loading: any;
 
   constructor(public loadingController: LoadingController, public alertController: AlertController,
-              private authService: AuthService, private router: Router) { }
+              private authService: AuthService, private navCtrl: NavController) { }
 
   async presentAlertUnknown() {
     const alert = await this.alertController.create({
@@ -90,7 +90,7 @@ export class LoginPage {
         this.loading.dismiss();
 
         if (logged === true) {
-          this.router.navigate(['/home']);
+          this.navCtrl.navigateRoot('/home');
         } else {
           this.presentAlertError();
         }
