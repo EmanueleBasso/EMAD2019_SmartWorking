@@ -7,6 +7,7 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 import AuthService from './providers/auth.service';
 
 import * as firebase from 'firebase/app';
+import 'firebase/auth';
 
 @Component({
   selector: 'app-root',
@@ -64,6 +65,7 @@ export class AppComponent {
         measurementId: 'G-HR9ZDFD32P'
       };
       firebase.initializeApp(firebaseConfig);
+      firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL);
 
       this.ionViewDidEnter();
     });
