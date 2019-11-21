@@ -9,6 +9,9 @@ module.exports = async (request, response) => {
     }
 
     var db = firebase.firestore()
+
+    response.append('Access-Control-Allow-Origin', ['*'])
+
     await db.collection('SmartWorking').where('dipendente', '==', uid).get().then( (snapshot) => {
         arrayDate = []
         snapshot.forEach(elem => {
@@ -18,6 +21,7 @@ module.exports = async (request, response) => {
         arrayDateSorted = arrayDate.sort(function(o1, o2) {
             arrayData1 = o1.split('-')
             data1 = new Date(arrayData1[2], arrayData1[1], arrayData1[0])
+
             arrayData2 = o2.split('-')
             data2 = new Date(arrayData2[2], arrayData2[1], arrayData2[0])
 
@@ -27,14 +31,12 @@ module.exports = async (request, response) => {
         });
 
         var lastMonthEntered = arrayDateSorted.pop().split('-')[1]
-
         var month = (new Date()).getMonth() + 2
 
-        response.append('Access-Control-Allow-Origin', ['*'])
         if(lastMonthEntered == month){
             response.send({alreadyEntered: true})
-        }else{
+        } else{
             response.send({alreadyEntered: false})
         }
-    });
+    }).catch(() => response.send({alreadyEntered: false}))
 };

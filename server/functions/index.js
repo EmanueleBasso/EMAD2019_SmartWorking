@@ -2,9 +2,11 @@ const functions = require('firebase-functions');
 const firebase = require("firebase/app");
 
 const checkSWAlreadyEnteredModule = require('./src/sw/checkSWAlreadyEntered');
+const saveSW = require('./src/sw/saveSW');
 
 module.exports = {
-    'checkSWAlreadyEntered': functions.region('europe-west1').https.onRequest(checkSWAlreadyEnteredModule)
+    'checkSWAlreadyEntered': functions.region('europe-west1').https.onRequest(checkSWAlreadyEnteredModule),
+    'saveSW': functions.region('europe-west1').https.onRequest(saveSW)
 };
 
 const firebaseConfig = {
