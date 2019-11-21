@@ -30,10 +30,11 @@ module.exports = async (request, response) => {
 
         var month = (new Date()).getMonth() + 2
 
+        response.append('Access-Control-Allow-Origin', ['*'])
         if(lastMonthEntered == month){
             response.send({alreadyEntered: true})
         }else{
-            response.send({alreadyEntered: false}) 
+            response.send({alreadyEntered: false})
         }
     });
 };
