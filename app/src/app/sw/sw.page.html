@@ -14,8 +14,7 @@
       </ion-label>
     </ion-card-header>
     <!-- QUESTO FA RESTITUIRE IL GIORNO COME STRINGA -->
-    <ion-calendar [(ngModel)]="date2" (change)="onChange($event)" [options]="options" type="string" format="YYYY-MM-DD"
-      (monthChange)="monthChange($event)">
+    <ion-calendar (change)="onChange($event)" [options]="options" type="string" format="YYYY-MM-DD">
     </ion-calendar>
     <ion-button expand="block" (click)="onClickPrenotaSW()">
       Pianifica

@@ -13,12 +13,12 @@ import { CalendarComponentOptions } from 'ion2-calendar';
 export class HomePage {
 
   // Dati lista
-  private selectedItem: any;
   private icons = ['home', 'desktop'];
   public items: Array<{ title: string; icon: string, note: string; }> = [];
   private giorni: string[];
   private num: number;
   click: boolean = false;
+  private haPrenotatoPosto = false;
 
   constructor(public modalCtrl: ModalController) {
     moment.locale('it-IT');
@@ -29,7 +29,7 @@ export class HomePage {
       this.items.push({
         title: this.giorni[i],
         icon: this.icons[this.num],
-        note: ((this.num === 1) ? ('Posto ' + i + ' Stanza ' + (i + i) + ' Piano ' + (i + 1)) : '')
+        note: ((this.num === 1) ? ('Posto ' + i + ' Stanza ' + (i + i) + ' Piano ' + (i + 1)) : 'Sei a casa')
       });
     }
   }
@@ -43,13 +43,9 @@ export class HomePage {
   //_showMonthPicker: boolean = false;
   //_disableWeeks: number[] = [0, 6];
   //_weekStart: number = 0;
-  options1: CalendarComponentOptions = {
+
+  options: CalendarComponentOptions = {
     color: this._color,
-    // showMonthPicker: false,
-    // showToggleButtons: false,
-  };
-  options2: CalendarComponentOptions = {
-    color: 'danger',
     // showMonthPicker: false,
     // showToggleButtons: false,
   };
@@ -90,12 +86,8 @@ export class HomePage {
   }*/
 
 
-  onChange1($event) {
+  onChange($event) {
     console.log("Stringa del calendario 1: " + $event);
-  }
-  onChange2($event) {
-    this.arrayData = $event._d.toString().split(' ', 4);
-    console.log("Array del calendario 2: " + this.arrayData);
   }
 
   itemClick() {
@@ -103,5 +95,12 @@ export class HomePage {
     // L'ho messo qui il log della data di oggi perché ho usato una sola variabile per tutto :)
     this.arrayData = this.date2.toString().split(' ', 4);
     console.log("Data di oggi: " + this.arrayData);
+    if (!this.haPrenotatoPosto) {
+      for (let i = 0; i < this.items.length; i++) {
+        if (this.items[i].note !== 'Sei a casa') {
+          this.items[i].note = 'Non hai scelto il posto';
+        }
+      }
+    }
   }
 }
