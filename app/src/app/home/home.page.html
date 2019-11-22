@@ -12,8 +12,7 @@
 <ion-content>
   <ion-card>
     <ion-card-header class="ion-text-center">
-      <ion-label style="font-weight: bold;" color="primary"
-        >La tua vista settimanale
+      <ion-label style="font-weight: bold;" color="primary">La tua vista settimanale
       </ion-label>
     </ion-card-header>
     <ion-list>
@@ -23,38 +22,22 @@
         </div>
         <div>
           <div>
-            {{item.title}}
+            <ion-label> {{item.title}}
+            </ion-label>
           </div>
           <div *ngIf="click" style="font-size: 12px;">
-            {{item.note}}
+            <ion-label id="notaPosto"> {{item.note}}
+            </ion-label>
           </div>
         </div>
         <ion-button (click)="itemClick()" slot="end" fill="outline">
-          Dettagli</ion-button
-        >
+          Dettagli</ion-button>
       </ion-item>
     </ion-list>
   </ion-card>
 
   <ion-card>
-    <!-- <app-basic-calendar></app-basic-calendar> -->
-    <!-- QUESTO FA RESTITUIRE IL GIORNO COME STRINGA -->
-    <ion-calendar
-      [(ngModel)]="date1"
-      (change)="onChange1($event)"
-      [options]="options1"
-      type="string"
-      format="YYYY-MM-DD"
-    >
-    </ion-calendar>
-    <!-- QUESTO FA RESTITUIRE IL GIORNO COME ARRAY DI STRINGHE -->
-    <ion-calendar
-      [(ngModel)]="date2"
-      (change)="onChange2($event)"
-      [options]="options2"
-      type="Date"
-      format="YYYY-MM-DD"
-    >
+    <ion-calendar (change)="onChange($event)" [options]="options" type="string" format="YYYY-MM-DD">
     </ion-calendar>
   </ion-card>
 </ion-content>
