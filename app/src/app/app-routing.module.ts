@@ -13,13 +13,15 @@ const routes: Routes = [
     path: 'home',
     // loadChildren: () => import('./home/home.module').then(m => m.HomePageModule),
     loadChildren: './home/home.module#HomePageModule',
-    canActivate: [AuthGuard]
+    canLoad: [AuthGuard]
   },
   { path: 'login',
     loadChildren: './login/login.module#LoginPageModule'
-  },  {
+  },
+  {
     path: 'sw',
-    loadChildren: () => import('./sw/sw.module').then( m => m.SwPageModule)
+    loadChildren: './sw/sw.module#SwPageModule',
+    canLoad: [AuthGuard]
   }
 
 ];

@@ -34,7 +34,7 @@ export class SwPage {
     if (this.date.getMonth() === 11) {
       dataFrom.setDate(1);
       dataFrom.setMonth(0);
-      dataTo.setFullYear(dataFrom.getFullYear() + 1);
+      dataFrom.setFullYear(dataFrom.getFullYear() + 1);
 
       dataTo.setDate(31);
       dataTo.setMonth(0);
@@ -76,8 +76,6 @@ export class SwPage {
 
   options: CalendarComponentOptions = {
     color: this._color,
-    from: null,
-    to: null,
     showMonthPicker: false,
     pickMode: 'multi',
     showToggleButtons: true,
@@ -298,7 +296,7 @@ export class SwPage {
     // chiamata alla cloud function
   }
 
-  ionViewDidEnter() {
+  ionViewWillEnter() {
     const giorno = this.date.getDate();
 
     if (giorno < 15) {
@@ -311,12 +309,11 @@ export class SwPage {
 
       this.http.get(url + '?uid=' + uid).subscribe( response => {
         const alreadyEntered = response['alreadyEntered'];
-
         this.loading.dismiss();
         if (alreadyEntered) {
           this.presentAlertPrenotato();
         } else {
-          let node = document.querySelector('.forward.ios.button.button-clear.button-has-icon-only.ion-activatable.ion-focusable.hydrated') as HTMLElement;
+          let node = document.querySelector('#claudio') as HTMLElement;
           node.click();
           node['disabled'] = true;
         }
