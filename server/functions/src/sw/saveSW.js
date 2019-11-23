@@ -114,7 +114,7 @@ function sendEmail(uid, request, response, dates) {
     
             const mailOptions = {
                 from: 'Amministratore Smart Working<smartworking.unisa@gmail.com>',
-                to: 'antonio.basileo92@gmail.com',
+                to: document.data().email,
                 subject: 'Piano di Smart Working',
                 html: "<p style=\"font-size: 16px;\">Ciao " + document.data().nome + " " + document.data().cognome + ",</p>" 
                 + "<p style=\"font-size: 16px;\">ecco il tuo piano di Smart Working per il prossimo mese:</p>" 
@@ -154,7 +154,7 @@ module.exports = async(request, response) => {
     var dates = body.dates;
     var current_month = new Date().getMonth() + 1;
 
-    await db.collection('SmartWorking').get().then(snapshot => {
+    await db.collection('SmartWorking').where('dipendente', '==', uid).get().then(snapshot => {
         if (snapshot.size == 0) {
             
             addDates(dates, uid, batch)
@@ -166,7 +166,7 @@ module.exports = async(request, response) => {
             console.log('DATI INSERITI ED EMAIL INVIATA CON SUCCESSO!') 
 
         } else {
-            db.collection('SmartWorking').where('mese', '==', current_month).get().then(collection => {
+            db.collection('SmartWorking').where('dipendente', '==', uid).where('mese', '==', current_month).get().then(collection => {
 
                 let prevDatesSorted = []
                 let newDatesSorted = []
