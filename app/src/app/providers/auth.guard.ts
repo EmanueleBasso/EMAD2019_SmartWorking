@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, CanLoad, Route, UrlSegment } from '@angular/router';
+import { CanLoad, Route, UrlSegment } from '@angular/router';
 import { NavController } from '@ionic/angular';
 import { Observable } from 'rxjs';
 

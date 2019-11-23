@@ -1,11 +1,7 @@
-const functions = require('firebase-functions');
-const admin = require('firebase-admin');
-const nodemailer = require('nodemailer');
-const cors = require('cors')({origin: true});
 const firebase = require("firebase/app");
 require("firebase/firestore")
-
-admin.initializeApp();
+const nodemailer = require('nodemailer');
+const cors = require('cors')({origin: true});
 
 const db = firebase.firestore();
 
@@ -33,7 +29,7 @@ function sortDates(dates) {
 
     })
 
-    return sortDates;
+    return sortedDates;
 }
 
 function getWeekNumber(elem) {
@@ -93,6 +89,7 @@ function addDates(dates, uid) {
 
 
 module.exports = async(request, response) => {
+    response.append('Access-Control-Allow-Origin', ['*'])
 
     var body = JSON.parse(request.body);
     var uid = body.uid;
@@ -135,6 +132,7 @@ module.exports = async(request, response) => {
                     db.collection('Dipendente').doc(uid).get().then(document => {
         
                         cors(request, response, () => {
+                            response.append('Access-Control-Allow-Origin', ['*'])
                     
                             const mailOptions = {
                                 from: 'Amministratore Smart Working<smartworking.unisa@gmail.com>',
@@ -155,9 +153,7 @@ module.exports = async(request, response) => {
                                 + "</div>"
         
                             };
-                            
-                            response.append('Access-Control-Allow-Origin', ['*'])
-                      
+                                                  
                             return transporter.sendMail(mailOptions, (error, info) => {
                                 if(error){
                                     return response.send({hasError: true, error: error.message});

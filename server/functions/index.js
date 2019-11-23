@@ -1,14 +1,6 @@
 const functions = require('firebase-functions');
 const firebase = require("firebase/app");
 
-const checkSWAlreadyEnteredModule = require('./src/sw/checkSWAlreadyEntered');
-const saveSW = require('./src/sw/saveSW');
-
-module.exports = {
-    'checkSWAlreadyEntered': functions.region('europe-west1').https.onRequest(checkSWAlreadyEnteredModule),
-    'saveSW': functions.region('europe-west1').https.onRequest(saveSW)
-};
-
 const firebaseConfig = {
     apiKey: 'AIzaSyCFS_Kx9pZVoYinGyO92SKM_HEgWPdHK7Q',
     authDomain: 'smart-working-5f3ea.firebaseapp.com',
@@ -20,3 +12,11 @@ const firebaseConfig = {
     measurementId: 'G-HR9ZDFD32P'
   };
 firebase.initializeApp(firebaseConfig);
+
+const checkSWAlreadyEnteredModule = require('./src/sw/checkSWAlreadyEntered');
+const saveSW = require('./src/sw/saveSW');
+
+module.exports = {
+  'checkSWAlreadyEntered': functions.region('europe-west1').https.onRequest(checkSWAlreadyEnteredModule),
+  'saveSW': functions.region('europe-west1').https.onRequest(saveSW)
+};

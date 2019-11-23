@@ -12,8 +12,7 @@ import * as moment from 'moment';
 export class SwPage {
 
   private loading: any;
-  // CALENDARIO
-  date: Date;
+  private date: Date;
   private selectedDays: Array<string>;
 
   arrayData: string[];
@@ -85,21 +84,6 @@ export class SwPage {
     this.selectedDays = $event;
   }
 
-  // CANCELLARE
-  async _toastWrap(event: string, payload: {}) {
-    let toast = this.toastCtrl.create({
-      message: `${event}: ${JSON.stringify(payload, null, 2)}`,
-      duration: 1000,
-    });
-    (await toast).present();
-  }
-
-  // CANCELLARE
-  monthChange($event) {
-    //console.log('monthChange', $event);
-    //this._toastWrap('monthChange', $event);
-  }
-
   async presentAlertPrenotato() {
     const alert = await this.alertController.create({
       header: 'Attenzione',
@@ -138,13 +122,13 @@ export class SwPage {
       message: 'Puoi selezionare altri giorni di Smart Working. Vuoi proseguire lo stesso?',
       buttons: [
         {
+          text: 'NO',
+        },
+        {
           text: 'SI',
           handler: () => {
             this.saveSW();
           }
-        },
-        {
-          text: 'NO',
         }
       ]
     });
@@ -155,6 +139,46 @@ export class SwPage {
     const alert = await this.alertController.create({
       header: 'Errore',
       message: 'Puoi selezionare al massimo ' + giorni + ' giorni di Smart Working alla settimana. Rivedi le tue scelte',
+      buttons: [
+        {
+          text: 'OK'
+        }
+      ]
+    });
+    await alert.present();
+  }
+
+  async presentAlertSWSalvatoCorrettamente() {
+    const alert = await this.alertController.create({
+      header: 'Successo',
+      message: 'Il piano di Smart Working è stato salvato correttamente per il mese successivo',
+      buttons: [
+        {
+          text: 'OK'
+        }
+      ]
+    });
+    await alert.present();
+  }
+
+  async presentAlertSWErrore() {
+    const alert = await this.alertController.create({
+      header: 'Errore',
+      message: 'Si è verificato un problema nel salvataggio del piano di Smart Working. Si prega di riprovare',
+      buttons: [
+        {
+          text: 'OK'
+        }
+      ]
+    });
+    await alert.present();
+  }
+
+  async presentAlertSWErroreUltimaSettimanaMesePrecedente() {
+    const alert = await this.alertController.create({
+      header: 'Errore',
+      message: 'Le tue scelte sono incompatibili con il piano di Smart Working del mese precedente. Hai + \
+                già selezionato dei giorni per la prima settimana',
       buttons: [
         {
           text: 'OK'
@@ -175,7 +199,7 @@ export class SwPage {
   }
 
   onClickPrenotaSW() {
-    if (this.selectedDays === undefined) {
+    if ((this.selectedDays === undefined) || (this.selectedDays.length === 0)) {
       return;
     }
 
@@ -292,8 +316,33 @@ export class SwPage {
   }
 
   saveSW() {
-    console.log('T appost o fra');
-    // chiamata alla cloud function
+    this.presentLoadingWithOptions();
+
+    const url = 'https://europe-west1-smart-working-5f3ea.cloudfunctions.net/saveSW';
+    const body = {};
+
+    body['dates'] = [];
+    for (let i = 0; i < this.selectedDays.length; i = i + 1) {
+      const arrayDay = this.selectedDays[i].split('-');
+
+      body['dates'].push({anno: arrayDay[0], mese: arrayDay[1], giorno: arrayDay[2]});
+    }
+
+    body['uid'] = localStorage.getItem('uid');
+
+    this.http.post(url, JSON.stringify(body)).subscribe( response => {
+      const hasError = response['hasError'];
+      const error = response['error'];
+
+      this.loading.dismiss();
+      if (hasError === false) {
+        this.presentAlertSWSalvatoCorrettamente();
+      } else if ((hasError === true) && (error === 'Hai selezionato più di due giorni di Smart Working nella stessa settimana')) {
+        this.presentAlertSWErroreUltimaSettimanaMesePrecedente();
+      } else {
+        this.presentAlertSWErrore();
+      }
+    });
   }
 
   ionViewWillEnter() {
@@ -309,11 +358,12 @@ export class SwPage {
 
       this.http.get(url + '?uid=' + uid).subscribe( response => {
         const alreadyEntered = response['alreadyEntered'];
+
         this.loading.dismiss();
         if (alreadyEntered) {
           this.presentAlertPrenotato();
         } else {
-          let node = document.querySelector('#claudio') as HTMLElement;
+          let node = document.querySelector('#btnToDisable') as HTMLElement;
           node.click();
           node['disabled'] = true;
         }
