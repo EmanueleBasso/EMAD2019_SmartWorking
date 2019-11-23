@@ -76,30 +76,94 @@ function areValidDates(dates) {
     return flag;
 }
 
-function addDates(dates, uid) {
+function addDates(dates, uid, batch) {
+    let doc;
+
     dates.forEach(elem => {
-        db.collection('SmartWorking').add({
+        doc = db.collection("SmartWorking").doc();
+
+        batch.set(doc, {
             giorno: elem.giorno,
             mese: elem.mese,
             anno: elem.anno,
             dipendente: uid
-        }).catch(error => response.send({hasError: true, error: error.message}))
+        })
     })
+}
+
+function createSmartWorkingCalendarForEmail(dates) {
+    let s = "";
+
+    for(i = 0; i < dates.length; i++) {
+        date = dates[i].giorno + "/" + dates[i].mese + "/" + dates[i].anno
+        s = s 
+        + "<div style=\"display: flex; flex-direction: row; align-items: center; justify-content: center;\">"
+        + "<img style=\"width: 30px; height: 30px;\" src=\"https://firebasestorage.googleapis.com/v0/b/smart-working-5f3ea.appspot.com/o/calendar.png?alt=media&token=9d32b1a0-e195-4768-9fae-af0e6d0eec59\" />"
+        + "<p style=\"font-size: 18px; margin-left: 15px; font-weight: bold;\">"+ date +"</p>"
+        + "</div>"
+    }
+
+    return "<div style=\"display: flex; flex-direction: column;\"" + s + "</div"
+}
+
+function sendEmail(uid, request, response, dates) {
+
+    db.collection('Dipendente').doc(uid).get().then(document => {
+        
+        cors(request, response, () => {
+    
+            const mailOptions = {
+                from: 'Amministratore Smart Working<smartworking.unisa@gmail.com>',
+                to: 'antonio.basileo92@gmail.com',
+                subject: 'Piano di Smart Working',
+                html: "<p style=\"font-size: 16px;\">Ciao " + document.data().nome + " " + document.data().cognome + ",</p>" 
+                + "<p style=\"font-size: 16px;\">ecco il tuo piano di Smart Working per il prossimo mese:</p>" 
+                + "<br /> "
+                + "<div style=\"display: flex; flex-direction: column;\"" 
+                + createSmartWorkingCalendarForEmail(dates)
+                + "<br /> "
+                + "<p style=\"font-size: 16px;\">Cordiali saluti,</p>"
+                + "<p style=\"font-size: 16px;\">il team Smart Working</p>"
+                + "</div>"
+
+            };
+                                  
+            return transporter.sendMail(mailOptions, (error, info) => {
+                if(error){
+
+                    return response.send({hasError: true, error: error.message});
+
+                } else {
+
+                    return response.send({hasError: false});
+                }
+            });
+        });  
+
+    }).catch(error => response.send({hasError: true, error: error.message}))
+
 }
 
 
 module.exports = async(request, response) => {
     response.append('Access-Control-Allow-Origin', ['*'])
 
+    var batch = db.batch();
     var body = JSON.parse(request.body);
     var uid = body.uid;
     var dates = body.dates;
     var current_month = new Date().getMonth() + 1;
 
     await db.collection('SmartWorking').get().then(snapshot => {
-        if (snapshot.docs.length == 0) {
+        if (snapshot.size == 0) {
             
-            addDates(dates, uid)
+            addDates(dates, uid, batch)
+
+            sendEmail(uid, request, response, dates)
+                    
+            batch.commit()
+
+            console.log('DATI INSERITI ED EMAIL INVIATA CON SUCCESSO!') 
 
         } else {
             db.collection('SmartWorking').where('mese', '==', current_month).get().then(collection => {
@@ -127,42 +191,13 @@ module.exports = async(request, response) => {
 
                 if (areValidDates(compareArray)) {
 
-                    addDates(dates, uid)
+                    addDates(dates, uid, batch)
 
-                    db.collection('Dipendente').doc(uid).get().then(document => {
-        
-                        cors(request, response, () => {
-                            response.append('Access-Control-Allow-Origin', ['*'])
+                    sendEmail(uid, request, response, dates)
                     
-                            const mailOptions = {
-                                from: 'Amministratore Smart Working<smartworking.unisa@gmail.com>',
-                                to: document.data().email,
-                                subject: 'Piano di Smart Working',
-                                html: "<p style=\"font-size: 16px;\">Ciao " + document.data().nome + " " + document.data().cognome + ",</p>" 
-                                + "<p style=\"font-size: 16px;\">ecco il tuo piano di Smart Working per il prossimo mese:</p>" 
-                                + "<br /> "
-                                + "<div style=\"display: flex; flex-direction: column;\"" 
-                                + "<div style=\"display: flex; flex-direction: row; align-items: center; justify-content: center;\">"
-                                + "<div>"
-                                + "<img style=\"width: 30px; height: 30px;\" src=\"https://firebasestorage.googleapis.com/v0/b/smart-working-5f3ea.appspot.com/o/calendar.png?alt=media&token=9d32b1a0-e195-4768-9fae-af0e6d0eec59\" />"
-                                + "</div>"
-                                + "</div>" 
-                                + "<br /> "
-                                + "<p style=\"font-size: 16px;\">Cordiali saluti,</p>"
-                                + "<p style=\"font-size: 16px;\">il team Smart Working</p>"
-                                + "</div>"
-        
-                            };
-                                                  
-                            return transporter.sendMail(mailOptions, (error, info) => {
-                                if(error){
-                                    return response.send({hasError: true, error: error.message});
-                                }
-                                return response.send({hasError: false});
-                            });
-                        });  
+                    batch.commit()
 
-                    }).catch(error => response.send({hasError: true, error: error.message}))
+                    console.log('DATI INSERITI ED EMAIL INVIATA CON SUCCESSO!') 
 
                 } else {
 
