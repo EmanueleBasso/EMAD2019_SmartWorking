@@ -4,40 +4,80 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-card style="height: 97%">
-  <div class="div_general">
-    <div class="div_mayor">
-      <ion-img src="../../assets/img/Capgemini.png" class="logo"></ion-img>
-      <ion-list no-lines>
-        <ion-item lines="none">
-          <ion-label>
-            <ion-icon name="person"></ion-icon>
-          </ion-label>
-          <ion-input
-            placeholder="esempio@capgemini.it"
-            type="email"
-            id="email"
-            required
-            [(ngModel)]="enteredEmail"
-          ></ion-input>
-        </ion-item>
-        <ion-item lines="none">
-          <ion-label>
-            <ion-icon name="key"></ion-icon>
-          </ion-label>
-          <ion-input
-            placeholder="La tua password"
-            type="password"
-            value=""
-            id="password"
-            required
-            [(ngModel)]="enteredPassword"
-          ></ion-input>
-        </ion-item>
-        <ion-button expand="block" (click)="onClickLogin()">
-          Login
-        </ion-button>
-      </ion-list>
+<ion-content>
+  <form #f="ngForm" (ngSubmit)="onSubmit(f)">
+    <div class="div_general">
+      <div class="div_mayor">
+        <ion-grid>
+          <ion-row>
+            <ion-col size-sm="6" offset-sm="3">
+              <ion-img
+                src="../../assets/img/Capgemini.png"
+                class="logo"
+              ></ion-img>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <ion-list no-lines>
+                <ion-item lines="none" class="input-item">
+                  <ion-label>
+                    <ion-icon name="person"></ion-icon>
+                  </ion-label>
+                  <ion-input
+                    placeholder="esempio@capgemini.it"
+                    type="email"
+                    required
+                    ngModel
+                    name="email"
+                    (keyup.enter)="focusOnPassword(passwordInput)"
+                    autofocus="true"
+                    #emailCtrl="ngModel"
+                  ></ion-input>
+                </ion-item>
+                <ion-item
+                  *ngIf="!emailCtrl.valid && emailCtrl.touched"
+                  lines="none"
+                >
+                  <ion-label color="danger">
+                    Inserire l'email
+                  </ion-label>
+                </ion-item>
+                <ion-item lines="none" class="input-item">
+                  <ion-label>
+                    <ion-icon name="key"></ion-icon>
+                  </ion-label>
+                  <ion-input
+                    placeholder="La tua password"
+                    type="password"
+                    ngModel
+                    name="password"
+                    required
+                    #passwordInput
+                    #passwordCtrl="ngModel"
+                    (keyup.enter)="onSubmit(f)"
+                  ></ion-input>
+                </ion-item>
+                <ion-item
+                  *ngIf="!passwordCtrl.valid && passwordCtrl.touched"
+                  lines="none"
+                >
+                  <ion-label color="danger">
+                    Inserire la password
+                  </ion-label>
+                </ion-item>
+              </ion-list>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col size-sm="6" offset-sm="3">
+              <ion-button expand="block" type="submit" [disabled]="!f.valid">
+                Login
+              </ion-button>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </div>
     </div>
-  </div>
-</ion-card>
+  </form>
+</ion-content>

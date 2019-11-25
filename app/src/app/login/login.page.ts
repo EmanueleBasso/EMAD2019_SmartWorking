@@ -1,21 +1,21 @@
 import { Component } from '@angular/core';
-import { LoadingController, NavController } from '@ionic/angular';
+import { LoadingController, NavController, IonInput } from '@ionic/angular';
 import { AlertController } from '@ionic/angular';
 
 import AuthService from '../providers/auth.service';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.page.html',
   styleUrls: ['./login.page.scss'],
 })
+
 export class LoginPage {
-  enteredEmail: string;
-  enteredPassword: string;
   private loading: any;
 
   constructor(public loadingController: LoadingController, public alertController: AlertController,
-              private authService: AuthService, private navCtrl: NavController) { }
+    private authService: AuthService, private navCtrl: NavController) { }
 
   async presentAlertUnknown() {
     const alert = await this.alertController.create({
@@ -23,7 +23,7 @@ export class LoginPage {
       message: 'Inserire credenziali valide',
       buttons: [{
         text: 'OK',
-        }
+      }
       ]
     });
     await alert.present();
@@ -35,7 +35,7 @@ export class LoginPage {
       message: 'Credenziali non corrette',
       buttons: [{
         text: 'OK'
-        }
+      }
       ]
     });
 
@@ -45,44 +45,65 @@ export class LoginPage {
   async presentLoadingWithOptions() {
     this.loading = await this.loadingController.create({
       spinner: 'bubbles',
-      message: 'Aspetta...',
+      message: 'Login...',
       translucent: true,
-      cssClass: 'custom-class custom-loading'
+      cssClass: 'secondary',
     });
     return await this.loading.present();
   }
 
-  onClickLogin() {
-    //this.enteredEmail = 'prova@capgemini.com';
-    //this.enteredPassword = 'prova1';
-
-    if (!this.enteredPassword || !this.enteredEmail) {
-      // email o password non inserita
-      this.presentAlertUnknown();
+  // dovrebbe essere questa la versione corretta di fare la login
+  onSubmit(form: NgForm) {
+    if (!form.valid) {
       return;
     }
+    else {
+      const email = form.value.email;
+      const password = form.value.password;
+      let yourEmail: string = '';
+      console.log(email, password);
 
-    if (!this.enteredEmail.includes('@')) {
-      // facciamo che lo aggiunge automaticamente se non c'è
-      this.enteredEmail = this.enteredEmail.concat('@capgemini.com');
-    }
+      // this.enteredEmail = 'prova@capgemini.com';
+      // this.enteredPassword = 'prova1';
 
-    if (this.enteredEmail.includes('@capgemini.com') && !this.enteredEmail.startsWith('@')) {
+      if (!password || !email) {
+        // email o password non inserita
+        this.presentAlertUnknown();
+        return;
+      }
+
+      // aggiungo automaticamente la parte destra della email
+      if (!email.includes('@')) {
+        // facciamo che lo aggiunge automaticamente se non c'è
+        yourEmail = email.concat('@capgemini.com');
+      }
+
       // è tutto apposto
-      this.presentLoadingWithOptions();
-
-      this.authService.login(this.enteredEmail, this.enteredPassword).then((logged) => {
-        this.loading.dismiss();
-
-        if (logged === true) {
-          this.navCtrl.navigateRoot('/home');
-        } else {
-          this.presentAlertError();
+      if ((email.includes('@capgemini.com') || yourEmail.includes('@capgemini.com')) && !email.startsWith('@')) {
+        // questo comando serve per non far vedere l'aggiunta di '@capgemini.com' nell'input
+        if (yourEmail.length === 0) {
+          yourEmail = email;
         }
-      });
-    } else {
-      // errore! non è una mail valida
-      this.presentAlertUnknown();
+        this.presentLoadingWithOptions();
+
+        this.authService.login(yourEmail, password).then((logged) => {
+          this.loading.dismiss();
+
+          if (logged === true) {
+            this.navCtrl.navigateRoot('/home');
+          } else {
+            this.presentAlertError();
+          }
+        });
+      } else {
+        // errore! non è una mail valida
+        this.presentAlertUnknown();
+      }
     }
+  }
+
+  // non sapete quanto ci ho messo per fare questa cosa
+  focusOnPassword(passwordInput: IonInput) {
+    passwordInput.setFocus();
   }
 }

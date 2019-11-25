@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 
-import { ModalController } from '@ionic/angular';
+import { ModalController, MenuController } from '@ionic/angular';
 
 import * as moment from 'moment';
 import { CalendarComponentOptions } from 'ion2-calendar';
@@ -20,7 +20,7 @@ export class HomePage {
   click: boolean = false;
   private haPrenotatoPosto = false;
 
-  constructor(public modalCtrl: ModalController) {
+  constructor(public modalCtrl: ModalController, private menu: MenuController) {
     moment.locale('it-IT');
 
     this.giorni = ['Lunedì', 'Martedì', 'Mercoledì', 'Giovedì', 'Venerdì'];
@@ -102,5 +102,10 @@ export class HomePage {
         }
       }
     }
+  }
+
+  // Swipe per il menu laterale
+  handleSwipe() {
+    this.menu.open();
   }
 }

@@ -10,9 +10,10 @@
 </ion-header>
 
 <ion-content>
-  <ion-card>
+  <ion-card (swiperight)="handleSwipe()">
     <ion-card-header class="ion-text-center">
-      <ion-label style="font-weight: bold;" color="primary">La tua vista settimanale
+      <ion-label style="font-weight: bold;" color="primary"
+        >La tua vista settimanale
       </ion-label>
     </ion-card-header>
     <ion-list>
@@ -22,22 +23,26 @@
         </div>
         <div>
           <div>
-            <ion-label> {{item.title}}
-            </ion-label>
+            <ion-label> {{item.title}} </ion-label>
           </div>
           <div *ngIf="click" style="font-size: 12px;">
-            <ion-label id="notaPosto"> {{item.note}}
-            </ion-label>
+            <ion-label id="notaPosto"> {{item.note}} </ion-label>
           </div>
         </div>
         <ion-button (click)="itemClick()" slot="end" fill="outline">
-          Dettagli</ion-button>
+          Dettagli</ion-button
+        >
       </ion-item>
     </ion-list>
   </ion-card>
 
   <ion-card>
-    <ion-calendar (change)="onChange($event)" [options]="options" type="string" format="YYYY-MM-DD">
+    <ion-calendar
+      (change)="onChange($event)"
+      [options]="options"
+      type="string"
+      format="YYYY-MM-DD"
+    >
     </ion-calendar>
   </ion-card>
 </ion-content>

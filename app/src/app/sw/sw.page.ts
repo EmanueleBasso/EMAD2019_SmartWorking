@@ -1,5 +1,5 @@
 import { CalendarComponentOptions } from 'ion2-calendar';
-import { ToastController, AlertController, NavController, LoadingController } from '@ionic/angular';
+import { AlertController, NavController, LoadingController } from '@ionic/angular';
 import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import * as moment from 'moment';
@@ -22,8 +22,8 @@ export class SwPage {
   //_disableWeeks: number[] = [0, 6];
   //_weekStart: number = 0;
 
-  constructor(public alertController: AlertController, private toastCtrl: ToastController, private navCtrl: NavController,
-              private http: HttpClient, public loadingController: LoadingController) {
+  constructor(public alertController: AlertController, private navCtrl: NavController,
+    private http: HttpClient, public loadingController: LoadingController) {
     moment.locale('it-IT');
     this.date = new Date();
 
@@ -37,7 +37,7 @@ export class SwPage {
 
       dataTo.setDate(31);
       dataTo.setMonth(0);
-      dataTo.setFullYear(dataFrom.getFullYear() + 1);
+      dataTo.setFullYear(dataFrom.getFullYear());
     } else {
       dataFrom.setDate(1);
       dataFrom.setMonth(dataFrom.getMonth() + 1);
@@ -65,8 +65,10 @@ export class SwPage {
       }
 
       dataTo.setDate(giorno);
-      dataTo.setMonth(dataTo.getMonth() + 1);
-      dataTo.setFullYear(dataTo.getFullYear());
+      dataTo.setMonth(dataTo.getMonth());
+      dataTo.setFullYear(dataTo.getFullYear(), dataTo.getMonth(), giorno);
+      console.log("FROM giorno: " + dataFrom.getDate(), ", mese: " + dataFrom.getMonth() + ", anno: " + dataFrom.getFullYear());
+      console.log("TO giorno: " + dataTo.getDate(), ", mese: " + dataTo.getMonth() + ", anno: " + dataTo.getFullYear());
     }
 
     this.options.from = dataFrom;
@@ -98,6 +100,16 @@ export class SwPage {
       ]
     });
     await alert.present();
+
+    // timeout di 5 secondi per l'alert
+    setTimeout(() => {
+      alert.dismiss();
+    }, 3000);
+
+    // se clicca fuori dall'alert questo lo riporta indietro
+    alert.onWillDismiss().then(() => {
+      this.navCtrl.navigateBack('/home');
+    });
   }
 
   async presentAlertPrimaDel15(giorno) {
@@ -114,6 +126,16 @@ export class SwPage {
       ]
     });
     await alert.present();
+
+    // timeout di 5 secondi per l'alert
+    setTimeout(() => {
+      alert.dismiss();
+    }, 3000);
+
+    // se clicca fuori dall'alert questo lo riporta indietro
+    alert.onWillDismiss().then(() => {
+      this.navCtrl.navigateBack('/home');
+    });
   }
 
   async presentAlertGiorniDisponibili() {
@@ -159,6 +181,10 @@ export class SwPage {
       ]
     });
     await alert.present();
+    // timeout di 5 secondi per l'alert
+    setTimeout(() => {
+      alert.dismiss();
+    }, 2000);
   }
 
   async presentAlertSWErrore() {
@@ -193,7 +219,7 @@ export class SwPage {
       spinner: 'bubbles',
       message: 'Aspetta...',
       translucent: true,
-      cssClass: 'custom-class custom-loading'
+      cssClass: 'secondary',
     });
     return await this.loading.present();
   }
@@ -232,10 +258,10 @@ export class SwPage {
 
       if (data1.getTime() < data2.getTime()) {
         return -1;
-      } else if (data1.getTime() > data2.getTime()){
+      } else if (data1.getTime() > data2.getTime()) {
         return 1;
       } else {
-        return  0;
+        return 0;
       }
     });
 
@@ -325,12 +351,12 @@ export class SwPage {
     for (let i = 0; i < this.selectedDays.length; i = i + 1) {
       const arrayDay = this.selectedDays[i].split('-');
 
-      body['dates'].push({anno: arrayDay[0], mese: arrayDay[1], giorno: arrayDay[2]});
+      body['dates'].push({ anno: arrayDay[0], mese: arrayDay[1], giorno: arrayDay[2] });
     }
 
     body['uid'] = localStorage.getItem('uid');
 
-    this.http.post(url, JSON.stringify(body)).subscribe( response => {
+    this.http.post(url, JSON.stringify(body)).subscribe(response => {
       const hasError = response['hasError'];
       const error = response['error'];
 
@@ -356,7 +382,7 @@ export class SwPage {
       const uid = localStorage.getItem('uid');
       const url = 'https://europe-west1-smart-working-5f3ea.cloudfunctions.net/checkSWAlreadyEntered';
 
-      this.http.get(url + '?uid=' + uid).subscribe( response => {
+      this.http.get(url + '?uid=' + uid).subscribe(response => {
         const alreadyEntered = response['alreadyEntered'];
 
         this.loading.dismiss();
