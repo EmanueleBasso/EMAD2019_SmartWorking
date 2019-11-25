@@ -184,13 +184,18 @@ export class SwPage {
     // timeout di 5 secondi per l'alert
     setTimeout(() => {
       alert.dismiss();
-    }, 2000);
+    }, 5000);
+
+    // se clicca fuori dall'alert questo lo riporta indietro
+    alert.onWillDismiss().then(() => {
+      this.navCtrl.navigateBack('/home');
+    });
   }
 
-  async presentAlertSWErrore() {
+  async presentAlertSWErrore(message: string, destination: string, disabledNav: boolean) {
     const alert = await this.alertController.create({
-      header: 'Errore',
-      message: 'Si è verificato un problema nel salvataggio del piano di Smart Working. Si prega di riprovare',
+      header: 'Attenzione',
+      message: message,
       buttons: [
         {
           text: 'OK'
@@ -198,6 +203,12 @@ export class SwPage {
       ]
     });
     await alert.present();
+
+    // se clicca fuori dall'alert questo lo riporta indietro
+    if (!disabledNav)
+      alert.onWillDismiss().then(() => {
+        this.navCtrl.navigateBack('/' + destination);
+      });
   }
 
   async presentAlertSWErroreUltimaSettimanaMesePrecedente() {
@@ -351,7 +362,7 @@ export class SwPage {
     for (let i = 0; i < this.selectedDays.length; i = i + 1) {
       const arrayDay = this.selectedDays[i].split('-');
 
-      body['dates'].push({ anno: arrayDay[0], mese: arrayDay[1], giorno: arrayDay[2] });
+      body['dates'].push({ anno: arrayDay[0], mese: arrayDay[1], giorno: arrayDay[2].replace('0', '') });
     }
 
     body['uid'] = localStorage.getItem('uid');
@@ -363,10 +374,8 @@ export class SwPage {
       this.loading.dismiss();
       if (hasError === false) {
         this.presentAlertSWSalvatoCorrettamente();
-      } else if ((hasError === true) && (error === 'Hai selezionato più di due giorni di Smart Working nella stessa settimana')) {
-        this.presentAlertSWErroreUltimaSettimanaMesePrecedente();
       } else {
-        this.presentAlertSWErrore();
+        this.presentAlertSWErrore(error, '', true);
       }
     });
   }
@@ -387,7 +396,7 @@ export class SwPage {
 
         this.loading.dismiss();
         if (alreadyEntered) {
-          this.presentAlertPrenotato();
+          this.presentAlertSWErrore('Hai già prenotato i giorni di Smart Working per il prossimo mese', 'home', false);
         } else {
           let node = document.querySelector('#btnToDisable') as HTMLElement;
           node.click();

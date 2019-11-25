@@ -11,12 +11,17 @@ const firebaseConfig = {
     appId: '1:1072133615988:web:6f748c0c8a537e7ff4bc21',
     measurementId: 'G-HR9ZDFD32P'
   };
+
 firebase.initializeApp(firebaseConfig);
 
 const checkSWAlreadyEnteredModule = require('./src/sw/checkSWAlreadyEntered');
 const saveSW = require('./src/sw/saveSW');
+const checkWhoInSW = require('./src/manager/checkWhoInSW');
+const getAssignedUsers = require('./src/manager/getAssignedUsers');
 
 module.exports = {
   'checkSWAlreadyEntered': functions.region('europe-west1').https.onRequest(checkSWAlreadyEnteredModule),
-  'saveSW': functions.region('europe-west1').https.onRequest(saveSW)
+  'saveSW': functions.region('europe-west1').https.onRequest(saveSW),
+  'checkWhoInSW': functions.region('europe-west1').https.onRequest(checkWhoInSW),
+  'getAssignedUsers': functions.region('europe-west1').https.onRequest(getAssignedUsers)
 };

@@ -1,70 +1,75 @@
-const firebase = require("firebase/app");
-require("firebase/firestore");
-const utils = require('../utils/utils');
-
-const db = firebase.firestore();
+const utils = require('./utils/utils');
+const db = utils.db;
 
 
 module.exports = async(request, response) => {
+    
+    var body = JSON.parse(request.body)
+    var uid = body.uid
+    var dates = body.dates
+    var batch = db.batch()
+    
     response.append('Access-Control-Allow-Origin', ['*'])
 
-    var batch = db.batch();
-    var body = JSON.parse(request.body);
-    var uid = body.uid;
-    var dates = body.dates;
-    var current_month = new Date().getMonth() + 1;
+    if (uid === undefined){
+        response.send({hasError: true, error: "UID undefined"})
+    }
 
-    await db.collection('SmartWorking').where('dipendente', '==', uid).get().then(snapshot => {
-        if (snapshot.size == 0) {
-            
-            utils.addDates(dates, uid, batch)
+    await db.collection('Dipendente').doc(uid).get().then(document => {
 
-            utils.sendEmail(uid, request, response, dates)
-                    
-            batch.commit()
+        db.collection("GiorniBloccati").where('progetto', '==', document.data().progetto).get().then(snapshot => {
 
-            console.log('DATI INSERITI ED EMAIL INVIATA CON SUCCESSO!') 
+            if (snapshot.size != 0) {
 
-        } else {
-            db.collection('SmartWorking').where('dipendente', '==', uid).where('mese', '==', current_month).get().then(collection => {
+                let blockedDates = []
 
-                let prevDatesSorted = []
-                let newDatesSorted = []
-                let compareArray = []
-                
-                collection.forEach(elem => {
-                    prevDatesSorted.push({
-                        giorno: elem.data().giorno,
-                        mese: elem.data().mese,
-                        anno: elem.data().anno,
-                        dipendente: elem.data().dipendente
-                    })
+                snapshot.forEach(elem => {
+
+                    blockedDates.push({giorno: elem.data().giorno, mese: elem.data().mese, anno: elem.data().anno})
+
                 })
 
-                prevDatesSorted = utils.sortDates(prevDatesSorted)
-                newDatesSorted = utils.sortDates(dates)
+                let checked = utils.checkBlockedDates(blockedDates, dates)
 
-                compareArray.push(prevDatesSorted[prevDatesSorted.length - 1])
-                compareArray.push(prevDatesSorted[prevDatesSorted.length - 2])
-                compareArray.push(newDatesSorted[0])
-                compareArray.push(newDatesSorted[1])
+                if (checked.length != 0) {
+                    let s;
 
-                if (areValidDates(compareArray)) {
+                    if (checked.length > 1)
+                        s = "I giorni "
 
-                    utils.addDates(dates, uid, batch)
+                    else
+                        s = "Il giorno "
 
-                    utils.sendEmail(uid, request, response, dates)
+                    checked.forEach(elem => {
+
+                        s = s + elem.giorno + "/" + elem.mese + "/" + elem.anno + ", "
+
+                    })
+
+                    if (checked.length > 1)
+                        s = s + "sono stati bloccati"
                     
-                    batch.commit()
+                    else
+                        s = s + "è stato bloccato"
 
-                    console.log('DATI INSERITI ED EMAIL INVIATA CON SUCCESSO!') 
+                    console.log(s)
+
+                    return response.send({hasError: true, error: s});
 
                 } else {
 
-                    response.send({hasError: true, error: 'Hai selezionato più di due giorni di Smart Working nella stessa settimana'})
+                    utils.saveSWData(request, response, dates, uid, batch)
+
                 }
 
-            }).catch(error => response.send({hasError: true, error: error.message}))
-        }
-    })
+            } else {
+
+                utils.saveSWData(request, response, dates, uid, batch)
+
+            }
+
+        }).catch(error => {return response.send({hasError: true, error: error.message})})
+
+    }).catch(error => {return response.send({hasError: true, error: error.message})})
+
 }
