@@ -15,7 +15,7 @@ export class LoginPage {
   private loading: any;
 
   constructor(public loadingController: LoadingController, public alertController: AlertController,
-    private authService: AuthService, private navCtrl: NavController) { }
+              private authService: AuthService, private navCtrl: NavController) { }
 
   async presentAlertUnknown() {
     const alert = await this.alertController.create({

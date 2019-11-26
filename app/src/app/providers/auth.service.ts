@@ -1,17 +1,21 @@
 import { Injectable } from '@angular/core';
 
+import TokenService from '../providers/token.service';
+
 import * as firebase from 'firebase/app';
 import 'firebase/auth';
 
 @Injectable()
 export default class AuthService {
+  constructor(private tokenService: TokenService) {}
+
   login(email: string, password: string): any {
     return firebase.auth().signInWithEmailAndPassword(email, password).then( (userCredential: any) => {
-      let uid = userCredential.user.uid;
+      const uid = userCredential.user.uid;
 
       localStorage.setItem('uid', uid);
 
-      return true;
+      return this.tokenService.saveToken(uid);
     }).catch( (error) => {
       return false;
     });
@@ -19,7 +23,10 @@ export default class AuthService {
 
   logout(): any {
     return firebase.auth().signOut().then( () => {
+      const uid = localStorage.getItem('uid');
       localStorage.removeItem('uid');
+
+      return this.tokenService.deleteToken(uid);
     });
   }
 }

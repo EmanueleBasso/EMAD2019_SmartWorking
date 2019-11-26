@@ -176,7 +176,10 @@ export class SwPage {
       message: 'Il piano di Smart Working è stato salvato correttamente per il mese successivo',
       buttons: [
         {
-          text: 'OK'
+          text: 'OK',
+          handler: () => {
+            this.navCtrl.navigateBack('/home');
+          }
         }
       ]
     });

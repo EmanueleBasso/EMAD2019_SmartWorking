@@ -5,6 +5,7 @@ import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 
 import AuthService from './providers/auth.service';
+import TokenService from './providers/token.service';
 
 import * as firebase from 'firebase/app';
 import 'firebase/auth';
@@ -44,9 +45,9 @@ export class AppComponent {
     private splashScreen: SplashScreen,
     private statusBar: StatusBar,
     private authService: AuthService,
-    private navCtrl: NavController
-  ) {
-    this.initializeApp();
+    private navCtrl: NavController,
+    private tokenService: TokenService) {
+      this.initializeApp();
   }
 
   initializeApp() {
@@ -62,10 +63,15 @@ export class AppComponent {
         storageBucket: 'smart-working-5f3ea.appspot.com',
         messagingSenderId: '1072133615988',
         appId: '1:1072133615988:web:6f748c0c8a537e7ff4bc21',
-        measurementId: 'G-HR9ZDFD32P'
+        measurementId: 'G-HR9ZDFD32P',
+        vapidKey: 'BNgJjOnSDg1-XIvo06RrWXQnEpdzhwPlorEjtL_6zbIsFnyrsSBewHyTrSPK-N5eMM4cSixWzsmNOgEMXIS9bfg'
       };
       firebase.initializeApp(firebaseConfig);
       firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL);
+
+      if (localStorage.getItem('token') !== undefined) {
+        this.tokenService.initialize();
+      }
 
       this.ionViewDidEnter();
     });
