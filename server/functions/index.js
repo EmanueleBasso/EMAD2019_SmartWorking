@@ -16,6 +16,7 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 admin.initializeApp();
 
+const isManagerModule = require('./src/login/isManager');
 const checkSWAlreadyEnteredModule = require('./src/sw/checkSWAlreadyEntered');
 const saveSW = require('./src/sw/saveSW');
 const saveTokenModule = require('./src/notification/saveToken')
@@ -25,6 +26,7 @@ const checkWhoInSW = require('./src/manager/checkWhoInSW');
 const getAssignedUsers = require('./src/manager/getAssignedUsers');
 
 module.exports = {
+  'isManager': functions.region('europe-west1').https.onRequest(isManagerModule),
   'checkSWAlreadyEntered': functions.region('europe-west1').https.onRequest(checkSWAlreadyEnteredModule),
   'saveSW': functions.region('europe-west1').https.onRequest(saveSW),
   'checkWhoInSW': functions.region('europe-west1').https.onRequest(checkWhoInSW),

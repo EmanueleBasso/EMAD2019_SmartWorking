@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 
-import { Platform, NavController } from '@ionic/angular';
+import { LoadingController, Platform, NavController } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 
@@ -31,14 +31,17 @@ export class AppComponent {
       title: 'Prenota Posto',
       url: '/prenotaPosto',
       icon: 'map'
-    },
+    }
+  ];
+  public appPagesManager = [
     {
       title: 'Progetti',
       url: '/progetti',
       icon: 'list'
-    }
+    },
   ];
   private subscription: any;
+  private loading: any;
 
   constructor(
     private platform: Platform,
@@ -46,7 +49,8 @@ export class AppComponent {
     private statusBar: StatusBar,
     private authService: AuthService,
     private navCtrl: NavController,
-    private tokenService: TokenService) {
+    private tokenService: TokenService,
+    private loadingController: LoadingController) {
       this.initializeApp();
   }
 
@@ -73,12 +77,34 @@ export class AppComponent {
         this.tokenService.initialize();
       }
 
+      if ((localStorage.getItem('isManager') !== undefined) && (localStorage.getItem('isManager') === 'false')) {
+        const nodeList = document.querySelectorAll('.onlyManager') as NodeListOf<HTMLElement>;
+
+        for(let i = 0; i < nodeList.length; i = i + 1) {
+          const node = nodeList.item(i);
+          node.style.display = 'none';
+        }
+      }
+
       this.ionViewDidEnter();
     });
   }
 
+  async presentLoadingWithOptions() {
+    this.loading = await this.loadingController.create({
+      spinner: 'bubbles',
+      message: 'Logout...',
+      translucent: true,
+      cssClass: 'secondary',
+    });
+    return await this.loading.present();
+  }
+
   logout() {
+    this.presentLoadingWithOptions();
+
     this.authService.logout().then( () => {
+      this.loading.dismiss();
       this.navCtrl.navigateRoot('/login');
     });
   }

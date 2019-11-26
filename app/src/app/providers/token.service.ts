@@ -22,14 +22,14 @@ export default class TokenService {
                     localStorage.setItem('token', token);
                     return true;
                 }
-            });
-        });
+            }).catch( () => {return false;});
+        }).catch( () => {return true;});
     }
 
     deleteToken(uid: string): any {
         const url = 'https://europe-west1-smart-working-5f3ea.cloudfunctions.net/deleteToken';
 
-        this.http.get(url + '?uid=' + uid).toPromise().then(response => {
+        return this.http.get(url + '?uid=' + uid).toPromise().then(response => {
             const hasError = response['hasError'];
 
             if (hasError) {
