@@ -67,7 +67,7 @@ module.exports = {
 
     'areValidDates': function areValidDates(dates) {
         let week = 0;
-        let occurrences = 0;
+        let occurrences = 1;
         let flag = true;
 
         for (i = 0; i < dates.length; i++) {
@@ -91,7 +91,7 @@ module.exports = {
 
             } else {
 
-                occurrences = 0
+                occurrences = 1
             }
         }
 
@@ -128,33 +128,13 @@ module.exports = {
                 console.log('DATI INSERITI ED EMAIL INVIATA CON SUCCESSO!') 
     
             } else {
-    
-                let collection = []
-                let prevDatesSorted = []
-                let newDatesSorted = []
-                let compareArray = []
+
+                let prevCollection = []
                 let current_month = new Date().getMonth() + 1
     
-                collection = snapshot.docs.filter(elem => elem.data().mese == current_month)
-                
-                collection.forEach(elem => {
-                    prevDatesSorted.push({
-                        giorno: elem.data().giorno,
-                        mese: elem.data().mese,
-                        anno: elem.data().anno,
-                        dipendente: elem.data().dipendente
-                    })
-                })
-    
-                prevDatesSorted = this.sortDates(prevDatesSorted)
-                newDatesSorted = this.sortDates(dates)
-    
-                compareArray.push(prevDatesSorted[prevDatesSorted.length - 1])
-                compareArray.push(prevDatesSorted[prevDatesSorted.length - 2])
-                compareArray.push(newDatesSorted[0])
-                compareArray.push(newDatesSorted[1])
-    
-                if (this.areValidDates(compareArray)) {
+                prevCollection = snapshot.docs.filter(elem => elem.data().mese == current_month)
+
+                if (prevCollection.length == 0 || prevCollection.length == 1 && dates.length == 1) {
     
                     this.addDates(dates, uid, batch)
     
@@ -162,11 +142,63 @@ module.exports = {
                     
                     batch.commit()
     
-                    console.log('DATE VALIDE ED EMAIL INVIATA CON SUCCESSO!') 
-    
+                    console.log('MESE PRECEDENTE VUOTO OPPURE DATE COMPATIBILI. DATI INSERITI ED EMAIL INVIATA CON SUCCESSO!')
+
                 } else {
     
-                   response.send({hasError: true, error: 'Hai selezionato più di due giorni di Smart Working nella stessa settimana a cavallo tra il mese corrente e il prossimo'})
+                    let prevDatesSorted = []
+                    let newDatesSorted = []
+                    let compareArray = []
+                    
+                    prevCollection.forEach(elem => {
+                        prevDatesSorted.push({
+                            giorno: elem.data().giorno,
+                            mese: elem.data().mese,
+                            anno: elem.data().anno,
+                            dipendente: elem.data().dipendente
+                        })
+                    })
+        
+                    prevDatesSorted = this.sortDates(prevDatesSorted)
+                    newDatesSorted = this.sortDates(dates)
+        
+                    if (prevDatesSorted.length > 1) {
+
+                        compareArray.push(prevDatesSorted[prevDatesSorted.length - 1])
+                        compareArray.push(prevDatesSorted[prevDatesSorted.length - 2])
+
+                    } else {
+
+                        compareArray.push(prevDatesSorted[0])
+
+                    }
+        
+                    if (newDatesSorted.length > 1) {
+
+                        compareArray.push(newDatesSorted[newDatesSorted.length - 1])
+                        compareArray.push(newDatesSorted[newDatesSorted.length - 2])
+
+                    } else {
+
+                        compareArray.push(newDatesSorted[0])
+                        
+                    }
+        
+                    if (this.areValidDates(compareArray)) {
+        
+                        this.addDates(dates, uid, batch)
+        
+                        this.sendSmartWorkingCalendar(uid, request, response, dates)
+                        
+                        batch.commit()
+        
+                        console.log('DATE VALIDE ED EMAIL INVIATA CON SUCCESSO!') 
+        
+                    } else {
+        
+                       response.send({hasError: true, error: 'Hai selezionato più di due giorni di Smart Working nella stessa settimana a cavallo tra il mese corrente e il prossimo'})
+                    }
+
                 }
 
             }
