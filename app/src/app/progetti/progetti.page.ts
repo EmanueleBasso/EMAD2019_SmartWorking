@@ -37,7 +37,8 @@ export class ProgettiPage implements OnInit{
         this.progetti.push({
             label: response[i].nome,
             type: 'radio',
-            value: response[i].id
+            value: response[i].id,
+            checked: false
           });
       }
 
@@ -103,6 +104,14 @@ export class ProgettiPage implements OnInit{
           text: 'Conferma',
           handler: (res) => {
             this.progettoSelezionato = res;
+
+            for (let i = 0; i < this.progetti.length; i = i + 1) {
+              if (this.progetti[i]['value'] === res) {
+                this.progetti[i]['checked'] = true;
+              } else {
+                this.progetti[i]['checked'] = false;
+              }
+            }
 
             const node = document.querySelector('#btnBloccaGiorno') as HTMLElement;
             node['disabled'] = false;
