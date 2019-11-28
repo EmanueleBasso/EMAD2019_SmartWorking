@@ -10,40 +10,41 @@
 </ion-header>
 
 <ion-content>
-  <ion-card>
+  <ion-card (swiperight)="handleSwipe()">
     <ion-item lines="none">
-      <ion-label><b>Seleziona il progetto</b></ion-label>
-      <ion-button slot="end" (click)="mostraProgetti()" fill="outline">
+      <ion-label color="primary">
+        Seleziona un progetto
+      </ion-label>
+      <ion-button (click)="mostraProgetti()" fill="outline">
         Lista progetti
       </ion-button>
     </ion-item>
-    <ion-button
-      id="btnBloccaGiorno"
-      color="danger"
-      expand="block"
-      class="ion-margin"
-      disabled="true"
-      (click)="notifications($event)">
-      Blocca un giorno di Smart Working
-    </ion-button>
   </ion-card>
   <ion-card>
-    <ion-card-header class="ion-text-center">
+    <ion-card-header class="ion-text-center" (swiperight)="handleSwipe()">
       <ion-label
         style="font-weight: bold;"
         color="primary"
-        class="ion-text-center">
+        class="ion-text-center"
+      >
         Seleziona il giorno in cui visualizzare lo Smart Working
       </ion-label>
     </ion-card-header>
-    <app-basic-calendar></app-basic-calendar>
+    <ion-calendar
+      (change)="onChange($event)"
+      [options]="options"
+      type="string"
+      format="YYYY-MM-DD"
+    >
+    </ion-calendar>
   </ion-card>
-  <ion-card *ngIf="visualizzareDipendenti">
+  <ion-card *ngIf="visualizzareDipendenti" (swiperight)="handleSwipe()">
     <ion-card-header class="ion-text-center">
       <ion-label
         style="font-weight: bold;"
         color="primary"
-        class="ion-text-center">
+        class="ion-text-center"
+      >
         Dipendenti in Smart Working il {{giorno}}
       </ion-label>
     </ion-card-header>
@@ -53,5 +54,27 @@
         {{item.title}}
       </ion-item>
     </ion-list>
+  </ion-card>
+
+  <ion-card (swiperight)="handleSwipe()">
+    <ion-card-header class="ion-text-center">
+      <ion-label
+        style="font-weight: bold;"
+        color="primary"
+        class="ion-text-center"
+      >
+        Blocca un giorno di Smart Working
+      </ion-label>
+    </ion-card-header>
+    <ion-button
+      id="btnBloccaGiorno"
+      color="danger"
+      expand="block"
+      class="ion-margin"
+      disabled="true"
+      (click)="notifications($event)"
+    >
+      Apri calendario
+    </ion-button>
   </ion-card>
 </ion-content>

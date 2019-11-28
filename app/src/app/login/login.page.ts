@@ -80,16 +80,17 @@ export class LoginPage {
         if (yourEmail.length === 0) {
           yourEmail = email;
         }
-        this.presentLoadingWithOptions();
+        this.presentLoadingWithOptions().then(() => {
 
-        this.authService.login(yourEmail, password).then((logged) => {
-          this.loading.dismiss();
+          this.authService.login(yourEmail, password).then((logged) => {
+            this.loading.dismiss();
 
-          if (logged === true) {
-            this.navCtrl.navigateRoot('/home');
-          } else {
-            this.presentAlertError();
-          }
+            if (logged === true) {
+              this.navCtrl.navigateRoot('/home');
+            } else {
+              this.presentAlertError();
+            }
+          });
         });
       } else {
         // non è una mail valida

@@ -1,5 +1,5 @@
 import { CalendarComponentOptions } from 'ion2-calendar';
-import { AlertController, NavController, LoadingController } from '@ionic/angular';
+import { AlertController, NavController, LoadingController, MenuController } from '@ionic/angular';
 import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import * as moment from 'moment';
@@ -23,7 +23,7 @@ export class SwPage {
   //_weekStart: number = 0;
 
   constructor(public alertController: AlertController, private navCtrl: NavController,
-    private http: HttpClient, public loadingController: LoadingController) {
+    private http: HttpClient, public loadingController: LoadingController, private menu: MenuController) {
     moment.locale('it-IT');
     this.date = new Date();
 
@@ -407,5 +407,10 @@ export class SwPage {
         }
       });
     }
+  }
+
+  // Swipe per il menu laterale
+  handleSwipe() {
+    this.menu.open();
   }
 }

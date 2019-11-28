@@ -9,18 +9,27 @@
 
 <ion-content>
   <ion-card>
-    <ion-card-header class="ion-text-center">
-      <ion-label style="font-weight: bold;" color="primary" class="ion-text-center">Pianifica il tuo Smart Working
+    <ion-card-header class="ion-text-center" (swiperight)="handleSwipe()">
+      <ion-label
+        style="font-weight: bold;"
+        color="primary"
+        class="ion-text-center"
+        >Pianifica il tuo Smart Working
       </ion-label>
     </ion-card-header>
-    <ion-calendar (change)="onChange($event)" [options]="options" type="string" format="YYYY-MM-DD">
+    <ion-calendar
+      (change)="onChange($event)"
+      [options]="options"
+      type="string"
+      format="YYYY-MM-DD"
+    >
     </ion-calendar>
     <ion-button expand="block" (click)="onClickPrenotaSW()">
       Pianifica
     </ion-button>
   </ion-card>
 
-  <ion-card>
+  <ion-card (swiperight)="handleSwipe()">
     <ion-card-header>
       <ion-card-title class="ion-text-center">
         <ion-icon ios="ios-warning" md="md-warning"></ion-icon>

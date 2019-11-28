@@ -1,14 +1,15 @@
 import { NotificationsComponent } from './../notifications/notifications.component';
-import { AlertController, PopoverController, LoadingController, Events } from '@ionic/angular';
+import { AlertController, PopoverController, LoadingController, Events, MenuController } from '@ionic/angular';
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { CalendarComponentOptions } from 'ion2-calendar';
 
 @Component({
   selector: 'app-progetti',
   templateUrl: './progetti.page.html',
   styleUrls: ['./progetti.page.scss'],
 })
-export class ProgettiPage implements OnInit{
+export class ProgettiPage implements OnInit {
   private loading: any;
   private progetti: Array<Object> = [];
   private progettoSelezionato: string = "";
@@ -17,30 +18,45 @@ export class ProgettiPage implements OnInit{
   public giorno: string;
 
   constructor(public popoverCtrl: PopoverController, public alertController: AlertController,
-              public http: HttpClient, public loadingController: LoadingController, private events: Events) { }
+    public http: HttpClient, public loadingController: LoadingController, private events: Events, private menu: MenuController) { }
+
+
+  // CALENDARIO
+  date1: string;
+  date2: Date = new Date(); // Facendo new Date() viene automaticamente restituito la data corrente (di oggi)
+  arrayData: string[];
+  _color: string = 'primary';
+
+  options: CalendarComponentOptions = {
+    color: this._color,
+    // showMonthPicker: false,
+    // showToggleButtons: false,
+  };
 
   ngOnInit() {
-    this.presentLoadingWithOptions();
+    this.presentLoadingWithOptions().then(() => {
 
-    const uid = localStorage.getItem('uid');
-    const url = 'https://europe-west1-smart-working-5f3ea.cloudfunctions.net/getProjects';
+      const uid = localStorage.getItem('uid');
+      const url = 'https://europe-west1-smart-working-5f3ea.cloudfunctions.net/getProjects';
 
-    this.http.get(url + '?uid=' + uid).subscribe(response => {
+      this.http.get(url + '?uid=' + uid).subscribe(response => {
 
-      const hasError = response['hasError'];
+        const hasError = response['hasError'];
 
-      if (hasError !== undefined) {
-        return;
-      }
+        if (hasError !== undefined) {
+          return;
+        }
 
-      for (let i = 0; i < (response as []).length; i = i + 1) {
-        this.progetti.push({
+        for (let i = 0; i < (response as []).length; i = i + 1) {
+          this.progetti.push({
             label: response[i].nome,
             type: 'radio',
             value: response[i].id,
             checked: false
           });
-      }
+        }
+      });
+
 
       this.loading.dismiss();
     });
@@ -54,30 +70,30 @@ export class ProgettiPage implements OnInit{
       const url = 'https://europe-west1-smart-working-5f3ea.cloudfunctions.net/checkWhoInSW';
 
       this.http.get(url + '?project=' + this.progettoSelezionato + '&day=' + giorno + '&month=' + mese + '&year=' + anno)
-      .subscribe(response => {
+        .subscribe(response => {
 
-        const hasError = response['hasError'];
+          const hasError = response['hasError'];
 
-        if (hasError !== undefined) {
-          return;
-        }
+          if (hasError !== undefined) {
+            return;
+          }
 
-        this.giorno = giorno + '/' + mese + '/' + anno;
-        this.items = [];
-        for (let i = 0; i < (response as []).length; i = i + 1) {
-          this.items.push({
-            title: response[i].nome + ' ' + response[i].cognome
-          });
-        }
+          this.giorno = giorno + '/' + mese + '/' + anno;
+          this.items = [];
+          for (let i = 0; i < (response as []).length; i = i + 1) {
+            this.items.push({
+              title: response[i].nome + ' ' + response[i].cognome
+            });
+          }
 
-        if (this.items.length === 0) {
-          this.visualizzareDipendenti = false;
-        } else {
-          this.visualizzareDipendenti = true;
-        }
+          if (this.items.length === 0) {
+            this.visualizzareDipendenti = false;
+          } else {
+            this.visualizzareDipendenti = true;
+          }
 
-        this.loading.dismiss();
-      });
+          this.loading.dismiss();
+        });
     });
   }
 
@@ -134,8 +150,17 @@ export class ProgettiPage implements OnInit{
     await popover.present();
 
     (await popover).onDidDismiss().then((popoverData) => {
-      console.log("Sono in progetto ... hai cliccato: " + popoverData.data.scelta + " " + popoverData.data.giorno);
-      console.log("ha cliccato fuori dall'alert");
+      console.log('Sono in progetto ... hai cliccato: ' + popoverData.data.scelta + ' ' + popoverData.data.giorno);
+      console.log('ha cliccato fuori dall\'alert');
     });
+  }
+
+  onChange($event) {
+    console.log("Stringa del calendario 1: " + $event);
+  }
+
+  // Swipe per il menu laterale
+  handleSwipe() {
+    this.menu.open();
   }
 }

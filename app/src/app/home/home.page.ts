@@ -48,10 +48,6 @@ export class HomePage {
   date2: Date = new Date(); // Facendo new Date() viene automaticamente restituito la data corrente (di oggi)
   arrayData: string[];
   _color: string = 'primary';
-  //_showToggleButtons: boolean = false;
-  //_showMonthPicker: boolean = false;
-  //_disableWeeks: number[] = [0, 6];
-  //_weekStart: number = 0;
 
   options: CalendarComponentOptions = {
     color: this._color,
@@ -59,42 +55,6 @@ export class HomePage {
     // showMonthPicker: false,
     // showToggleButtons: false,
   };
-
-  /*_changeColors(color: string) {
-    this.options = {
-      ...this.options,
-      color
-    };
-  }
-
-  _changeShowToggleButtons(showToggleButtons: boolean) {
-    this.options = {
-      ...this.options,
-      showToggleButtons
-    };
-  }
-
-  _changeShowMonthPicker(showMonthPicker: boolean) {
-    this.options = {
-      ...this.options,
-      showMonthPicker
-    };
-  }
-
-  _changeDisableWeeks(disableWeeks: string[]) {
-    this.options = {
-      ...this.options,
-      disableWeeks: disableWeeks.map(e => parseInt(e))
-    };
-  }
-
-  _changeWeekStart(weekStart: string) {
-    this.options = {
-      ...this.options,
-      weekStart: parseInt(weekStart)
-    };
-  }*/
-
 
   onChange($event) {
     console.log("Stringa del calendario 1: " + $event);
