@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 import { ModalController, MenuController } from '@ionic/angular';
 
 import * as moment from 'moment';
-import { CalendarComponentOptions } from 'ion2-calendar';
+import { CalendarComponentOptions, DayConfig } from 'ion2-calendar';
 
 @Component({
   selector: 'app-home',
@@ -19,6 +19,7 @@ export class HomePage {
   private num: number;
   click: boolean = false;
   private haPrenotatoPosto = false;
+  private _daysConfig: DayConfig[] = [];
 
   constructor(public modalCtrl: ModalController, private menu: MenuController) {
     moment.locale('it-IT');
@@ -32,11 +33,18 @@ export class HomePage {
         note: ((this.num === 1) ? ('Posto ' + i + ' Stanza ' + (i + i) + ' Piano ' + (i + 1)) : 'Sei a casa')
       });
     }
+    for (let i = 1; i < 10; i++) {
+      this._daysConfig.push({
+        date: new Date(2020, i, i + 1),
+        disable: true,
+        subTitle: 'preso', // al massimo 7 lettere altrimenti graficamente è brutto
+      });
+    }
   }
 
   // CALENDARIO
   date1: string;
-  date2: Date = new Date(); //Facendo new Date() viene automaticamente restituito la data corrente (di oggi)
+  date2: Date = new Date(); // Facendo new Date() viene automaticamente restituito la data corrente (di oggi)
   arrayData: string[];
   _color: string = 'primary';
   //_showToggleButtons: boolean = false;
@@ -46,6 +54,7 @@ export class HomePage {
 
   options: CalendarComponentOptions = {
     color: this._color,
+    daysConfig: this._daysConfig,
     // showMonthPicker: false,
     // showToggleButtons: false,
   };
