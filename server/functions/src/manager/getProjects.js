@@ -2,7 +2,7 @@ const utils = require('../utils/utils');
 const db = utils.db;
 
 
-module.exports = (request, response) => {
+module.exports = async (request, response) => {
 
     var uid = request.query.uid
 
@@ -18,7 +18,7 @@ module.exports = (request, response) => {
 
         snapshot.forEach(elem => {
 
-            projects.push({id: elem.id, nome: elem.data().nome, descrizione: elem.data().descrizione})
+            projects.push({id: elem.id, nome: elem.data().nome})
 
         })
 

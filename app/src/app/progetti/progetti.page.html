@@ -1,0 +1,57 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>
+      Progetti
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card>
+    <ion-item lines="none">
+      <ion-label><b>Seleziona il progetto</b></ion-label>
+      <ion-button slot="end" (click)="mostraProgetti()" fill="outline">
+        Lista progetti
+      </ion-button>
+    </ion-item>
+    <ion-button
+      id="btnBloccaGiorno"
+      color="danger"
+      expand="block"
+      class="ion-margin"
+      disabled="true"
+      (click)="notifications($event)">
+      Blocca un giorno di Smart Working
+    </ion-button>
+  </ion-card>
+  <ion-card>
+    <ion-card-header class="ion-text-center">
+      <ion-label
+        style="font-weight: bold;"
+        color="primary"
+        class="ion-text-center">
+        Seleziona il giorno in cui visualizzare lo Smart Working
+      </ion-label>
+    </ion-card-header>
+    <app-basic-calendar></app-basic-calendar>
+  </ion-card>
+  <ion-card *ngIf="visualizzareDipendenti">
+    <ion-card-header class="ion-text-center">
+      <ion-label
+        style="font-weight: bold;"
+        color="primary"
+        class="ion-text-center">
+        Dipendenti in Smart Working il {{giorno}}
+      </ion-label>
+    </ion-card-header>
+
+    <ion-list>
+      <ion-item *ngFor="let item of items">
+        {{item.title}}
+      </ion-item>
+    </ion-list>
+  </ion-card>
+</ion-content>

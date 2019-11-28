@@ -13,7 +13,6 @@
       <ion-label style="font-weight: bold;" color="primary" class="ion-text-center">Pianifica il tuo Smart Working
       </ion-label>
     </ion-card-header>
-    <!-- QUESTO FA RESTITUIRE IL GIORNO COME STRINGA -->
     <ion-calendar (change)="onChange($event)" [options]="options" type="string" format="YYYY-MM-DD">
     </ion-calendar>
     <ion-button expand="block" (click)="onClickPrenotaSW()">

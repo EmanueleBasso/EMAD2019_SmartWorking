@@ -22,6 +22,7 @@ export class HomePage {
   private _daysConfig: DayConfig[] = [];
 
   constructor(public modalCtrl: ModalController, private menu: MenuController) {
+    menu.enable(true);
     moment.locale('it-IT');
 
     this.giorni = ['Lunedì', 'Martedì', 'Mercoledì', 'Giovedì', 'Venerdì'];

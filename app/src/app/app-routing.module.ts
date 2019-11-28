@@ -11,7 +11,6 @@ const routes: Routes = [
   },
   {
     path: 'home',
-    // loadChildren: () => import('./home/home.module').then(m => m.HomePageModule),
     loadChildren: './home/home.module#HomePageModule',
     canLoad: [AuthGuard]
   },
@@ -22,8 +21,17 @@ const routes: Routes = [
     path: 'sw',
     loadChildren: './sw/sw.module#SwPageModule',
     canLoad: [AuthGuard]
+  },
+  {
+    path: 'progetti',
+    loadChildren: './progetti/progetti.module#ProgettiPageModule',
+    canLoad: [AuthGuard]
+  },
+  {
+    path: 'notifications',
+    loadChildren: './notifications/notifications.module#NotificationsComponentModule',
+    canLoad: [AuthGuard]
   }
-
 ];
 
 @NgModule({

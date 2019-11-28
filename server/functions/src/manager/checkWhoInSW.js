@@ -2,38 +2,42 @@ const utils = require('../utils/utils');
 const db = utils.db;
 
 
-module.exports = (request, response) => {
-
+module.exports = async (request, response) => {
     var project = request.query.project
-    var day = today.getDate()
-    var month = today.getMonth() + 1
-    var year = today.getFullYear()
+    var day = request.query.day
+    var month = request.query.month
+    var year = request.query.year
+
     var employees = []
-    var flag = 1
 
     response.append('Access-Control-Allow-Origin', ['*'])
     
-    db.collection('SmartWorking').where('giorno', '==', day.toString()).where('mese', '==', month.toString()).where('anno', '==', year.toString())
-    .get().then(snapshot => {
+    await db.collection('SmartWorking').where('giorno', '==', day).where('mese', '==', month).where('anno', '==', year)
+    .get().then(async (snapshot) => {
+        await db.collection('Progetto').doc(project)
+        .get().then(async (snapshot2) => {
+            if(snapshot.size != 0) {
+                var dipendentiSW = []
+                snapshot.forEach(element => {
+                    dipendentiSW.push(element.data().dipendente)
+                })
 
-        snapshot.forEach(async element => {
-            await db.collection('Dipendente').doc(element.data().dipendente).get().then(document => {
+                var dipendentiProgetto = snapshot2.data().dipendenti
 
-                employees.push({nome: document.data().nome, cognome: document.data().cognome, email: document.data().email, progetto: document.data().progetto})
-
-                if (flag == snapshot.size) {
-
-                    let filteredEmployees = employees.filter(elem => elem.progetto == project)
-
-                    response.send(filteredEmployees)
-
+                if(dipendentiProgetto.length != 0) {
+                    for(dip of dipendentiProgetto) {
+                        for (dip2 of  dipendentiSW) {
+                            if (dip === dip2) {
+                                await db.collection('Dipendente').doc(dip).get().then(async (document) => {
+                                    employees.push({nome: document.data().nome, cognome: document.data().cognome, email: document.data().email})
+                                }).catch(error => {return response.send({hasError: true, error: error.message})});
+                            }
+                        }
+                    }
                 }
+            }
 
-                flag++
-
-            }).catch(error => {return response.send({hasError: true, error: error.message})})
-        });
-
+            response.send(employees)
+        }).catch(error => {return response.send({hasError: true, error: error.message})});
     }).catch(error => {return response.send({hasError: true, error: error.message})})
-
 }

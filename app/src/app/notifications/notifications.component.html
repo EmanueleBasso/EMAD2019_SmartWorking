@@ -1,0 +1,31 @@
+<ion-header>
+    <ion-toolbar color="danger">
+      <ion-title>
+        {{ titoloNotifica }}
+      </ion-title>
+    </ion-toolbar>
+  </ion-header>
+  
+  <ion-content>
+    <ion-calendar
+      (change)="onChange($event)"
+      [options]="options"
+      type="type"
+      format="YYYY-MM-DD"
+    >
+    </ion-calendar>
+    <ion-grid>
+      <ion-row>
+        <ion-col size="6">
+          <ion-button color="dark" fill="clear" item-start (click)="onClickNotification('annulla')">
+            <ion-icon ios="ios-close" md="md-close"></ion-icon>
+          </ion-button>
+        </ion-col>
+        <ion-col size="6" style="text-align: end">
+          <ion-button color="danger" fill="clear" item-end (click)="onClickNotification('conferma')">
+            <ion-icon ios="ios-checkmark" md="md-checkmark"></ion-icon>
+          </ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-content>

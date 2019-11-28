@@ -10,7 +10,6 @@ import { NgForm } from '@angular/forms';
   templateUrl: './login.page.html',
   styleUrls: ['./login.page.scss'],
 })
-
 export class LoginPage {
   private loading: any;
 
@@ -54,7 +53,6 @@ export class LoginPage {
     return await this.loading.present();
   }
 
-  // dovrebbe essere questa la versione corretta di fare la login
   onSubmit(form: NgForm) {
     if (!form.valid) {
       return;
@@ -65,9 +63,6 @@ export class LoginPage {
       let yourEmail: string = '';
       console.log(email, password);
 
-      // this.enteredEmail = 'prova@capgemini.com';
-      // this.enteredPassword = 'prova1';
-
       if (!password || !email) {
         // email o password non inserita
         this.presentAlertUnknown();
@@ -76,7 +71,6 @@ export class LoginPage {
 
       // aggiungo automaticamente la parte destra della email
       if (!email.includes('@')) {
-        // facciamo che lo aggiunge automaticamente se non c'è
         yourEmail = email.concat('@capgemini.com');
       }
 
@@ -98,13 +92,12 @@ export class LoginPage {
           }
         });
       } else {
-        // errore! non è una mail valida
+        // non è una mail valida
         this.presentAlertUnknown();
       }
     }
   }
 
-  // non sapete quanto ci ho messo per fare questa cosa
   focusOnPassword(passwordInput: IonInput) {
     passwordInput.setFocus();
   }
