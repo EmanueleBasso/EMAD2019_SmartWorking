@@ -18,10 +18,12 @@ const checkSWAlreadyEnteredModule = require('./src/sw/checkSWAlreadyEntered');
 const saveSW = require('./src/sw/saveSW');
 const checkWhoInSW = require('./src/manager/checkWhoInSW');
 const getAssignedUsers = require('./src/manager/getAssignedUsers');
+const getProjects = require('./src/manager/getProjects');
 
 module.exports = {
   'checkSWAlreadyEntered': functions.region('europe-west1').https.onRequest(checkSWAlreadyEnteredModule),
   'saveSW': functions.region('europe-west1').https.onRequest(saveSW),
   'checkWhoInSW': functions.region('europe-west1').https.onRequest(checkWhoInSW),
-  'getAssignedUsers': functions.region('europe-west1').https.onRequest(getAssignedUsers)
+  'getAssignedUsers': functions.region('europe-west1').https.onRequest(getAssignedUsers),
+  'getProjects': functions.region('europe-west1').https.onRequest(getProjects)
 };
