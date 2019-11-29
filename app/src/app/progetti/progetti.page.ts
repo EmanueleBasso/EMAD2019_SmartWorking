@@ -1,5 +1,5 @@
 import { NotificationsComponent } from './../notifications/notifications.component';
-import { AlertController, PopoverController, LoadingController, Events, MenuController } from '@ionic/angular';
+import { AlertController, PopoverController, LoadingController, MenuController } from '@ionic/angular';
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { CalendarComponentOptions } from 'ion2-calendar';
@@ -16,16 +16,11 @@ export class ProgettiPage implements OnInit {
   public items: Array<Object> = [];
   public visualizzareDipendenti: boolean = false;
   public giorno: string;
+  private _color: string = 'primary';
 
   constructor(public popoverCtrl: PopoverController, public alertController: AlertController,
-    public http: HttpClient, public loadingController: LoadingController, private events: Events, private menu: MenuController) { }
+    public http: HttpClient, public loadingController: LoadingController, private menu: MenuController) { }
 
-
-  // CALENDARIO
-  date1: string;
-  date2: Date = new Date(); // Facendo new Date() viene automaticamente restituito la data corrente (di oggi)
-  arrayData: string[];
-  _color: string = 'primary';
 
   options: CalendarComponentOptions = {
     color: this._color,
@@ -40,7 +35,6 @@ export class ProgettiPage implements OnInit {
       const url = 'https://europe-west1-smart-working-5f3ea.cloudfunctions.net/getProjects';
 
       this.http.get(url + '?uid=' + uid).subscribe(response => {
-
         const hasError = response['hasError'];
 
         if (hasError !== undefined) {
@@ -55,46 +49,28 @@ export class ProgettiPage implements OnInit {
             checked: false
           });
         }
+
+        this.loading.dismiss();
       });
-
-
-      this.loading.dismiss();
     });
+  }
 
-    this.events.subscribe('data_changed', (giorno, mese, anno) => {
-      if (this.progettoSelezionato.length === 0) {
-        return;
-      }
-
-      this.presentLoadingWithOptions();
-      const url = 'https://europe-west1-smart-working-5f3ea.cloudfunctions.net/checkWhoInSW';
-
-      this.http.get(url + '?project=' + this.progettoSelezionato + '&day=' + giorno + '&month=' + mese + '&year=' + anno)
-        .subscribe(response => {
-
-          const hasError = response['hasError'];
-
-          if (hasError !== undefined) {
-            return;
-          }
-
-          this.giorno = giorno + '/' + mese + '/' + anno;
-          this.items = [];
-          for (let i = 0; i < (response as []).length; i = i + 1) {
-            this.items.push({
-              title: response[i].nome + ' ' + response[i].cognome
-            });
-          }
-
-          if (this.items.length === 0) {
-            this.visualizzareDipendenti = false;
-          } else {
-            this.visualizzareDipendenti = true;
-          }
-
-          this.loading.dismiss();
-        });
+  async presentAlert(header , message) {
+    const alert = await this.alertController.create({
+      header: header,
+      message: message,
+      buttons: [
+        {
+          text: 'OK'
+        }
+      ]
     });
+    await alert.present();
+
+    // timeout di 5 secondi per l'alert
+    setTimeout(() => {
+      alert.dismiss();
+    }, 3000);
   }
 
   async presentLoadingWithOptions() {
@@ -150,13 +126,92 @@ export class ProgettiPage implements OnInit {
     await popover.present();
 
     (await popover).onDidDismiss().then((popoverData) => {
-      console.log('Sono in progetto ... hai cliccato: ' + popoverData.data.scelta + ' ' + popoverData.data.giorno);
-      console.log('ha cliccato fuori dall\'alert');
+      if ((popoverData.data === undefined) || (popoverData.data.scelta === 'annulla')  || (popoverData.data.giorno === undefined)) {
+        return;
+      }
+
+      const giornoArray = popoverData.data.giorno.split(' ');
+
+      const day = giornoArray[1];
+      let month = 0;
+      switch (giornoArray[2]) {
+        case 'Gen': month = 1; break;
+        case 'Feb': month = 2; break;
+        case 'Mar': month = 3; break;
+        case 'Apr': month = 4; break;
+        case 'Mag': month = 5; break;
+        case 'Giu': month = 6; break;
+        case 'Lug': month = 7; break;
+        case 'Ago': month = 8; break;
+        case 'Set': month = 9; break;
+        case 'Ott': month = 10; break;
+        case 'Nov': month = 11; break;
+        case 'Dic': month = 12; break;
+      }
+      const year = giornoArray[3];
+
+      this.presentLoadingWithOptions();
+      const url = 'https://europe-west1-smart-working-5f3ea.cloudfunctions.net/blockSWDay';
+
+      this.http.get(url + '?project=' + this.progettoSelezionato + '&day=' + day + '&month=' + month + '&year=' + year)
+        .subscribe(response => {
+          this.loading.dismiss();
+
+          const hasError = response['hasError'];
+
+          if (hasError === true) {
+            this.presentAlert('Errore', 'Errore nel salvare la scelta');
+          } else {
+            this.presentAlert('Successo', 'Giorno bloccato con successo');
+          }
+        });
     });
   }
 
   onChange($event) {
-    console.log("Stringa del calendario 1: " + $event);
+    if (this.progettoSelezionato.length === 0) {
+      return;
+    }
+
+    const day = $event.split('-');
+
+    let giorno = day[2];
+    let mese = day[1];
+    let anno = day[0];
+
+    if (giorno[0] == '0') {
+      giorno = giorno.replace('0', '');
+    }
+
+    this.presentLoadingWithOptions();
+    const url = 'https://europe-west1-smart-working-5f3ea.cloudfunctions.net/checkWhoInSW';
+
+    this.http.get(url + '?project=' + this.progettoSelezionato + '&day=' + giorno + '&month=' + mese + '&year=' + anno)
+      .subscribe(response => {
+
+        const hasError = response['hasError'];
+
+        if (hasError !== undefined) {
+          return;
+        }
+
+        this.giorno = giorno + '/' + mese + '/' + anno;
+        this.items = [];
+        for (let i = 0; i < (response as []).length; i = i + 1) {
+          this.items.push({
+            number: (i + 1) + '',
+            title: response[i].nome + ' ' + response[i].cognome
+          });
+        }
+
+        if (this.items.length === 0) {
+          this.visualizzareDipendenti = false;
+        } else {
+          this.visualizzareDipendenti = true;
+        }
+
+        this.loading.dismiss();
+    });
   }
 
   // Swipe per il menu laterale

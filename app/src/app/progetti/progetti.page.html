@@ -50,8 +50,8 @@
     </ion-card-header>
 
     <ion-list>
-      <ion-item *ngFor="let item of items">
-        {{item.title}}
+      <ion-item *ngFor="let item of items" lines="none">
+        {{item.number}}) {{item.title}}
       </ion-item>
     </ion-list>
   </ion-card>

@@ -13,6 +13,7 @@ export class NotificationsComponent {
   nomeGiorno: string;
   nomeMese: string;
   titoloNotifica: string;
+  giornoSelezionato: string;
   private bottoneCliccato: string;
 
   type: Date; // 'string' | 'js-date' | 'moment' | 'time' | 'object'
@@ -46,7 +47,7 @@ export class NotificationsComponent {
       case 6: this.nomeMese = 'Giu'; break;
       case 7: this.nomeMese = 'Lug'; break;
       case 8: this.nomeMese = 'Ago'; break;
-      case 9: this.nomeMese = 'Sett'; break;
+      case 9: this.nomeMese = 'Set'; break;
       case 10: this.nomeMese = 'Ott'; break;
       case 11: this.nomeMese = 'Nov'; break;
       case 12: this.nomeMese = 'Dic'; break;
@@ -58,7 +59,6 @@ export class NotificationsComponent {
   onChange($event) {
     const data = ($event._d + '').substring(0, 15);
     const split = data.split(' ');
-    console.log(data);
     switch (split[0]) {
       case 'Mon': this.nomeGiorno = 'Lun'; break;
       case 'Tue': this.nomeGiorno = 'Mar'; break;
@@ -77,20 +77,16 @@ export class NotificationsComponent {
       case 'Jun': this.nomeMese = 'Giu'; break;
       case 'Jul': this.nomeMese = 'Lug'; break;
       case 'Aug': this.nomeMese = 'Ago'; break;
-      case 'Sep': this.nomeMese = 'Sett'; break;
+      case 'Sep': this.nomeMese = 'Set'; break;
       case 'Oct': this.nomeMese = 'Ott'; break;
       case 'Nov': this.nomeMese = 'Nov'; break;
       case 'Dec': this.nomeMese = 'Dic'; break;
     }
     this.titoloNotifica = this.nomeGiorno + ' ' + split[2] + ' ' + this.nomeMese + ' ' + split[3];
+    this.giornoSelezionato = this.titoloNotifica;
   }
 
   onClickNotification(str: string) {
-    if (str === 'conferma') {
-      console.log('hai annullato');
-    } else {
-      console.log('hai annullato');
-    }
-    this.popoverCtrl.dismiss({scelta: str, giorno: this.titoloNotifica});
+    this.popoverCtrl.dismiss({scelta: str, giorno: this.giornoSelezionato});
   }
 }
