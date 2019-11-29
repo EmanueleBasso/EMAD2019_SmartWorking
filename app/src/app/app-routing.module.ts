@@ -14,7 +14,8 @@ const routes: Routes = [
     loadChildren: './home/home.module#HomePageModule',
     canLoad: [AuthGuard]
   },
-  { path: 'login',
+  {
+    path: 'login',
     loadChildren: './login/login.module#LoginPageModule'
   },
   {
@@ -31,7 +32,13 @@ const routes: Routes = [
     path: 'notifications',
     loadChildren: './notifications/notifications.module#NotificationsComponentModule',
     canLoad: [AuthGuard]
+  },
+  {
+    path: 'calendario-dipendenti',
+    loadChildren: './calendario-dipendenti/calendario-dipendenti.module#CalendarioDipendentiPageModule',
+    canLoad: [AuthGuard]
   }
+
 ];
 
 @NgModule({

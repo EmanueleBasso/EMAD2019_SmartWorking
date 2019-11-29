@@ -39,6 +39,11 @@ export class AppComponent {
       url: '/progetti',
       icon: 'list'
     },
+    {
+      title: 'Calendario Dipendenti',
+      url: '/calendario-dipendenti',
+      icon: 'calendar'
+    },
   ];
   private subscription: any;
   private loading: any;

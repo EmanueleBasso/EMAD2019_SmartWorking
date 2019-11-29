@@ -6,7 +6,6 @@ import { RouterModule } from '@angular/router';
 
 import { HomePage } from './home.page';
 import { CalendarModule } from 'ion2-calendar';
-//import { CalendarioModule } from '../calendar/calendario.module';
 
 @NgModule({
   imports: [
