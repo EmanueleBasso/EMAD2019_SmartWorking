@@ -23,26 +23,185 @@
 
   <ion-card *ngIf="visualizzareDipendenti" (swiperight)="handleSwipe()">
     <ion-card-header class="ion-text-center">
-      <ion-label style="font-weight: bold;" color="primary" class="ion-text-center">
-        Lista dipendenti del progetto x {{progetto}}
+      <ion-label
+        style="font-weight: bold;"
+        color="primary"
+        class="ion-text-center"
+      >
+        Lista dipendenti del progetto x {{progetto}} con abilitazione SW
       </ion-label>
     </ion-card-header>
 
-    <ion-list>
-      <ion-item *ngFor="let item of items">
-        <label>1. Piero Della Francesca</label>
-        <ion-toggle slot="end" checked></ion-toggle>
-      </ion-item>
+    <ion-list *ngFor="let item of items">
+      <ion-radio-group>
+        <ion-grid fixed>
+          <ion-row>
+            <ion-col>
+              <ion-item lines="none" style="height: 33px;">
+                <ion-label>1. Piero Della Francesca</ion-label>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <ion-item lines="none">
+                <ion-radio
+                  color="danger"
+                  class="ion-margin-end"
+                  name="{{item.name}}"
+                  value="{{item.value}}"
+                >
+                </ion-radio>
+                <ion-label class="ion-no-margin" color="danger"
+                  >Disabilita</ion-label
+                >
+              </ion-item>
+            </ion-col>
+            <ion-col>
+              <ion-item lines="none">
+                <ion-radio
+                  checked
+                  class="ion-margin-end"
+                  name="{{item.name}}"
+                  value="{{item.value}}"
+                >
+                </ion-radio>
+                <ion-label class="ion-no-margin" color="primary"
+                  >Abilita</ion-label
+                >
+              </ion-item>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-radio-group>
+      <ion-item-divider class="divider"></ion-item-divider>
+      <ion-radio-group>
+        <ion-grid fixed>
+          <ion-row>
+            <ion-col>
+              <ion-item lines="none" style="height: 33px;">
+                <ion-label>2. Piergianfranco Fumagalli</ion-label>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <ion-item lines="none">
+                <ion-radio
+                  color="danger"
+                  class="ion-margin-end"
+                  value="{{item.value}}"
+                >
+                </ion-radio>
+                <ion-label class="ion-no-margin" color="danger"
+                  >Disabilita</ion-label
+                >
+              </ion-item>
+            </ion-col>
+            <ion-col>
+              <ion-item lines="none">
+                <ion-radio
+                  checked
+                  class="ion-margin-end"
+                  value="{{item.value}}"
+                >
+                </ion-radio>
+                <ion-label class="ion-no-margin" color="primary"
+                  >Abilita</ion-label
+                >
+              </ion-item>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-radio-group>
+      <ion-item-divider class="divider"></ion-item-divider>
     </ion-list>
   </ion-card>
 
   <ion-card (swiperight)="handleSwipe()">
-    <ion-card-header>
-      <ion-card-title class="ion-text-center">
-        <ion-icon ios="ios-warning" md="md-warning"></ion-icon>
-        <br />
-        Quando il toggle è selezionato, è consentito lo SW per il mese successivo
-      </ion-card-title>
+    <ion-card-header class="ion-text-center">
+      <ion-label
+        style="font-weight: bold;"
+        color="primary"
+        class="ion-text-center"
+      >
+        Lista dipendenti del progetto x con abilitazione SW
+      </ion-label>
     </ion-card-header>
+
+    <ion-list>
+      <ion-radio-group (ionChange)="radioGroupChange($event)">
+        <ion-grid fixed>
+          <ion-row>
+            <ion-col>
+              <ion-item lines="none" style="height: 33px;">
+                <ion-label>1. Piero Della Francesca</ion-label>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <ion-item lines="none">
+                <ion-radio
+                  value="disabilita1"
+                  color="danger"
+                  class="ion-margin-end"
+                >
+                </ion-radio>
+                <ion-label class="ion-no-margin" color="danger"
+                  >Disabilita</ion-label
+                >
+              </ion-item>
+            </ion-col>
+            <ion-col>
+              <ion-item lines="none">
+                <ion-radio value="abilita1" checked class="ion-margin-end">
+                </ion-radio>
+                <ion-label class="ion-no-margin" color="primary"
+                  >Abilita</ion-label
+                >
+              </ion-item>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-radio-group>
+      <ion-item-divider class="divider"></ion-item-divider>
+      <ion-radio-group (ionChange)="radioGroupChange($event)">
+        <ion-grid fixed>
+          <ion-row>
+            <ion-col>
+              <ion-item lines="none" style="height: 33px;">
+                <ion-label>2. Piergianfranco Fumagalli</ion-label>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <ion-item lines="none">
+                <ion-radio
+                  value="disabilita2"
+                  color="danger"
+                  class="ion-margin-end"
+                >
+                </ion-radio>
+                <ion-label class="ion-no-margin" color="danger"
+                  >Disabilita</ion-label
+                >
+              </ion-item>
+            </ion-col>
+            <ion-col>
+              <ion-item lines="none">
+                <ion-radio value="abilita2" checked class="ion-margin-end">
+                </ion-radio>
+                <ion-label class="ion-no-margin" color="primary"
+                  >Abilita</ion-label
+                >
+              </ion-item>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-radio-group>
+      <ion-item-divider class="divider"></ion-item-divider>
+    </ion-list>
   </ion-card>
 </ion-content>

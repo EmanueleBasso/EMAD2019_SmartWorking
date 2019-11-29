@@ -3,6 +3,7 @@ import { AlertController, PopoverController, LoadingController, MenuController }
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { CalendarComponentOptions } from 'ion2-calendar';
+import undefined = require('firebase/empty-import');
 
 @Component({
   selector: 'app-progetti',
@@ -55,7 +56,7 @@ export class ProgettiPage implements OnInit {
     });
   }
 
-  async presentAlert(header , message) {
+  async presentAlert(header, message) {
     const alert = await this.alertController.create({
       header: header,
       message: message,
@@ -105,8 +106,15 @@ export class ProgettiPage implements OnInit {
               }
             }
 
-            const node = document.querySelector('#btnBloccaGiorno') as HTMLElement;
-            node['disabled'] = false;
+            // Se clicca conferma senza selezionare niente il bottone resta disabilitato
+            if (res !== undefined) {
+              const node = document.querySelector('#btnBloccaGiorno') as HTMLElement;
+              node['disabled'] = false;
+            }
+            // inoltre l'alert continua ad essere mostrato, così è forzato a premere sul tasto indietro
+            else {
+              this.mostraProgetti();
+            }
           }
         }
       ]
@@ -126,7 +134,7 @@ export class ProgettiPage implements OnInit {
     await popover.present();
 
     (await popover).onDidDismiss().then((popoverData) => {
-      if ((popoverData.data === undefined) || (popoverData.data.scelta === 'annulla')  || (popoverData.data.giorno === undefined)) {
+      if ((popoverData.data === undefined) || (popoverData.data.scelta === 'annulla') || (popoverData.data.giorno === undefined)) {
         return;
       }
 
@@ -211,7 +219,7 @@ export class ProgettiPage implements OnInit {
         }
 
         this.loading.dismiss();
-    });
+      });
   }
 
   // Swipe per il menu laterale

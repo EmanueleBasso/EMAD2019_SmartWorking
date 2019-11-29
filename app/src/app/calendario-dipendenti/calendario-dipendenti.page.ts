@@ -13,6 +13,7 @@ export class CalendarioDipendentiPage implements OnInit {
   private progettoSelezionato: string = "";
   private items: Array<Object> = [];
   private visualizzareDipendenti: boolean = false;
+  private selectedRadioGroup:any;
 
   constructor(public loadingController: LoadingController, private menu: MenuController,
     private alertController: AlertController, private http: HttpClient) { }
@@ -20,6 +21,12 @@ export class CalendarioDipendentiPage implements OnInit {
   // Funzione carica lista progetti da DB
   ngOnInit() {
 
+  }
+
+  // Radio Button event
+  radioGroupChange(event) {
+    console.log("radioGroupChange", event.detail);
+    this.selectedRadioGroup = event.detail;
   }
 
   // Swipe per il menu laterale
