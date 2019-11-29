@@ -46,7 +46,28 @@ module.exports = {
         return Math.ceil((((d.getTime() - yearStart.getTime()) / 86400000) + 1) / 7);
     },
 
-    'checkBlockedDates': function checkBlockedDates(blocked, dates) {
+    'containsDate': function containsDate(date, dates) {
+        let flag = false
+
+        for (i = 0; i < dates.length; i++) {
+
+            if (date.data().giorno == dates[i].giorno && date.data().mese == dates[i].mese && date.data().anno == dates[i].anno) {
+                
+                blockedDates.push({giorno: elemToAdd.giorno, mese: elemToAdd.mese, anno: elemToAdd.anno})
+
+                flag = true
+
+                break
+
+            }
+
+        }
+
+        return flag;
+
+    },
+
+    'getBlockedDates': function getBlockedDates(blocked, dates) {
         let blockedDates = []
         
         blocked.forEach(elemBlocked => {

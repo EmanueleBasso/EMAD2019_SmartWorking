@@ -9,28 +9,36 @@ module.exports = (request, response) => {
     var i = 0
     var flag = 1
 
-    db.collection('Dipendente').where('progetto', '==', project).get().then(snapshot => {
+    db.collection('AssociazioneDipendenteProgetto').where('progetto', '==', project).get().then(snapshot => {
 
         snapshot.forEach(async elem => {
 
-            employees.push({nome: elem.data().nome, cognome: elem.data().cognome, email: elem.data().email, calendar: []})
+            await db.collection('Dipendente').doc(elem.data().dipendente).get().then(async document => {
 
-            await db.collection('SmartWorking').where('dipendente', '==', elem.id).get().then(collection => {
+                employees.push({nome: document.data().nome, cognome: document.data().cognome, email: document.data().email, calendar: []})
 
-                collection.forEach(date => {
+                await db.collection('SmartWorking').where('dipendente', '==', document.id).get().then(collection => {
 
-                    employees[i].calendar.push({giorno: date.data().giorno, mese: date.data().mese, anno: date.data().anno})
+                    collection.forEach(date => {
 
-                })
+                        employees[i].calendar.push({giorno: date.data().giorno, mese: date.data().mese, anno: date.data().anno})
 
-                if (flag == snapshot.size) {
+                    })
 
-                    response.send(employees)
+                    if (flag == snapshot.size) {
 
-                }
+                        response.send(employees)
 
-                flag++
-                i++
+                    }
+
+                    else {
+
+                        flag++
+                        i++
+
+                    }
+
+                }).catch(error => {return response.send({hasError: true, error: error.message})})
 
             }).catch(error => {return response.send({hasError: true, error: error.message})})
 

@@ -365,7 +365,10 @@ export class SwPage {
     for (let i = 0; i < this.selectedDays.length; i = i + 1) {
       const arrayDay = this.selectedDays[i].split('-');
 
-      body['dates'].push({ anno: arrayDay[0], mese: arrayDay[1], giorno: arrayDay[2].replace('0', '') });
+      if (arrayDay[2][0] == '0')
+        body['dates'].push({ anno: arrayDay[0], mese: arrayDay[1], giorno: arrayDay[2].replace('0', '') });
+        else
+        body['dates'].push({ anno: arrayDay[0], mese: arrayDay[1], giorno: arrayDay[2] });
     }
 
     body['uid'] = localStorage.getItem('uid');

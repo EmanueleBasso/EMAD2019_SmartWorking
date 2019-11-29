@@ -8,67 +8,96 @@ module.exports = async(request, response) => {
     var uid = body.uid
     var dates = body.dates
     var batch = db.batch()
+    var flag = 1
     
     response.append('Access-Control-Allow-Origin', ['*'])
 
-    if (uid === undefined){
-        response.send({hasError: true, error: "UID undefined"})
+    if (body === undefined) {
+
+        response.send({hasError: true, error: "There was an error"})
+
     }
 
-    await db.collection('Dipendente').doc(uid).get().then(document => {
+    await db.collection("AssociazioneDipendenteProgetto").where('dipendente', '==', uid).get().then(async snapshot => {
 
-        db.collection("GiorniBloccati").where('progetto', '==', document.data().progetto).get().then(snapshot => {
+        if (snapshot.size != 0) {
 
-            if (snapshot.size != 0) {
+            let blockedDates = []
 
-                let blockedDates = []
+            snapshot.forEach(async elem => {
 
-                snapshot.forEach(elem => {
+                await db.collection('GiorniBloccati').where('progetto', '==', elem.data().progetto).get()
+                .then(collection => {
 
-                    blockedDates.push({giorno: elem.data().giorno, mese: elem.data().mese, anno: elem.data().anno})
+                    if (collection.size != 0) {
+            
+                        collection.forEach(blocked => {
 
-                })
+                            if (!utils.containsDate(blocked, blockedDates))
+            
+                                blockedDates.push({giorno: blocked.data().giorno, mese: blocked.data().mese, anno: blocked.data().anno})
+            
+                        })
 
-                let checked = utils.checkBlockedDates(blockedDates, dates)
+                        if (flag == snapshot.size) {
 
-                if (checked.length != 0) {
-                    let s;
+                            let checked = utils.getBlockedDates(blockedDates, dates)
 
-                    if (checked.length > 1)
-                        s = "I giorni "
+                            console.log('CIAO, LE DATE BLOCCATE SONO: ' + checked.length)
 
-                    else
-                        s = "Il giorno "
+                            if (checked.length != 0) {
 
-                    checked.forEach(elem => {
+                                let s;
 
-                        s = s + elem.giorno + "/" + elem.mese + "/" + elem.anno + ", "
+                                if (checked.length > 1)
+                                    s = "I giorni  "
 
-                    })
+                                else
+                                    s = "Il giorno  "
 
-                    if (checked.length > 1)
-                        s = s + "sono stati bloccati"
-                    
-                    else
-                        s = s + "è stato bloccato"
+                                checked.forEach(elem => {
 
-                    console.log(s)
+                                    s = s + elem.giorno + "/" + elem.mese + "/" + elem.anno + "  "
 
-                    return response.send({hasError: true, error: s});
+                                })
 
-                } else {
+                                if (checked.length > 1)
+                                    s = s + "sono stati bloccati"
 
-                    utils.saveSWData(request, response, dates, uid, batch)
+                                else
+                                    s = s + "è stato bloccato"
 
-                }
+                                console.log(s)
 
-            } else {
+                                return response.send({hasError: true, error: s});
 
-                utils.saveSWData(request, response, dates, uid, batch)
+                            } else {
 
-            }
+                                utils.saveSWData(request, response, dates, uid, batch)
 
-        }).catch(error => {return response.send({hasError: true, error: error.message})})
+                            }
+
+                        } else {
+
+                            flag++
+
+                        }
+            
+                    } else {
+            
+                        flag++
+            
+                    }
+
+                }).catch(error => {return response.send({hasError: true, error: error.message})})
+
+            })
+
+        } else {
+
+            return response.send({hasError: true, error: 'Non sei stato ancora assegnato ad alcun progetto'})
+
+        }
 
     }).catch(error => {return response.send({hasError: true, error: error.message})})
 
