@@ -14,7 +14,27 @@ let transporter = nodemailer.createTransport({
 });
 
 
-module.exports = {  
+module.exports = {
+
+    'sendBlockedDays': function sendBlockedDays(response, collection, blockedDates, flag, size) {
+
+        if (collection.size != 0) {
+            
+            collection.forEach(blocked => {
+
+                if (!this.containsDate(blocked, blockedDates))
+
+                    blockedDates.push({giorno: blocked.data().giorno, mese: blocked.data().mese, anno: blocked.data().anno})
+
+            })
+
+            if (flag == size)
+
+                return response.send(blockedDates)
+
+        } 
+
+    },
 
     'sortDates': function sortDates(dates) {
         let sortedDates = dates.sort((first, second) => {
@@ -23,11 +43,11 @@ module.exports = {
             const data_2 = new Date(parseInt(second.anno), parseInt(second.mese), parseInt(second.giorno));
     
             if (data_1.getTime() < data_2.getTime()) {
-            return -1;
+                return -1;
             } else if (data_1.getTime() > data_2.getTime()){
-            return 1;
+                return 1;
             } else {
-            return  0;
+                return  0;
             } 
 
         })
@@ -132,100 +152,6 @@ module.exports = {
                 dipendente: uid
             })
         })
-    },
-
-    'saveSWData': function saveSWData(request, response, dates, uid, batch) {
-
-        db.collection('SmartWorking').where('dipendente', '==', uid).get().then(snapshot => {
-                        
-            if (snapshot.size == 0) {
-                
-                this.addDates(dates, uid, batch)
-    
-                this.sendSmartWorkingCalendar(uid, request, response, dates)
-                        
-                batch.commit()
-    
-                console.log('DATI INSERITI ED EMAIL INVIATA CON SUCCESSO!') 
-    
-            } else {
-
-                let prevCollection = []
-                let current_month = new Date().getMonth() + 1
-    
-                prevCollection = snapshot.docs.filter(elem => elem.data().mese == current_month)
-
-                if (prevCollection.length == 0 || prevCollection.length == 1 && dates.length == 1) {
-    
-                    this.addDates(dates, uid, batch)
-    
-                    this.sendSmartWorkingCalendar(uid, request, response, dates)
-                    
-                    batch.commit()
-    
-                    console.log('MESE PRECEDENTE VUOTO OPPURE DATE COMPATIBILI. DATI INSERITI ED EMAIL INVIATA CON SUCCESSO!')
-
-                } else {
-    
-                    let prevDatesSorted = []
-                    let newDatesSorted = []
-                    let compareArray = []
-                    
-                    prevCollection.forEach(elem => {
-                        prevDatesSorted.push({
-                            giorno: elem.data().giorno,
-                            mese: elem.data().mese,
-                            anno: elem.data().anno,
-                            dipendente: elem.data().dipendente
-                        })
-                    })
-        
-                    prevDatesSorted = this.sortDates(prevDatesSorted)
-                    newDatesSorted = this.sortDates(dates)
-        
-                    if (prevDatesSorted.length > 1) {
-
-                        compareArray.push(prevDatesSorted[prevDatesSorted.length - 1])
-                        compareArray.push(prevDatesSorted[prevDatesSorted.length - 2])
-
-                    } else {
-
-                        compareArray.push(prevDatesSorted[0])
-
-                    }
-        
-                    if (newDatesSorted.length > 1) {
-
-                        compareArray.push(newDatesSorted[newDatesSorted.length - 1])
-                        compareArray.push(newDatesSorted[newDatesSorted.length - 2])
-
-                    } else {
-
-                        compareArray.push(newDatesSorted[0])
-                        
-                    }
-        
-                    if (this.areValidDates(compareArray)) {
-        
-                        this.addDates(dates, uid, batch)
-        
-                        this.sendSmartWorkingCalendar(uid, request, response, dates)
-                        
-                        batch.commit()
-        
-                        console.log('DATE VALIDE ED EMAIL INVIATA CON SUCCESSO!') 
-        
-                    } else {
-        
-                       response.send({hasError: true, error: 'Hai selezionato più di due giorni di Smart Working nella stessa settimana a cavallo tra il mese corrente e il prossimo'})
-                    }
-
-                }
-
-            }
-            
-        }).catch(error => {return response.send({hasError: true, error: error.message})})
-
     },
 
     'createSmartWorkingCalendarForEmail': function createSmartWorkingCalendarForEmail(dates) {

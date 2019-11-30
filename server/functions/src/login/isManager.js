@@ -1,21 +1,28 @@
-const firebase = require("firebase/app");
-require("firebase/firestore");
+const utils = require('../utils/utils');
+const db = utils.db;
 
 module.exports = async (request, response) => {
     var uid = request.query.uid
 
     response.append('Access-Control-Allow-Origin', ['*'])
 
-    if (uid === undefined){
+    if (uid === undefined) {
+
         return response.send({hasError: true, error: "UID undefined"})
+
     }
 
-    await firebase.firestore().collection('Dipendente').doc(uid)
+    await db.collection('Dipendente').doc(uid)
     .get().then( (snapshot) => {
+
         if (snapshot.data().manager == true) {
-            response.send({hasError: false, isManager: true})
+
+            return response.send({hasError: false, isManager: true})
+
         } else {
-            response.send({hasError: false, isManager: false})
+
+            return response.send({hasError: false, isManager: false})
+            
         }
-    }).catch(() => response.send({hasError: true}))
+    }).catch(() => {return response.send({hasError: true})})
 };

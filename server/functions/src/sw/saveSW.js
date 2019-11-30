@@ -5,10 +5,6 @@ const db = utils.db;
 module.exports = async(request, response) => {
     
     var body = JSON.parse(request.body)
-    var uid = body.uid
-    var dates = body.dates
-    var batch = db.batch()
-    var flag = 1
     
     response.append('Access-Control-Allow-Origin', ['*'])
 
@@ -17,81 +13,104 @@ module.exports = async(request, response) => {
         response.send({hasError: true, error: "There was an error"})
 
     }
+    
+    var uid = body.uid
+    var dates = body.dates
+    var batch = db.batch()
 
     await db.collection("AssociazioneDipendenteProgetto").where('dipendente', '==', uid).get().then(async snapshot => {
 
         if (snapshot.size != 0) {
 
-            let blockedDates = []
-
-            snapshot.forEach(async elem => {
-
-                await db.collection('GiorniBloccati').where('progetto', '==', elem.data().progetto).get()
-                .then(collection => {
-
-                    if (collection.size != 0) {
-            
-                        collection.forEach(blocked => {
-
-                            if (!utils.containsDate(blocked, blockedDates))
-            
-                                blockedDates.push({giorno: blocked.data().giorno, mese: blocked.data().mese, anno: blocked.data().anno})
-            
+            await db.collection('SmartWorking').where('dipendente', '==', uid).get().then(snapshot => {
+                        
+                if (snapshot.size == 0) {
+                    
+                    utils.addDates(dates, uid, batch)
+        
+                    utils.sendSmartWorkingCalendar(uid, request, response, dates)
+                            
+                    batch.commit()
+        
+                    console.log('DATI INSERITI ED EMAIL INVIATA CON SUCCESSO!') 
+        
+                } else {
+    
+                    let prevCollection = []
+                    let current_month = new Date().getMonth() + 1
+        
+                    prevCollection = snapshot.docs.filter(elem => elem.data().mese == current_month)
+    
+                    if (prevCollection.length == 0 || prevCollection.length == 1 && dates.length == 1) {
+        
+                        utils.addDates(dates, uid, batch)
+        
+                        utils.sendSmartWorkingCalendar(uid, request, response, dates)
+                        
+                        batch.commit()
+        
+                        console.log('MESE PRECEDENTE VUOTO OPPURE DATE COMPATIBILI. DATI INSERITI ED EMAIL INVIATA CON SUCCESSO!')
+    
+                    } else {
+        
+                        let prevDatesSorted = []
+                        let newDatesSorted = []
+                        let compareArray = []
+                        
+                        prevCollection.forEach(elem => {
+                            prevDatesSorted.push({
+                                giorno: elem.data().giorno,
+                                mese: elem.data().mese,
+                                anno: elem.data().anno,
+                                dipendente: elem.data().dipendente
+                            })
                         })
-
-                        if (flag == snapshot.size) {
-
-                            let checked = utils.getBlockedDates(blockedDates, dates)
-
-                            console.log('CIAO, LE DATE BLOCCATE SONO: ' + checked.length)
-
-                            if (checked.length != 0) {
-
-                                let s;
-
-                                if (checked.length > 1)
-                                    s = "I giorni  "
-
-                                else
-                                    s = "Il giorno  "
-
-                                checked.forEach(elem => {
-
-                                    s = s + elem.giorno + "/" + elem.mese + "/" + elem.anno + "  "
-
-                                })
-
-                                if (checked.length > 1)
-                                    s = s + "sono stati bloccati"
-
-                                else
-                                    s = s + "è stato bloccato"
-
-                                console.log(s)
-
-                                return response.send({hasError: true, error: s});
-
-                            } else {
-
-                                utils.saveSWData(request, response, dates, uid, batch)
-
-                            }
-
+            
+                        prevDatesSorted = utils.sortDates(prevDatesSorted)
+                        newDatesSorted = utils.sortDates(dates)
+            
+                        if (prevDatesSorted.length > 1) {
+    
+                            compareArray.push(prevDatesSorted[prevDatesSorted.length - 1])
+                            compareArray.push(prevDatesSorted[prevDatesSorted.length - 2])
+    
                         } else {
-
-                            flag++
-
+    
+                            compareArray.push(prevDatesSorted[0])
+    
                         }
             
-                    } else {
+                        if (newDatesSorted.length > 1) {
+    
+                            compareArray.push(newDatesSorted[newDatesSorted.length - 1])
+                            compareArray.push(newDatesSorted[newDatesSorted.length - 2])
+    
+                        } else {
+    
+                            compareArray.push(newDatesSorted[0])
+                            
+                        }
             
-                        flag++
+                        if (utils.areValidDates(compareArray)) {
             
+                            utils.addDates(dates, uid, batch)
+            
+                            utils.sendSmartWorkingCalendar(uid, request, response, dates)
+                            
+                            batch.commit()
+            
+                            console.log('DATE VALIDE ED EMAIL INVIATA CON SUCCESSO!') 
+            
+                        } else {
+            
+                           response.send({hasError: true, error: 'Hai selezionato più di due giorni di Smart Working nella stessa settimana a cavallo tra il mese corrente e il prossimo'})
+                        }
+    
                     }
-
-                }).catch(error => {return response.send({hasError: true, error: error.message})})
-
-            })
+    
+                }
+                
+            }).catch(error => {return response.send({hasError: true, error: error.message})})
 
         } else {
 
