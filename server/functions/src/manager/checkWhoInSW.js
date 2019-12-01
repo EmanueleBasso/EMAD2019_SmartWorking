@@ -51,7 +51,6 @@ module.exports = async (request, response) => {
                                 await db.collection('Dipendente').doc(employe).get().then(document => {
 
                                     employeesInSw.push({nome: document.data().nome, cognome: document.data().cognome, email: document.data().email})
-                                    console.log('CIAO ANTONIO, I DIPENDENTI SONO: ' + JSON.stringify(employeesInSw))
 
                                     if (flag_1 == employees.length)
 

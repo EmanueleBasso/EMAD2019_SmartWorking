@@ -16,26 +16,6 @@ let transporter = nodemailer.createTransport({
 
 module.exports = {
 
-    'sendBlockedDays': function sendBlockedDays(response, collection, blockedDates, flag, size) {
-
-        if (collection.size != 0) {
-            
-            collection.forEach(blocked => {
-
-                if (!this.containsDate(blocked, blockedDates))
-
-                    blockedDates.push({giorno: blocked.data().giorno, mese: blocked.data().mese, anno: blocked.data().anno})
-
-            })
-
-            if (flag == size)
-
-                return response.send(blockedDates)
-
-        } 
-
-    },
-
     'sortDates': function sortDates(dates) {
         let sortedDates = dates.sort((first, second) => {
                         

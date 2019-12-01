@@ -26,7 +26,8 @@ const checkWhoInSW = require('./src/manager/checkWhoInSW');
 const getAssignedUsers = require('./src/manager/getAssignedUsers');
 const getProjects = require('./src/manager/getProjects');
 const blockSWDay = require('./src/manager/blockSWDay');
-const getBlcokedDays = require('./src/manager/getBlcokedDays');
+const getProjectBlcokedDays = require('./src/manager/getProjectBlcokedDays');
+const getSWBlockedDays = require('./src/manager/getSWBlockedDays');
 
 module.exports = {
   'isManager': functions.region('europe-west1').https.onRequest(isManagerModule),
@@ -39,5 +40,6 @@ module.exports = {
   'deleteToken': functions.region('europe-west1').https.onRequest(deleteTokenModule),
   'notification': functions.region('europe-west1').https.onRequest(notificationModule),
   'blockSWDay': functions.region('europe-west1').https.onRequest(blockSWDay),
-  'getBlcokedDays': functions.region('europe-west1').https.onRequest(getBlcokedDays)
+  'getProjectBlcokedDays': functions.region('europe-west1').https.onRequest(getProjectBlcokedDays),
+  'getSWBlockedDays': functions.region('europe-west1').https.onRequest(getSWBlockedDays)
 };
