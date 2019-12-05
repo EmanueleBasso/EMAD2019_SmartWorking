@@ -43,8 +43,24 @@ Questo comando eseguirà il codice e permetterà la visualizzazione della webapp
 
 
 
-Aggiungeremo un nuovo attore, l'amministratore. L'amministratore dovrà occuparsi della gestione organizzativa del DB sottostante, dovrà:
+Aggiungeremo L'amministratore come nuovo attore della nostra applicazione. L'amministratore dovrà occuparsi della gestione organizzativa del DB sottostante, dovrà quindi:
 
 - Inserire Dipendenti
 - Modificare Status ai dipendenti se diventano Manager
-- Inserire Progetti associando dipendenti e Menager
+- Inserire Progetti associando dipendenti e Menager 
+
+
+
+
+
+Nella cartella documenti sono presenti:
+
+- Problem starment versione 1 (prima stesura documento)
+- Problem statment versione 2 (raffinamento del documento)
+- Prototype report versione 1 (use case, class diagram, prototipi)
+- Slide di presentazione prototipazione
+
+Tale cartella verrà aggiornata ogni qual volta saranno introdotte delle modifiche.
+
+
+
