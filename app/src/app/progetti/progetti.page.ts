@@ -3,7 +3,6 @@ import { AlertController, PopoverController, LoadingController, MenuController }
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { CalendarComponentOptions } from 'ion2-calendar';
-import undefined = require('firebase/empty-import');
 
 @Component({
   selector: 'app-progetti',
@@ -109,6 +108,7 @@ export class ProgettiPage implements OnInit {
             // Se clicca conferma senza selezionare niente il bottone resta disabilitato
             if (res !== undefined) {
               const node = document.querySelector('#btnBloccaGiorno') as HTMLElement;
+              node['color'] = 'danger';
               node['disabled'] = false;
             }
             // inoltre l'alert continua ad essere mostrato, così è forzato a premere sul tasto indietro
