@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "1072133615988",
+    "firebase_url": "https://smart-working-5f3ea.firebaseio.com",
+    "project_id": "smart-working-5f3ea",
+    "storage_bucket": "smart-working-5f3ea.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1072133615988:android:1495b01199012844f4bc21",
+        "android_client_info": {
+          "package_name": "smart.working"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1072133615988-sib5usp9qttg8rq4daoge6m4ddlhd41c.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD5urxtObYvn9YHdz1JOq9bMrGu4tO9Xhk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1072133615988-sib5usp9qttg8rq4daoge6m4ddlhd41c.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

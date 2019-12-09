@@ -1,0 +1,40 @@
+[
+    {
+        "__symbolic": "module",
+        "version": 4,
+        "metadata": {
+            "defaults": {
+                "DATE_FORMAT": "YYYY-MM-DD",
+                "COLOR": "primary",
+                "WEEKS_FORMAT": [
+                    "D",
+                    "L",
+                    "M",
+                    "M",
+                    "G",
+                    "V",
+                    "S"
+                ],
+                "MONTH_FORMAT": [
+                    "GEN",
+                    "FEB",
+                    "MAR",
+                    "APR",
+                    "MAG",
+                    "GIU",
+                    "LUG",
+                    "AGO",
+                    "SET",
+                    "OTT",
+                    "NOV",
+                    "DIC"
+                ]
+            },
+            "pickModes": {
+                "SINGLE": "single",
+                "RANGE": "range",
+                "MULTI": "multi"
+            }
+        }
+    }
+]

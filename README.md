@@ -6,8 +6,17 @@ Progetto per la gestione dello Smart Working nell'ambito del corso Enterprise Mo
 Per cominciare a sperimentare dobbiamo:
 
 - scaricare il progetto in locale.
+- recarsi nella cartella "files_di_configurazione"
+- esegui le seguenti configurazioni 
+    1. Sostituire in *app/node_modules*:
+       - config.js e config.metadata.json in *ion2-calendar/dist*
+       - calendar.service.js in *ion2-calendar/dist/services*
+       - calendar.component.js in *ion2-calendar/dist/components*
+       - leaflet-src.js in *leaflet/dist*
+    2. Aggiungere in  *platforms/android/app*:
+       -   google-services.json
 
--  aprire l'interfaccia della nostra command-line.
+- aprire l'interfaccia della nostra command-line.
 - spostarci sulla cartella del progetto nello specifico entrare nella cartella app
 
 Digitare:
@@ -23,7 +32,13 @@ Digitare:
 ionic serve
 ```
 
-Questo comando eseguirà il codice e permetterà la visualizzazione della webapp
+Questo comando eseguirà il codice e permetterà la visualizzazione della webapp 
+
+Per installare l'applicazione sul device lanciare:
+```
+ionic cordova run android --device
+```
+
 
 ## Funzionalità presenti
 
