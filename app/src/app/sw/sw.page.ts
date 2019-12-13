@@ -115,7 +115,7 @@ export class SwPage {
   async presentAlertPrimaDel15(giorno) {
     const alert = await this.alertController.create({
       header: 'Attenzione',
-      message: 'La prenotazione del piano sarà disponibile tra ' + (15 - giorno) + ' giorno',
+      message: 'La prenotazione del piano sarà disponibile tra ' + (15 - giorno) + ((giorno === 1) ? ' giorno' : ' giorni'),
       buttons: [
         {
           text: 'OK',

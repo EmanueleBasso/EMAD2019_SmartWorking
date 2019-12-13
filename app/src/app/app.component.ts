@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { LoadingController, Platform, NavController } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
+import { Network } from '@ionic-native/network/ngx';
 
 import AuthService from './providers/auth.service';
 import TokenService from './providers/token.service';
@@ -45,8 +46,11 @@ export class AppComponent {
       icon: 'calendar'
     },
   ];
-  private subscription: any;
+  private backButtonSubscription: any;
   private loading: any;
+  private disconnectSubscription: any;
+  private connectSubscription: any;
+  public internet: boolean = true;
 
   constructor(
     private platform: Platform,
@@ -55,7 +59,8 @@ export class AppComponent {
     private authService: AuthService,
     private navCtrl: NavController,
     private tokenService: TokenService,
-    private loadingController: LoadingController) {
+    private loadingController: LoadingController,
+    private network: Network) {
       this.initializeApp();
   }
 
@@ -91,6 +96,13 @@ export class AppComponent {
         }
       }
 
+      this.disconnectSubscription = this.network.onDisconnect().subscribe(() => {
+        this.internet = false;
+      });
+      this.connectSubscription = this.network.onConnect().subscribe(() => {
+        this.internet = true;
+      });
+
       this.ionViewDidEnter();
     });
   }
@@ -115,12 +127,14 @@ export class AppComponent {
   }
 
   ionViewDidEnter() {
-    this.subscription = this.platform.backButton.subscribe(() => {
+    this.backButtonSubscription = this.platform.backButton.subscribe(() => {
       navigator['app'].exitApp();
     });
   }
 
   ionViewWillLeave() {
-    this.subscription.unsubscribe();
+    this.backButtonSubscription.unsubscribe();
+    this.connectSubscription.unsubscribe();
+    this.disconnectSubscription.unsubscribe();
   }
 }

@@ -1,6 +1,6 @@
 <ion-app mode="ios">
   <ion-split-pane contentId="my-content">
-    <ion-menu type="overlay" contentId="my-content">
+    <ion-menu type="overlay" contentId="my-content" *ngIf="internet">
       <ion-header>
         <ion-toolbar color="primary">
           <ion-title>Menu</ion-title>
@@ -37,6 +37,13 @@
         </ion-list>
       </ion-content>
     </ion-menu>
-    <ion-router-outlet main id="my-content"></ion-router-outlet>
+    <ion-router-outlet main id="my-content" *ngIf="internet"></ion-router-outlet>
+
+    <ion-header *ngIf="!internet">
+      <ion-toolbar color="primary">
+        <ion-title>Smart Working</ion-title>
+      </ion-toolbar>
+      <ion-img src="../../assets/img/no-connection.png"></ion-img>
+    </ion-header>
   </ion-split-pane>
 </ion-app>

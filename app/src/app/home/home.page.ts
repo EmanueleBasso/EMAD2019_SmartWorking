@@ -13,7 +13,7 @@ import { CalendarComponentOptions, DayConfig } from 'ion2-calendar';
 export class HomePage {
 
   // Dati lista
-  private icons = ['home', 'desktop'];
+  private icons = ['home', 'business'];
   public items: Array<{ title: string; icon: string, note: string; }> = [];
   private giorni: string[];
   private num: number;

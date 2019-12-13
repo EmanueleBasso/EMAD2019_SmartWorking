@@ -4,6 +4,7 @@ import { BrowserModule, HAMMER_GESTURE_CONFIG } from '@angular/platform-browser'
 import { RouteReuseStrategy } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import { CalendarModule } from 'ion2-calendar';
+import { Network } from '@ionic-native/network/ngx';
 
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
@@ -27,6 +28,7 @@ import TokenService from './providers/token.service';
     SplashScreen,
     FCM,
     CalendarModule,
+    Network,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     { provide: HAMMER_GESTURE_CONFIG, useClass: CustomHammerConfig },
     AuthGuard,
