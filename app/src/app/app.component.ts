@@ -90,7 +90,7 @@ export class AppComponent {
       if ((localStorage.getItem('isManager') !== undefined) && (localStorage.getItem('isManager') === 'false')) {
         const nodeList = document.querySelectorAll('.onlyManager') as NodeListOf<HTMLElement>;
 
-        for(let i = 0; i < nodeList.length; i = i + 1) {
+        for (let i = 0; i < nodeList.length; i = i + 1) {
           const node = nodeList.item(i);
           node.style.display = 'none';
         }
@@ -102,6 +102,14 @@ export class AppComponent {
       this.connectSubscription = this.network.onConnect().subscribe(() => {
         this.internet = true;
       });
+
+      setTimeout( () => {
+        if (this.network.type === this.network.Connection.NONE) {
+          this.internet = false;
+        } else {
+          this.internet = true;
+        }
+      }, 500);
 
       this.ionViewDidEnter();
     });
