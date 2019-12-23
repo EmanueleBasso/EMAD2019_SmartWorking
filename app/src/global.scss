@@ -32,12 +32,33 @@
 .popover-content.sc-ion-popover-md {
   position: inherit;
   margin: auto;
+  border-radius: 10px !important;
 }
 .popover-content.sc-ion-popover-ios {
   position: inherit;
   margin: auto;
+  border-radius: 10px !important;
 }
 .popover-wrapper.sc-ion-popover-ios {
   --width: 90%;
   --max-height: 100%;
+}
+
+.alertClass {
+  .alert-title {
+    color: var(--ion-color-primary) !important;
+    text-align: center !important;
+  }
+  .alertDanger {
+    color: var(--ion-color-medium) !important;
+  }
+
+  .alertConfirm {
+    color: var(--ion-color-secondary) !important;
+  }
+
+  /*.alert-message {
+    color: white !important;
+    text-align: center !important;
+  }*/
 }

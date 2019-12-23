@@ -18,8 +18,8 @@ export class ProgettiPage implements OnInit {
   public giorno: string;
   private _color: string = 'primary';
 
-  constructor(public popoverCtrl: PopoverController, public alertController: AlertController,
-    public http: HttpClient, public loadingController: LoadingController, private menu: MenuController) { }
+  constructor(private popoverCtrl: PopoverController, private alertController: AlertController,
+    private http: HttpClient, private loadingController: LoadingController, private menu: MenuController) { }
 
 
   options: CalendarComponentOptions = {
@@ -78,7 +78,6 @@ export class ProgettiPage implements OnInit {
       spinner: 'bubbles',
       message: 'Aspetta...',
       translucent: true,
-      cssClass: 'secondary',
     });
     return await this.loading.present();
   }
@@ -87,11 +86,12 @@ export class ProgettiPage implements OnInit {
     const alert = await this.alertController.create({
       header: 'Seleziona il progetto',
       inputs: this.progetti,
+      cssClass: 'alertClass',
       buttons: [
         {
           text: 'Indietro',
           role: 'cancel',
-          cssClass: 'secondary',
+          cssClass: 'alertDanger',
         }, {
           text: 'Conferma',
           handler: (res) => {

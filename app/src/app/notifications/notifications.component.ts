@@ -24,7 +24,7 @@ export class NotificationsComponent {
   };
   day: string;
 
-  constructor(public popoverCtrl: PopoverController) {
+  constructor(private popoverCtrl: PopoverController) {
     moment.locale('it-IT');
 
     const date: Date = new Date();
@@ -87,6 +87,6 @@ export class NotificationsComponent {
   }
 
   onClickNotification(str: string) {
-    this.popoverCtrl.dismiss({scelta: str, giorno: this.giornoSelezionato});
+    this.popoverCtrl.dismiss({ scelta: str, giorno: this.giornoSelezionato });
   }
 }

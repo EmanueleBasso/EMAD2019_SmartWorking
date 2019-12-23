@@ -21,7 +21,7 @@ export class HomePage {
   private haPrenotatoPosto = false;
   private _daysConfig: DayConfig[] = [];
 
-  constructor(public modalCtrl: ModalController, private menu: MenuController) {
+  constructor(private modalCtrl: ModalController, private menu: MenuController) {
     menu.enable(true);
     moment.locale('it-IT');
 

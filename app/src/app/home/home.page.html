@@ -19,7 +19,7 @@
     <ion-list>
       <ion-item *ngFor="let item of items">
         <div style="margin-right: 10px;">
-          <ion-icon [name]="item.icon"></ion-icon>
+          <ion-icon [name]="item.icon" color="secondary"></ion-icon>
         </div>
         <div>
           <div>
@@ -29,7 +29,7 @@
             <ion-label id="notaPosto"> {{item.note}} </ion-label>
           </div>
         </div>
-        <ion-button (click)="itemClick()" slot="end" fill="outline">
+        <ion-button (click)="itemClick()" slot="end" fill="outline" color="tertiary">
           Dettagli
         </ion-button>
       </ion-item>

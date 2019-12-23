@@ -15,7 +15,7 @@ export class CalendarioDipendentiPage implements OnInit {
   private visualizzareDipendenti: boolean = false;
   private selectedRadioGroup:any;
 
-  constructor(public loadingController: LoadingController, private menu: MenuController,
+  constructor(private loadingController: LoadingController, private menu: MenuController,
     private alertController: AlertController, private http: HttpClient) { }
 
   // Funzione carica lista progetti da DB

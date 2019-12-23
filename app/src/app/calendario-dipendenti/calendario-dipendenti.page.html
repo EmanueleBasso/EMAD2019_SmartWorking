@@ -15,7 +15,7 @@
       <ion-label color="primary">
         Seleziona un progetto
       </ion-label>
-      <ion-button (click)="mostraProgetti()" fill="outline">
+      <ion-button (click)="mostraProgetti()" fill="outline" color="tertiary">
         Lista progetti
       </ion-button>
     </ion-item>
@@ -66,7 +66,7 @@
                   value="{{item.value}}"
                 >
                 </ion-radio>
-                <ion-label class="ion-no-margin" color="primary"
+                <ion-label class="ion-no-margin" color="success"
                   >Abilita</ion-label
                 >
               </ion-item>
@@ -106,7 +106,7 @@
                   value="{{item.value}}"
                 >
                 </ion-radio>
-                <ion-label class="ion-no-margin" color="primary"
+                <ion-label class="ion-no-margin" color="success"
                   >Abilita</ion-label
                 >
               </ion-item>
@@ -155,9 +155,9 @@
             </ion-col>
             <ion-col>
               <ion-item lines="none">
-                <ion-radio value="abilita1" checked class="ion-margin-end">
+                <ion-radio value="abilita1" checked class="ion-margin-end" color="success">
                 </ion-radio>
-                <ion-label class="ion-no-margin" color="primary"
+                <ion-label class="ion-no-margin" color="success"
                   >Abilita</ion-label
                 >
               </ion-item>
@@ -166,7 +166,7 @@
         </ion-grid>
       </ion-radio-group>
       <ion-item-divider class="divider"></ion-item-divider>
-      <ion-radio-group (ionChange)="radioGroupChange($event)">
+      <ion-radio-group (ionChange)="radioGroupChange($event)" color="success">
         <ion-grid fixed>
           <ion-row>
             <ion-col>
@@ -191,9 +191,9 @@
             </ion-col>
             <ion-col>
               <ion-item lines="none">
-                <ion-radio value="abilita2" checked class="ion-margin-end">
+                <ion-radio value="abilita2" checked class="ion-margin-end" color="success">
                 </ion-radio>
-                <ion-label class="ion-no-margin" color="primary"
+                <ion-label class="ion-no-margin" color="success"
                   >Abilita</ion-label
                 >
               </ion-item>

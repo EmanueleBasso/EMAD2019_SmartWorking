@@ -22,8 +22,8 @@ export class SwPage {
   //_disableWeeks: number[] = [0, 6];
   //_weekStart: number = 0;
 
-  constructor(public alertController: AlertController, private navCtrl: NavController,
-    private http: HttpClient, public loadingController: LoadingController, private menu: MenuController) {
+  constructor(private alertController: AlertController, private navCtrl: NavController,
+    private http: HttpClient, private loadingController: LoadingController, private menu: MenuController) {
     moment.locale('it-IT');
     this.date = new Date();
 
@@ -233,7 +233,6 @@ export class SwPage {
       spinner: 'bubbles',
       message: 'Aspetta...',
       translucent: true,
-      cssClass: 'secondary',
     });
     return await this.loading.present();
   }
