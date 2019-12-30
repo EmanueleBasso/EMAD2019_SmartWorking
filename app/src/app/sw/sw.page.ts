@@ -106,7 +106,7 @@ export class SwPage implements OnInit{
     // timeout di 5 secondi per l'alert
     setTimeout(() => {
       alert.dismiss();
-    }, 3000);
+    }, 5000);
 
     // se clicca fuori dall'alert questo lo riporta indietro
     alert.onWillDismiss().then(() => {
@@ -132,7 +132,7 @@ export class SwPage implements OnInit{
     // timeout di 5 secondi per l'alert
     setTimeout(() => {
       alert.dismiss();
-    }, 3000);
+    }, 5000);
 
     // se clicca fuori dall'alert questo lo riporta indietro
     alert.onWillDismiss().then(() => {

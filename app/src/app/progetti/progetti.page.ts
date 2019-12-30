@@ -37,6 +37,7 @@ export class ProgettiPage implements OnInit {
         const hasError = response['hasError'];
 
         if (hasError !== undefined) {
+          this.presentAlert('Attenzione', 'Si è verificato un errore. Provare a riaccedere alla pagina');
           return;
         }
 
@@ -65,11 +66,6 @@ export class ProgettiPage implements OnInit {
       ]
     });
     await alert.present();
-
-    // timeout di 5 secondi per l'alert
-    setTimeout(() => {
-      alert.dismiss();
-    }, 3000);
   }
 
   async mostraProgetti() {
@@ -191,6 +187,7 @@ export class ProgettiPage implements OnInit {
 
         if (hasError !== undefined) {
           this.loadingService.dismissLoading();
+          this.presentAlert('Attenzione', 'Si è verificato un errore. Provare a riaccedere alla pagina');
           return;
         }
 
