@@ -88,6 +88,19 @@ export class SwPage implements OnInit{
     this.selectedDays = $event;
   }
 
+  async presentAlertIniziale(giorni) {
+    const alert = await this.alertController.create({
+      header: 'Info',
+      message: 'Ricorda che puoi scegliere al massimo ' + giorni + ' giorni di Smart Working a settimana',
+      buttons: [
+        {
+          text: 'OK'
+        }
+      ]
+    });
+    await alert.present();
+  }
+
   async presentAlertPrenotato() {
     const alert = await this.alertController.create({
       header: 'Attenzione',
@@ -397,6 +410,8 @@ export class SwPage implements OnInit{
         if (alreadyEntered) {
           this.presentAlertSWErrore('Hai già prenotato i giorni di Smart Working per il prossimo mese', 'home', false);
         } else {
+          this.presentAlertIniziale(2);
+
           let node = document.querySelector('#btnToDisable') as HTMLElement;
           node.click();
           node['disabled'] = true;
