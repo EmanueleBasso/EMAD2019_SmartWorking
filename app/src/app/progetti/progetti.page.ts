@@ -200,6 +200,7 @@ export class ProgettiPage implements OnInit {
         const hasError = response['hasError'];
 
         if (hasError !== undefined) {
+          this.loading.dismiss();
           return;
         }
 
@@ -207,17 +208,19 @@ export class ProgettiPage implements OnInit {
         this.items = [];
         for (let i = 0; i < (response as []).length; i = i + 1) {
           this.items.push({
-            number: (i + 1) + '',
+            number: (i + 1) + ')',
             title: response[i].nome + ' ' + response[i].cognome
           });
         }
 
         if (this.items.length === 0) {
-          this.visualizzareDipendenti = false;
-        } else {
-          this.visualizzareDipendenti = true;
+          this.items.push({
+            number: '  ',
+            title: 'Non ci sono dipendenti in SW'
+          });
         }
-
+        
+        this.visualizzareDipendenti = true;
         this.loading.dismiss();
       });
   }

@@ -40,7 +40,7 @@ module.exports = async (request, response) => {
 
                         if (employees.length == 0) {
 
-                            return response.send({hasError: true, error: 'Non ci sono dipendenti, associati a questo progetto, che svolgono Smart Working in questo giorno'})
+                            return response.send(employeesInSw)
 
                         } else {
 
@@ -78,7 +78,7 @@ module.exports = async (request, response) => {
 
         } else {
 
-            return response.send({hasError: true, error: 'Non ci sono dipendenti, associati a questo progetto, che svolgono Smart Working in questo giorno'})
+            return response.send(employeesInSw)
 
         }
 
