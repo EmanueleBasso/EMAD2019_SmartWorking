@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { LoadingController, MenuController, AlertController } from '@ionic/angular';
+import { MenuController, AlertController } from '@ionic/angular';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -8,14 +8,13 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./calendario-dipendenti.page.scss'],
 })
 export class CalendarioDipendentiPage implements OnInit {
-  private loading: any;
   private progetti: Array<Object> = [];
   private progettoSelezionato: string = "";
   private items: Array<Object> = [];
   private visualizzareDipendenti: boolean = false;
   private selectedRadioGroup:any;
 
-  constructor(private loadingController: LoadingController, private menu: MenuController,
+  constructor(private menu: MenuController,
     private alertController: AlertController, private http: HttpClient) { }
 
   // Funzione carica lista progetti da DB

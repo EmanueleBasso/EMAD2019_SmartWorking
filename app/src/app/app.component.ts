@@ -1,12 +1,13 @@
 import { Component } from '@angular/core';
 
-import { LoadingController, Platform, NavController } from '@ionic/angular';
+import { Platform, NavController } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { Network } from '@ionic-native/network/ngx';
 
 import AuthService from './providers/auth.service';
 import TokenService from './providers/token.service';
+import LoadingService from './providers/loading.service';
 
 import * as firebase from 'firebase/app';
 import 'firebase/auth';
@@ -47,7 +48,6 @@ export class AppComponent {
     },
   ];
   private backButtonSubscription: any;
-  private loading: any;
   private disconnectSubscription: any;
   private connectSubscription: any;
   public internet: boolean = true;
@@ -59,7 +59,7 @@ export class AppComponent {
     private authService: AuthService,
     private navCtrl: NavController,
     private tokenService: TokenService,
-    private loadingController: LoadingController,
+    private loadingService: LoadingService,
     private network: Network) {
       this.initializeApp();
   }
@@ -115,21 +115,11 @@ export class AppComponent {
     });
   }
 
-  async presentLoadingWithOptions() {
-    this.loading = await this.loadingController.create({
-      spinner: 'bubbles',
-      message: 'Logout...',
-      translucent: true,
-      cssClass: 'secondary',
-    });
-    return await this.loading.present();
-  }
-
   logout() {
-    this.presentLoadingWithOptions();
+    this.loadingService.presentLoading('Logout...');
 
     this.authService.logout().then( () => {
-      this.loading.dismiss();
+      this.loadingService.dismissLoading();
       this.navCtrl.navigateRoot('/login');
     });
   }

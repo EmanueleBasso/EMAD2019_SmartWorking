@@ -1,8 +1,9 @@
-import { Component } from '@angular/core';
-import { LoadingController, NavController, IonInput, MenuController } from '@ionic/angular';
+import { Component, OnInit } from '@angular/core';
+import { NavController, IonInput, MenuController } from '@ionic/angular';
 import { AlertController } from '@ionic/angular';
 
 import AuthService from '../providers/auth.service';
+import LoadingService from '../providers/loading.service';
 import { NgForm } from '@angular/forms';
 
 @Component({
@@ -10,12 +11,13 @@ import { NgForm } from '@angular/forms';
   templateUrl: './login.page.html',
   styleUrls: ['./login.page.scss'],
 })
-export class LoginPage {
-  private loading: any;
+export class LoginPage implements OnInit{
 
-  constructor(private loadingController: LoadingController, private alertController: AlertController,
-    private authService: AuthService, private navCtrl: NavController, private menu: MenuController) {
-    menu.enable(false);
+  constructor(private loadingService: LoadingService, private alertController: AlertController,
+    private authService: AuthService, private navCtrl: NavController, private menu: MenuController) { }
+
+  ngOnInit() {
+    this.menu.enable(false);
   }
 
   async presentAlertUnknown() {
@@ -41,16 +43,6 @@ export class LoginPage {
     });
 
     await alert.present();
-  }
-
-  async presentLoadingWithOptions() {
-    this.loading = await this.loadingController.create({
-      spinner: 'bubbles',
-      message: 'Login...',
-      translucent: true,
-      cssClass: 'secondary',
-    });
-    return await this.loading.present();
   }
 
   onSubmit(form: NgForm) {
@@ -80,10 +72,10 @@ export class LoginPage {
         if (yourEmail.length === 0) {
           yourEmail = email;
         }
-        this.presentLoadingWithOptions().then(() => {
+        this.loadingService.presentLoading('Login...').then(() => {
 
           this.authService.login(yourEmail, password).then((logged) => {
-            this.loading.dismiss();
+            this.loadingService.dismissLoading();
 
             if (logged === true) {
               this.navCtrl.navigateRoot('/home');

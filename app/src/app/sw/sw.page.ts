@@ -1,17 +1,17 @@
 import { CalendarComponentOptions } from 'ion2-calendar';
-import { AlertController, NavController, LoadingController, MenuController } from '@ionic/angular';
+import { AlertController, NavController, MenuController } from '@ionic/angular';
 import { HttpClient } from '@angular/common/http';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import * as moment from 'moment';
+import LoadingService from '../providers/loading.service';
 
 @Component({
   selector: 'app-sw',
   templateUrl: './sw.page.html',
   styleUrls: ['./sw.page.scss'],
 })
-export class SwPage {
+export class SwPage implements OnInit{
 
-  private loading: any;
   private date: Date;
   private selectedDays: Array<string>;
 
@@ -22,8 +22,17 @@ export class SwPage {
   //_disableWeeks: number[] = [0, 6];
   //_weekStart: number = 0;
 
+  options: CalendarComponentOptions = {
+    color: this._color,
+    showMonthPicker: false,
+    pickMode: 'multi',
+    showToggleButtons: true,
+  };
+
   constructor(private alertController: AlertController, private navCtrl: NavController,
-    private http: HttpClient, private loadingController: LoadingController, private menu: MenuController) {
+    private http: HttpClient, private loadingService: LoadingService, private menu: MenuController) { }
+
+  ngOnInit() {
     moment.locale('it-IT');
     this.date = new Date();
 
@@ -74,13 +83,6 @@ export class SwPage {
     this.options.from = dataFrom;
     this.options.to = dataTo;
   }
-
-  options: CalendarComponentOptions = {
-    color: this._color,
-    showMonthPicker: false,
-    pickMode: 'multi',
-    showToggleButtons: true,
-  };
 
   onChange($event) {
     this.selectedDays = $event;
@@ -228,15 +230,6 @@ export class SwPage {
     await alert.present();
   }
 
-  async presentLoadingWithOptions() {
-    this.loading = await this.loadingController.create({
-      spinner: 'bubbles',
-      message: 'Aspetta...',
-      translucent: true,
-    });
-    return await this.loading.present();
-  }
-
   onClickPrenotaSW() {
     if ((this.selectedDays === undefined) || (this.selectedDays.length === 0)) {
       return;
@@ -355,7 +348,7 @@ export class SwPage {
   }
 
   saveSW() {
-    this.presentLoadingWithOptions();
+    this.loadingService.presentLoading('Aspetta...');
 
     const url = 'https://europe-west1-smart-working-5f3ea.cloudfunctions.net/saveSW';
     const body = {};
@@ -377,7 +370,7 @@ export class SwPage {
       const hasError = response['hasError'];
       const error = response['error'];
 
-      this.loading.dismiss();
+      this.loadingService.dismissLoading();
       if (hasError === false) {
         this.presentAlertSWSalvatoCorrettamente();
       } else {
@@ -392,7 +385,7 @@ export class SwPage {
     if (giorno < 15) {
       this.presentAlertPrimaDel15(giorno);
     } else {
-      this.presentLoadingWithOptions();
+      this.loadingService.presentLoading('Aspetta...');
 
       const uid = localStorage.getItem('uid');
       const url = 'https://europe-west1-smart-working-5f3ea.cloudfunctions.net/checkSWAlreadyEntered';
@@ -400,7 +393,7 @@ export class SwPage {
       this.http.get(url + '?uid=' + uid).subscribe(response => {
         const alreadyEntered = response['alreadyEntered'];
 
-        this.loading.dismiss();
+        this.loadingService.dismissLoading();
         if (alreadyEntered) {
           this.presentAlertSWErrore('Hai già prenotato i giorni di Smart Working per il prossimo mese', 'home', false);
         } else {

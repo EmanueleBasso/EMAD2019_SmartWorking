@@ -18,6 +18,7 @@ import { NotificationsComponent } from './notifications/notifications.component'
 import AuthGuard from './providers/auth.guard';
 import AuthService from './providers/auth.service';
 import TokenService from './providers/token.service';
+import LoadingService from './providers/loading.service';
 
 @NgModule({
   declarations: [AppComponent, NotificationsComponent],
@@ -33,7 +34,8 @@ import TokenService from './providers/token.service';
     { provide: HAMMER_GESTURE_CONFIG, useClass: CustomHammerConfig },
     AuthGuard,
     AuthService,
-    TokenService
+    TokenService,
+    LoadingService
   ],
   bootstrap: [AppComponent]
 })

@@ -1,8 +1,9 @@
 import { NotificationsComponent } from './../notifications/notifications.component';
-import { AlertController, PopoverController, LoadingController, MenuController } from '@ionic/angular';
+import { AlertController, PopoverController, MenuController } from '@ionic/angular';
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { CalendarComponentOptions } from 'ion2-calendar';
+import LoadingService from '../providers/loading.service';
 
 @Component({
   selector: 'app-progetti',
@@ -10,7 +11,6 @@ import { CalendarComponentOptions } from 'ion2-calendar';
   styleUrls: ['./progetti.page.scss'],
 })
 export class ProgettiPage implements OnInit {
-  private loading: any;
   private progetti: Array<Object> = [];
   private progettoSelezionato: string = "";
   public items: Array<Object> = [];
@@ -19,8 +19,7 @@ export class ProgettiPage implements OnInit {
   private _color: string = 'primary';
 
   constructor(private popoverCtrl: PopoverController, private alertController: AlertController,
-    private http: HttpClient, private loadingController: LoadingController, private menu: MenuController) { }
-
+    private http: HttpClient, private loadingService: LoadingService, private menu: MenuController) { }
 
   options: CalendarComponentOptions = {
     color: this._color,
@@ -29,7 +28,7 @@ export class ProgettiPage implements OnInit {
   };
 
   ngOnInit() {
-    this.presentLoadingWithOptions().then(() => {
+    this.loadingService.presentLoading('Aspetta...').then(() => {
 
       const uid = localStorage.getItem('uid');
       const url = 'https://europe-west1-smart-working-5f3ea.cloudfunctions.net/getProjects';
@@ -50,7 +49,7 @@ export class ProgettiPage implements OnInit {
           });
         }
 
-        this.loading.dismiss();
+        this.loadingService.dismissLoading();
       });
     });
   }
@@ -71,15 +70,6 @@ export class ProgettiPage implements OnInit {
     setTimeout(() => {
       alert.dismiss();
     }, 3000);
-  }
-
-  async presentLoadingWithOptions() {
-    this.loading = await this.loadingController.create({
-      spinner: 'bubbles',
-      message: 'Aspetta...',
-      translucent: true,
-    });
-    return await this.loading.present();
   }
 
   async mostraProgetti() {
@@ -158,12 +148,12 @@ export class ProgettiPage implements OnInit {
       }
       const year = giornoArray[3];
 
-      this.presentLoadingWithOptions();
+      this.loadingService.presentLoading('Aspetta...');
       const url = 'https://europe-west1-smart-working-5f3ea.cloudfunctions.net/blockSWDay';
 
       this.http.get(url + '?project=' + this.progettoSelezionato + '&day=' + day + '&month=' + month + '&year=' + year)
         .subscribe(response => {
-          this.loading.dismiss();
+          this.loadingService.dismissLoading();
 
           const hasError = response['hasError'];
 
@@ -191,7 +181,7 @@ export class ProgettiPage implements OnInit {
       giorno = giorno.replace('0', '');
     }
 
-    this.presentLoadingWithOptions();
+    this.loadingService.presentLoading('Aspetta...');
     const url = 'https://europe-west1-smart-working-5f3ea.cloudfunctions.net/checkWhoInSW';
 
     this.http.get(url + '?project=' + this.progettoSelezionato + '&day=' + giorno + '&month=' + mese + '&year=' + anno)
@@ -200,7 +190,7 @@ export class ProgettiPage implements OnInit {
         const hasError = response['hasError'];
 
         if (hasError !== undefined) {
-          this.loading.dismiss();
+          this.loadingService.dismissLoading();
           return;
         }
 
@@ -219,9 +209,9 @@ export class ProgettiPage implements OnInit {
             title: 'Non ci sono dipendenti in SW'
           });
         }
-        
+
         this.visualizzareDipendenti = true;
-        this.loading.dismiss();
+        this.loadingService.dismissLoading();
       });
   }
 

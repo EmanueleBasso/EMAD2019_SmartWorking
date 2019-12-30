@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 import { ModalController, MenuController } from '@ionic/angular';
 
@@ -10,7 +10,7 @@ import { CalendarComponentOptions, DayConfig } from 'ion2-calendar';
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss']
 })
-export class HomePage {
+export class HomePage implements OnInit {
 
   // Dati lista
   private icons = ['home', 'business'];
@@ -21,8 +21,23 @@ export class HomePage {
   private haPrenotatoPosto = false;
   private _daysConfig: DayConfig[] = [];
 
-  constructor(private modalCtrl: ModalController, private menu: MenuController) {
-    menu.enable(true);
+  // CALENDARIO
+  date1: string;
+  date2: Date = new Date(); // Facendo new Date() viene automaticamente restituito la data corrente (di oggi)
+  arrayData: string[];
+  _color: string = 'primary';
+
+  options: CalendarComponentOptions = {
+    color: this._color,
+    daysConfig: this._daysConfig,
+    // showMonthPicker: false,
+    // showToggleButtons: false,
+  };
+
+  constructor(private modalCtrl: ModalController, private menu: MenuController) {  }
+
+  ngOnInit() {
+    this.menu.enable(true);
     moment.locale('it-IT');
 
     this.giorni = ['Lunedì', 'Martedì', 'Mercoledì', 'Giovedì', 'Venerdì'];
@@ -42,19 +57,6 @@ export class HomePage {
       });
     }
   }
-
-  // CALENDARIO
-  date1: string;
-  date2: Date = new Date(); // Facendo new Date() viene automaticamente restituito la data corrente (di oggi)
-  arrayData: string[];
-  _color: string = 'primary';
-
-  options: CalendarComponentOptions = {
-    color: this._color,
-    daysConfig: this._daysConfig,
-    // showMonthPicker: false,
-    // showToggleButtons: false,
-  };
 
   onChange($event) {
     console.log("Stringa del calendario 1: " + $event);

@@ -1,6 +1,6 @@
 import { CalendarComponentOptions } from 'ion2-calendar';
 import { PopoverController } from '@ionic/angular';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import * as moment from 'moment';
 
 @Component({
@@ -9,7 +9,7 @@ import * as moment from 'moment';
   styleUrls: ['./notifications.component.scss'],
 })
 
-export class NotificationsComponent {
+export class NotificationsComponent implements OnInit{
   nomeGiorno: string;
   nomeMese: string;
   titoloNotifica: string;
@@ -24,7 +24,9 @@ export class NotificationsComponent {
   };
   day: string;
 
-  constructor(private popoverCtrl: PopoverController) {
+  constructor(private popoverCtrl: PopoverController) { }
+
+  ngOnInit() {
     moment.locale('it-IT');
 
     const date: Date = new Date();
