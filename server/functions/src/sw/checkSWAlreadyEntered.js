@@ -7,9 +7,25 @@ module.exports = async (request, response) => {
 
     response.append('Access-Control-Allow-Origin', ['*'])
 
-    if (uid === undefined){
+    if (uid === undefined) {
+
         return response.send({hasError: true, error: "UID undefined"})
+
     }
+
+    var date = new Date()
+    var currentMonth = date.getMonth() + 1
+
+    await db.collection('Dipendente')
+    .doc(uid).get().then( (doc) => {
+
+        if (doc.data().meseBloccato != undefined && doc.data().meseBloccato === (currentMonth + 1)) {
+
+            return response.send({blocked: true, message: 'Non ti è permesso programmare lo Smart Working per il prossimo mese'})
+            
+        }
+
+    }).catch(() => response.send({blocked: false}))
 
     var next_month = (new Date()).getMonth() + 2
     var year = (new Date()).getFullYear()
@@ -26,9 +42,13 @@ module.exports = async (request, response) => {
     .get().then( (snapshot) => {
 
         if (snapshot.size != 0) {
-            response.send({alreadyEntered: true})
+
+            return response.send({alreadyEntered: true})
+
         } else {
-            response.send({alreadyEntered: false})
+
+            return response.send({alreadyEntered: false})
+
         }
 
     }).catch(() => response.send({alreadyEntered: false}))

@@ -14,19 +14,23 @@ module.exports = async(request, response) => {
         
     }
 
+    var date = new Date()
     var blockedDates = []
 
-    await db.collection('GiorniBloccati').where('progetto', '==', project).get()
+    await db.collection('GiorniBloccati').where('progetto', '==', project)
+        .get()
         .then(collection => {
-
+            
             collection.forEach(blocked => {
 
-                blockedDates.push({giorno: blocked.data().giorno, mese: blocked.data().mese, anno: blocked.data().anno})
+                if (blocked.data().giorno >= date.getDay() && blocked.data().mese >= date.getMonth() + 1 && blocked.data().anno >= date.getFullYear())
+
+                    blockedDates.push({giorno: blocked.data().giorno, mese: blocked.data().mese, anno: blocked.data().anno})
 
             })
 
             return response.send(blockedDates)
 
-    }).catch(error => {return response.send({hasError: true, error: error.message})})
+        }).catch(error => {return response.send({hasError: true, error: error.message})})
 
 }

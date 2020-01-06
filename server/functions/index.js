@@ -28,6 +28,7 @@ const getProjects = require('./src/manager/getProjects');
 const blockSWDay = require('./src/manager/blockSWDay');
 const getProjectBlcokedDays = require('./src/manager/getProjectBlcokedDays');
 const getSWBlockedDays = require('./src/manager/getSWBlockedDays');
+const blockSW = require('./src/manager/blockSW');
 
 module.exports = {
   'isManager': functions.region('europe-west1').https.onRequest(isManagerModule),
@@ -41,5 +42,6 @@ module.exports = {
   'notification': functions.region('europe-west1').https.onRequest(notificationModule),
   'blockSWDay': functions.region('europe-west1').https.onRequest(blockSWDay),
   'getProjectBlcokedDays': functions.region('europe-west1').https.onRequest(getProjectBlcokedDays),
-  'getSWBlockedDays': functions.region('europe-west1').https.onRequest(getSWBlockedDays)
+  'getSWBlockedDays': functions.region('europe-west1').https.onRequest(getSWBlockedDays),
+  'blockSW': functions.region('europe-west1').https.onRequest(blockSW)
 };
