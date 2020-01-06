@@ -12,7 +12,7 @@ import LoadingService from '../providers/loading.service';
 })
 export class ProgettiPage implements OnInit {
   private progetti: Array<Object> = [];
-  private progettoSelezionato: string = "";
+  private progettoSelezionato: string = '';
   public items: Array<Object> = [];
   public visualizzareDipendenti: boolean = false;
   public giorno: string;
@@ -91,15 +91,13 @@ export class ProgettiPage implements OnInit {
               }
             }
 
-            // Se clicca conferma senza selezionare niente il bottone resta disabilitato
-            if (res !== undefined) {
-              const node = document.querySelector('#btnBloccaGiorno') as HTMLElement;
-              node['color'] = 'danger';
-              node['disabled'] = false;
-            }
-            // inoltre l'alert continua ad essere mostrato, così è forzato a premere sul tasto indietro
-            else {
+            // Se clicca conferma senza selezionare niente l'alert continua ad essere mostrato, 
+            // così è forzato a premere sul tasto indietro
+            if (this.progettoSelezionato === undefined) {
+              this.progettoSelezionato = '';
               this.mostraProgetti();
+            }
+            else {
             }
           }
         }
@@ -131,9 +129,10 @@ export class ProgettiPage implements OnInit {
             });
           }
 
+          //pickMode: [single, multi] | posto: [null, "n° posto"]
           const popover = await this.popoverCtrl.create({
             component: NotificationsComponent,
-            componentProps: {daysBlocked: days},
+            componentProps: { daysBlocked: days, pickMode: 'single', posto: null },
             event: myEvent,
             animated: true,
             translucent: true

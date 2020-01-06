@@ -20,7 +20,7 @@
       </ion-button>
     </ion-item>
   </ion-card>
-  <ion-card>
+  <ion-card [disabled]="!progettoSelezionato.length">
     <ion-card-header class="ion-text-center" (swiperight)="handleSwipe()">
       <ion-label
         style="font-weight: bold;"
@@ -68,10 +68,10 @@
     </ion-card-header>
     <ion-button
       id="btnBloccaGiorno"
-      color="medium"
       expand="block"
       class="ion-margin"
-      disabled="true"
+      [color]="progettoSelezionato.length ? 'danger' : 'medium'"
+      [disabled]="!progettoSelezionato.length"
       (click)="notifications($event)"
     >
       Apri calendario

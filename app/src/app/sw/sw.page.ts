@@ -1,4 +1,4 @@
-import { CalendarComponentOptions } from 'ion2-calendar';
+import { CalendarComponentOptions, DayConfig } from 'ion2-calendar';
 import { AlertController, NavController, MenuController } from '@ionic/angular';
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
@@ -13,24 +13,20 @@ import LoadingService from '../providers/loading.service';
 export class SwPage implements OnInit {
 
   private date: Date;
-  private selectedDays: Array<string>;
-
-  arrayData: string[];
-  _color: string = 'primary';
-  //_showToggleButtons: boolean = false;
-  //_showMonthPicker: boolean = false;
-  //_disableWeeks: number[] = [0, 6];
-  //_weekStart: number = 0;
+  private selectedDays: Array<string> = [];
+  private _daysConfig: DayConfig[] = [];
+  private _color: string = 'primary';
 
   options: CalendarComponentOptions = {
     color: this._color,
     showMonthPicker: false,
     pickMode: 'multi',
     showToggleButtons: true,
+    daysConfig: this._daysConfig,
   };
 
   constructor(private alertController: AlertController, private navCtrl: NavController,
-              private http: HttpClient, private loadingService: LoadingService, private menu: MenuController) { }
+    private http: HttpClient, private loadingService: LoadingService, private menu: MenuController) { }
 
   ngOnInit() {
     moment.locale('it-IT');
@@ -223,10 +219,11 @@ export class SwPage implements OnInit {
     await alert.present();
 
     // se clicca fuori dall'alert questo lo riporta indietro
-    if (!disabledNav)
+    if (!disabledNav) {
       alert.onWillDismiss().then(() => {
         this.navCtrl.navigateBack('/' + destination);
       });
+    }
   }
 
   async presentAlertSWErroreUltimaSettimanaMesePrecedente() {
@@ -370,7 +367,7 @@ export class SwPage implements OnInit {
     for (let i = 0; i < this.selectedDays.length; i = i + 1) {
       const arrayDay = this.selectedDays[i].split('-');
 
-      if (arrayDay[2][0] == '0'){ 
+      if (arrayDay[2][0] == '0') {
         body['dates'].push({ anno: arrayDay[0], mese: arrayDay[1], giorno: arrayDay[2].replace('0', '') });
       } else {
         body['dates'].push({ anno: arrayDay[0], mese: arrayDay[1], giorno: arrayDay[2] });
