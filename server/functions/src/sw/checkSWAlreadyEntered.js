@@ -17,40 +17,42 @@ module.exports = async (request, response) => {
     var currentMonth = date.getMonth() + 1
 
     await db.collection('Dipendente')
-    .doc(uid).get().then( (doc) => {
+    .doc(uid).get().then( async (doc) => {
 
         if (doc.data().meseBloccato != undefined && doc.data().meseBloccato === (currentMonth + 1)) {
 
             return response.send({blocked: true, message: 'Non ti è permesso programmare lo Smart Working per il prossimo mese'})
             
-        }
-
-    }).catch(() => response.send({blocked: false}))
-
-    var next_month = (new Date()).getMonth() + 2
-    var year = (new Date()).getFullYear()
-    
-    if (next_month === 13) {
-        next_month = 1
-        year = year + 1
-    }
-
-    await db.collection('SmartWorking')
-    .where('dipendente', '==', uid)
-    .where('anno', '==', year + '')
-    .where('mese', '==', next_month + '')
-    .get().then( (snapshot) => {
-
-        if (snapshot.size != 0) {
-
-            return response.send({alreadyEntered: true})
-
         } else {
 
-            return response.send({alreadyEntered: false})
+            var next_month = (new Date()).getMonth() + 2
+            var year = (new Date()).getFullYear()
+            
+            if (next_month === 13) {
+                next_month = 1
+                year = year + 1
+            }
+        
+            await db.collection('SmartWorking')
+            .where('dipendente', '==', uid)
+            .where('anno', '==', year + '')
+            .where('mese', '==', next_month + '')
+            .get().then( (snapshot) => {
+        
+                if (snapshot.size != 0) {
+        
+                    return response.send({alreadyEntered: true})
+        
+                } else {
+        
+                    return response.send({alreadyEntered: false})
+        
+                }
+        
+            }).catch(() => {return response.send({alreadyEntered: false})})
 
         }
 
-    }).catch(() => response.send({alreadyEntered: false}))
+    }).catch(() => {return response.send({blocked: false})})
 
 };

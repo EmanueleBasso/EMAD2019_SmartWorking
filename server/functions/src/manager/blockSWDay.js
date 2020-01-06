@@ -14,7 +14,7 @@ module.exports = async(request, response) => {
 
     if (project === undefined || day === undefined || month === undefined || year === undefined) {
 
-        response.send({hasError: true, error: "There was an error"})
+        return response.send({hasError: true, error: "There was an error"})
         
     }
 

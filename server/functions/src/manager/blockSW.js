@@ -12,7 +12,7 @@ module.exports = async (request, response) => {
 
     if (uid === undefined) {
 
-        response.send({hasError: true, error: "There was an error"})
+        return response.send({hasError: true, error: "There was an error"})
         
     }
     

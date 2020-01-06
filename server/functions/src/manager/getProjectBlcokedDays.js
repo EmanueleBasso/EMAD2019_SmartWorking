@@ -5,17 +5,17 @@ const db = utils.db;
 module.exports = async(request, response) => {
 
     var project = request.query.project
+    var blockedDates = []
     
     response.append('Access-Control-Allow-Origin', ['*'])
 
     if (project === undefined) {
 
-        response.send({hasError: true, error: "Project undefined"})
+        return response.send({hasError: true, error: "Project undefined"})
         
     }
 
     var date = new Date()
-    var blockedDates = []
 
     await db.collection('GiorniBloccati').where('progetto', '==', project)
         .get()

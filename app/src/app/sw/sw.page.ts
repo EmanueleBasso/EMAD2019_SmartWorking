@@ -370,10 +370,20 @@ export class SwPage implements OnInit {
     for (let i = 0; i < this.selectedDays.length; i = i + 1) {
       const arrayDay = this.selectedDays[i].split('-');
 
-      if (arrayDay[2][0] == '0'){ 
-        body['dates'].push({ anno: arrayDay[0], mese: arrayDay[1], giorno: arrayDay[2].replace('0', '') });
+      if (arrayDay[2][0] == '0'){
+
+        if (arrayDay[1][0] == '0') 
+          body['dates'].push({ anno: arrayDay[0], mese: arrayDay[1].replace('0', ''), giorno: arrayDay[2].replace('0', '') });
+        else 
+          body['dates'].push({ anno: arrayDay[0], mese: arrayDay[1], giorno: arrayDay[2].replace('0', '') });
+
       } else {
-        body['dates'].push({ anno: arrayDay[0], mese: arrayDay[1], giorno: arrayDay[2] });
+
+        if (arrayDay[1][0] == '0') 
+          body['dates'].push({ anno: arrayDay[0], mese: arrayDay[1].replace('0', ''), giorno: arrayDay[2] });
+        else 
+          body['dates'].push({ anno: arrayDay[0], mese: arrayDay[1], giorno: arrayDay[2] });
+          
       }
     }
 
