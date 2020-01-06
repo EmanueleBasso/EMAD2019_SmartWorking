@@ -110,55 +110,80 @@ export class ProgettiPage implements OnInit {
   }
 
   async notifications(myEvent) {
-    const popover = await this.popoverCtrl.create({
-      component: NotificationsComponent,
-      event: myEvent,
-      animated: true,
-      translucent: true
-    });
+    this.loadingService.presentLoading('Aspetta...').then(() => {
+      const id = this.progettoSelezionato;
+      const url = 'https://europe-west1-smart-working-5f3ea.cloudfunctions.net/getProjectBlcokedDays';
 
-    await popover.present();
+      this.http.get(url + '?project=' + id).toPromise().then(async (response) => {
+        const hasError = response['hasError'];
 
-    (await popover).onDidDismiss().then((popoverData) => {
-      if ((popoverData.data === undefined) || (popoverData.data.scelta === 'annulla') || (popoverData.data.giorno === undefined)) {
-        return;
-      }
+        this.loadingService.dismissLoading();
 
-      const giornoArray = popoverData.data.giorno.split(' ');
+        if (hasError !== undefined) {
+          this.presentAlert('Attenzione', 'Si è verificato un errore. Provare a riaccedere alla pagina');
+        } else {
+          const days = [];
 
-      const day = giornoArray[1];
-      let month = 0;
-      switch (giornoArray[2]) {
-        case 'Gen': month = 1; break;
-        case 'Feb': month = 2; break;
-        case 'Mar': month = 3; break;
-        case 'Apr': month = 4; break;
-        case 'Mag': month = 5; break;
-        case 'Giu': month = 6; break;
-        case 'Lug': month = 7; break;
-        case 'Ago': month = 8; break;
-        case 'Set': month = 9; break;
-        case 'Ott': month = 10; break;
-        case 'Nov': month = 11; break;
-        case 'Dic': month = 12; break;
-      }
-      const year = giornoArray[3];
-
-      this.loadingService.presentLoading('Aspetta...');
-      const url = 'https://europe-west1-smart-working-5f3ea.cloudfunctions.net/blockSWDay';
-
-      this.http.get(url + '?project=' + this.progettoSelezionato + '&day=' + day + '&month=' + month + '&year=' + year)
-        .subscribe(response => {
-          this.loadingService.dismissLoading();
-
-          const hasError = response['hasError'];
-
-          if (hasError === true) {
-            this.presentAlert('Errore', 'Errore nel salvare la scelta');
-          } else {
-            this.presentAlert('Successo', 'Giorno bloccato con successo');
+          for (let i = 0; i < (response as []).length; i = i + 1) {
+            days.push({
+              date: new Date(parseInt(response[i].anno), parseInt(response[i].mese) - 1, parseInt(response[i].giorno)),
+              disable: true
+            });
           }
-        });
+
+          const popover = await this.popoverCtrl.create({
+            component: NotificationsComponent,
+            componentProps: {daysBlocked: days},
+            event: myEvent,
+            animated: true,
+            translucent: true
+          });
+
+          await popover.present();
+
+          (await popover).onDidDismiss().then((popoverData) => {
+            if ((popoverData.data === undefined) || (popoverData.data.scelta === 'annulla') || (popoverData.data.giorno === undefined)) {
+              return;
+            }
+
+            const giornoArray = popoverData.data.giorno.split(' ');
+
+            const day = giornoArray[1];
+            let month = 0;
+            switch (giornoArray[2]) {
+              case 'Gen': month = 1; break;
+              case 'Feb': month = 2; break;
+              case 'Mar': month = 3; break;
+              case 'Apr': month = 4; break;
+              case 'Mag': month = 5; break;
+              case 'Giu': month = 6; break;
+              case 'Lug': month = 7; break;
+              case 'Ago': month = 8; break;
+              case 'Set': month = 9; break;
+              case 'Ott': month = 10; break;
+              case 'Nov': month = 11; break;
+              case 'Dic': month = 12; break;
+            }
+            const year = giornoArray[3];
+
+            this.loadingService.presentLoading('Aspetta...');
+            const url = 'https://europe-west1-smart-working-5f3ea.cloudfunctions.net/blockSWDay';
+
+            this.http.get(url + '?project=' + this.progettoSelezionato + '&day=' + day + '&month=' + month + '&year=' + year)
+              .subscribe(response => {
+                this.loadingService.dismissLoading();
+
+                const hasError = response['hasError'];
+
+                if (hasError === true) {
+                  this.presentAlert('Errore', 'Errore nel salvare la scelta');
+                } else {
+                  this.presentAlert('Successo', 'Giorno bloccato con successo');
+                }
+              });
+          });
+        }
+      });
     });
   }
 

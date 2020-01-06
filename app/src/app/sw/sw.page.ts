@@ -10,7 +10,7 @@ import LoadingService from '../providers/loading.service';
   templateUrl: './sw.page.html',
   styleUrls: ['./sw.page.scss'],
 })
-export class SwPage implements OnInit{
+export class SwPage implements OnInit {
 
   private date: Date;
   private selectedDays: Array<string>;
@@ -30,7 +30,7 @@ export class SwPage implements OnInit{
   };
 
   constructor(private alertController: AlertController, private navCtrl: NavController,
-    private http: HttpClient, private loadingService: LoadingService, private menu: MenuController) { }
+              private http: HttpClient, private loadingService: LoadingService, private menu: MenuController) { }
 
   ngOnInit() {
     moment.locale('it-IT');
@@ -53,7 +53,7 @@ export class SwPage implements OnInit{
       dataFrom.setFullYear(dataFrom.getFullYear());
 
       let giorno = 31;
-      switch (dataFrom.getMonth() + 1) {
+      switch (dataFrom.getMonth()) {
         case 3:
         case 5:
         case 8:
@@ -74,8 +74,8 @@ export class SwPage implements OnInit{
       }
 
       dataTo.setDate(giorno);
-      dataTo.setMonth(dataTo.getMonth());
-      dataTo.setFullYear(dataTo.getFullYear(), dataTo.getMonth(), giorno);
+      dataTo.setMonth(dataTo.getMonth() + 1);
+      dataTo.setFullYear(dataTo.getFullYear());
       console.log("FROM giorno: " + dataFrom.getDate(), ", mese: " + dataFrom.getMonth() + ", anno: " + dataFrom.getFullYear());
       console.log("TO giorno: " + dataTo.getDate(), ", mese: " + dataTo.getMonth() + ", anno: " + dataTo.getFullYear());
     }
@@ -393,7 +393,8 @@ export class SwPage implements OnInit{
   }
 
   ionViewWillEnter() {
-    const giorno = this.date.getDate();
+    const giorno = 20;
+    //const giorno = this.date.getDate();
 
     if (giorno < 15) {
       this.presentAlertPrimaDel15(giorno);
