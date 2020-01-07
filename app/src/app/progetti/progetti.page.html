@@ -20,7 +20,7 @@
       </ion-button>
     </ion-item>
   </ion-card>
-  <ion-card [disabled]="!progettoSelezionato.length">
+  <ion-card>
     <ion-card-header class="ion-text-center" (swiperight)="handleSwipe()">
       <ion-label
         style="font-weight: bold;"
@@ -30,13 +30,15 @@
         Seleziona il giorno in cui visualizzare lo Smart Working
       </ion-label>
     </ion-card-header>
-    <ion-calendar
+      <ion-calendar
       (change)="onChange($event)"
       [options]="options"
       type="string"
       format="YYYY-MM-DD"
+      *ngIf="progettoSelezionato.length"
     >
     </ion-calendar>
+
   </ion-card>
   <ion-card *ngIf="visualizzareDipendenti" (swiperight)="handleSwipe()">
     <ion-card-header class="ion-text-center">
@@ -52,6 +54,23 @@
     <ion-list>
       <ion-item *ngFor="let item of items" lines="none">
         {{item.number}} {{item.title}}
+      </ion-item>
+    </ion-list>
+  </ion-card>
+
+  <ion-card *ngIf="!visualizzareDipendenti && progettoSelezionato.length" (swiperight)="handleSwipe()">
+    <ion-card-header class="ion-text-center">
+      <ion-label
+        style="font-weight: bold;"
+        color="primary"
+        class="ion-text-center"
+      >
+        Dipendenti in Smart Working
+      </ion-label>
+    </ion-card-header>
+    <ion-list>
+      <ion-item lines="none">
+        Selezionare un giorno
       </ion-item>
     </ion-list>
   </ion-card>

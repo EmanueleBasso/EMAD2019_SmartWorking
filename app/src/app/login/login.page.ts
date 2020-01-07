@@ -11,7 +11,7 @@ import { NgForm } from '@angular/forms';
   templateUrl: './login.page.html',
   styleUrls: ['./login.page.scss'],
 })
-export class LoginPage implements OnInit{
+export class LoginPage implements OnInit {
 
   constructor(private loadingService: LoadingService, private alertController: AlertController,
     private authService: AuthService, private navCtrl: NavController, private menu: MenuController) { }
@@ -24,10 +24,10 @@ export class LoginPage implements OnInit{
     const alert = await this.alertController.create({
       header: 'Credenziali non valide!',
       message: 'Inserire credenziali valide',
+      cssClass: 'alertClass2',
       buttons: [{
         text: 'OK',
-      }
-      ]
+      }]
     });
     await alert.present();
   }
@@ -36,10 +36,10 @@ export class LoginPage implements OnInit{
     const alert = await this.alertController.create({
       header: 'Autenticazione non riuscita!',
       message: 'Credenziali non corrette',
+      cssClass: 'alertClass2',
       buttons: [{
         text: 'OK'
-      }
-      ]
+      }]
     });
 
     await alert.present();

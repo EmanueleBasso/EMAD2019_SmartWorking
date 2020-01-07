@@ -37,7 +37,7 @@ export class ProgettiPage implements OnInit {
         const hasError = response['hasError'];
 
         if (hasError !== undefined) {
-          this.presentAlert('Attenzione', 'Si è verificato un errore. Provare a riaccedere alla pagina');
+          this.presentAlert3('Attenzione', 'Si è verificato un errore. Provare a riaccedere alla pagina');
           return;
         }
 
@@ -58,6 +58,37 @@ export class ProgettiPage implements OnInit {
   async presentAlert(header, message) {
     const alert = await this.alertController.create({
       header: header,
+      cssClass: 'alertClass',
+      message: message,
+      buttons: [
+        {
+          text: 'OK'
+        }
+      ]
+    });
+    await alert.present();
+  }
+
+  //Css danger
+  async presentAlert2(header, message) {
+    const alert = await this.alertController.create({
+      header: header,
+      cssClass: 'alertClass2',
+      message: message,
+      buttons: [
+        {
+          text: 'OK'
+        }
+      ]
+    });
+    await alert.present();
+  }
+
+  //Css warning
+  async presentAlert3(header, message) {
+    const alert = await this.alertController.create({
+      header: header,
+      cssClass: 'alertClass3',
       message: message,
       buttons: [
         {
@@ -77,7 +108,7 @@ export class ProgettiPage implements OnInit {
         {
           text: 'Indietro',
           role: 'cancel',
-          cssClass: 'alertDanger',
+          cssClass: 'alertMedium',
         }, {
           text: 'Conferma',
           handler: (res) => {
@@ -118,7 +149,7 @@ export class ProgettiPage implements OnInit {
         this.loadingService.dismissLoading();
 
         if (hasError !== undefined) {
-          this.presentAlert('Attenzione', 'Si è verificato un errore. Provare a riaccedere alla pagina');
+          this.presentAlert3('Attenzione', 'Si è verificato un errore. Provare a riaccedere alla pagina');
         } else {
           const days = [];
 
@@ -175,7 +206,7 @@ export class ProgettiPage implements OnInit {
                 const hasError = response['hasError'];
 
                 if (hasError === true) {
-                  this.presentAlert('Errore', 'Errore nel salvare la scelta');
+                  this.presentAlert2('Errore', 'Errore nel salvare la scelta');
                 } else {
                   this.presentAlert('Successo', 'Giorno bloccato con successo');
                 }
@@ -211,7 +242,7 @@ export class ProgettiPage implements OnInit {
 
         if (hasError !== undefined) {
           this.loadingService.dismissLoading();
-          this.presentAlert('Attenzione', 'Si è verificato un errore. Provare a riaccedere alla pagina');
+          this.presentAlert3('Attenzione', 'Si è verificato un errore. Provare a riaccedere alla pagina');
           return;
         }
 
