@@ -248,6 +248,19 @@ export class SwPage implements OnInit {
     await alert.present();
   }
 
+  async presentAlertGiorniBloccati(giorni) {
+    const alert = await this.alertController.create({
+      header: 'Errore',
+      message: 'I seguenti giorni sono stati bloccati: ' + giorni + '. Rivedi le tue scelte',
+      buttons: [
+        {
+          text: 'OK'
+        }
+      ]
+    });
+    await alert.present();
+  }
+
   onClickPrenotaSW() {
     if ((this.selectedDays === undefined) || (this.selectedDays.length === 0)) {
       return;
@@ -397,9 +410,26 @@ export class SwPage implements OnInit {
     this.http.post(url, JSON.stringify(body)).subscribe(response => {
       const hasError = response['hasError'];
       const error = response['error'];
+      const areBlockedDays = response['areBlockedDays'];
 
       this.loadingService.dismissLoading();
-      if (hasError === false) {
+
+      if (areBlockedDays !== undefined) {
+        let giorni = '';
+        const dates = response['dates'] as [];
+
+        for(let i = 0; i < dates.length; i = i + 1) {
+          const date = dates[i]['giorno'] + '/' + dates[i]['mese'] + '/' + dates[i]['anno'];
+
+          giorni += date;
+
+          if (i < (dates.length - 1)) {
+            giorni += ', ';
+          }
+        }
+
+        this.presentAlertGiorniBloccati(giorni);
+      } else if (hasError === false) {
         this.presentAlertSWSalvatoCorrettamente();
       } else {
         this.presentAlertSWErrore(error, '', true);
