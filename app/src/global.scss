@@ -49,7 +49,7 @@
     color: var(--ion-color-primary) !important;
     text-align: center !important;
   }
-  .alertDanger {
+  .alertMedium {
     color: var(--ion-color-medium) !important;
   }
 
@@ -57,8 +57,43 @@
     color: var(--ion-color-secondary) !important;
   }
 
-  /*.alert-message {
-    color: white !important;
+  .alertDanger {
+    color: var(--ion-color-danger) !important;
+  }
+  .alert-message {
+    color: black !important;
     text-align: center !important;
-  }*/
+  }
+}
+
+.alertClass2 {
+  .alert-title {
+    color: var(--ion-color-danger) !important;
+    text-align: center !important;
+  }
+
+  .alertConfirm {
+    color: var(--ion-color-secondary) !important;
+  }
+
+  .alert-message {
+    color: black !important;
+    text-align: center !important;
+  }
+}
+
+.alertClass3 {
+  .alert-title {
+    color: var(--ion-color-warning) !important;
+    text-align: center !important;
+  }
+
+  .alertConfirm {
+    color: var(--ion-color-secondary) !important;
+  }
+
+  .alert-message {
+    color: black !important;
+    text-align: center !important;
+  }
 }

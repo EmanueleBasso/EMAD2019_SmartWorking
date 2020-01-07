@@ -9,8 +9,8 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-  <ion-card (swiperight)="handleSwipe()">
+<ion-content (swiperight)="handleSwipe()">
+  <ion-card>
     <ion-item lines="none">
       <ion-label color="primary">
         Seleziona un progetto
@@ -155,7 +155,12 @@
             </ion-col>
             <ion-col>
               <ion-item lines="none">
-                <ion-radio value="abilita1" checked class="ion-margin-end" color="success">
+                <ion-radio
+                  value="abilita1"
+                  checked
+                  class="ion-margin-end"
+                  color="success"
+                >
                 </ion-radio>
                 <ion-label class="ion-no-margin" color="success"
                   >Abilita</ion-label
@@ -191,7 +196,12 @@
             </ion-col>
             <ion-col>
               <ion-item lines="none">
-                <ion-radio value="abilita2" checked class="ion-margin-end" color="success">
+                <ion-radio
+                  value="abilita2"
+                  checked
+                  class="ion-margin-end"
+                  color="success"
+                >
                 </ion-radio>
                 <ion-label class="ion-no-margin" color="success"
                   >Abilita</ion-label

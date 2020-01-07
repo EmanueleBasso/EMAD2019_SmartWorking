@@ -34,7 +34,7 @@ export class HomePage implements OnInit {
     // showToggleButtons: false,
   };
 
-  constructor(private modalCtrl: ModalController, private menu: MenuController) {  }
+  constructor(private modalCtrl: ModalController, private menu: MenuController) { }
 
   ngOnInit() {
     this.menu.enable(true);
@@ -53,7 +53,7 @@ export class HomePage implements OnInit {
       this._daysConfig.push({
         date: new Date(2020, i, i + 1),
         disable: true,
-        subTitle: 'preso', // al massimo 7 lettere altrimenti graficamente è brutto
+        subTitle: 'bloccato', // al massimo 8 lettere altrimenti graficamente è brutto
       });
     }
   }

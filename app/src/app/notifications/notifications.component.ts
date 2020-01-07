@@ -15,12 +15,12 @@ export class NotificationsComponent implements OnInit {
   titoloNotifica: string;
   giornoSelezionato: string;
   private bottoneCliccato: string;
+  private posto: string;
+  private selectedDays: Array<string> = [];
 
   type: Date; // 'string' | 'js-date' | 'moment' | 'time' | 'object'
   options: CalendarComponentOptions = {
     color: 'danger',
-    // showMonthPicker: false,
-    // showToggleButtons: false,
   };
   day: string;
 
@@ -28,36 +28,43 @@ export class NotificationsComponent implements OnInit {
 
   ngOnInit() {
     this.options.daysConfig = this.navParams.get('daysBlocked');
+    this.options.pickMode = this.navParams.get('pickMode');
+    this.posto = this.navParams.get('posto');
 
     moment.locale('it-IT');
 
-    const date: Date = new Date();
-    switch (date.getDay()) {
-      case 1: this.nomeGiorno = 'Lun'; break;
-      case 2: this.nomeGiorno = 'Mar'; break;
-      case 3: this.nomeGiorno = 'Mer'; break;
-      case 4: this.nomeGiorno = 'Gio'; break;
-      case 5: this.nomeGiorno = 'Ven'; break;
-      case 6: this.nomeGiorno = 'Sab'; break;
-      case 7: this.nomeGiorno = 'Dom'; break;
-    }
+    if (this.posto == null) {
+      const date: Date = new Date();
+      switch (date.getDay()) {
+        case 1: this.nomeGiorno = 'Lun'; break;
+        case 2: this.nomeGiorno = 'Mar'; break;
+        case 3: this.nomeGiorno = 'Mer'; break;
+        case 4: this.nomeGiorno = 'Gio'; break;
+        case 5: this.nomeGiorno = 'Ven'; break;
+        case 6: this.nomeGiorno = 'Sab'; break;
+        case 7: this.nomeGiorno = 'Dom'; break;
+      }
 
-    switch (date.getMonth() + 1) {
-      case 1: this.nomeMese = 'Gen'; break;
-      case 2: this.nomeMese = 'Feb'; break;
-      case 3: this.nomeMese = 'Mar'; break;
-      case 4: this.nomeMese = 'Apr'; break;
-      case 5: this.nomeMese = 'Mag'; break;
-      case 6: this.nomeMese = 'Giu'; break;
-      case 7: this.nomeMese = 'Lug'; break;
-      case 8: this.nomeMese = 'Ago'; break;
-      case 9: this.nomeMese = 'Set'; break;
-      case 10: this.nomeMese = 'Ott'; break;
-      case 11: this.nomeMese = 'Nov'; break;
-      case 12: this.nomeMese = 'Dic'; break;
-    }
+      switch (date.getMonth() + 1) {
+        case 1: this.nomeMese = 'Gen'; break;
+        case 2: this.nomeMese = 'Feb'; break;
+        case 3: this.nomeMese = 'Mar'; break;
+        case 4: this.nomeMese = 'Apr'; break;
+        case 5: this.nomeMese = 'Mag'; break;
+        case 6: this.nomeMese = 'Giu'; break;
+        case 7: this.nomeMese = 'Lug'; break;
+        case 8: this.nomeMese = 'Ago'; break;
+        case 9: this.nomeMese = 'Set'; break;
+        case 10: this.nomeMese = 'Ott'; break;
+        case 11: this.nomeMese = 'Nov'; break;
+        case 12: this.nomeMese = 'Dic'; break;
+      }
 
-    this.titoloNotifica = this.nomeGiorno + ' ' + date.getDate() + ' ' + this.nomeMese + ' ' + date.getFullYear();
+      this.titoloNotifica = this.nomeGiorno + ' ' + date.getDate() + ' ' + this.nomeMese + ' ' + date.getFullYear();
+    }
+    else {
+      this.titoloNotifica = "Posto n°" + this.posto;
+    }
   }
 
   onChange($event) {
@@ -86,8 +93,15 @@ export class NotificationsComponent implements OnInit {
       case 'Nov': this.nomeMese = 'Nov'; break;
       case 'Dec': this.nomeMese = 'Dic'; break;
     }
-    this.titoloNotifica = this.nomeGiorno + ' ' + split[2] + ' ' + this.nomeMese + ' ' + split[3];
-    this.giornoSelezionato = this.titoloNotifica;
+
+    if (this.posto == null) {
+      this.titoloNotifica = this.nomeGiorno + ' ' + split[2] + ' ' + this.nomeMese + ' ' + split[3];
+      this.giornoSelezionato = this.titoloNotifica;
+    }
+    else {
+      this.selectedDays = $event;
+    }
+    console.log(this.selectedDays);
   }
 
   onClickNotification(str: string) {

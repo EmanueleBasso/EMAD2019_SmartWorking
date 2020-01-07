@@ -24,7 +24,13 @@
       format="YYYY-MM-DD"
     >
     </ion-calendar>
-    <ion-button expand="block" (click)="onClickPrenotaSW()">
+    <ion-button
+      expand="block"
+      (click)="onClickPrenotaSW()"
+      (swiperight)="handleSwipe()"
+      [color]="selectedDays.length ? 'primary' : 'medium'"
+      [disabled]="!selectedDays.length"
+    >
       Pianifica
     </ion-button>
   </ion-card>
