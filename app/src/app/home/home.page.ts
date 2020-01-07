@@ -17,7 +17,7 @@ export class HomePage implements OnInit {
   public items: Array<{ title: string; icon: string, note: string; }> = [];
   private giorni: string[];
   private num: number;
-  click: boolean = false;
+  public click: boolean = false;
   private haPrenotatoPosto = false;
   private _daysConfig: DayConfig[] = [];
 

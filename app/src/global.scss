@@ -49,20 +49,8 @@
     color: var(--ion-color-primary) !important;
     text-align: center !important;
   }
-  .alertMedium {
-    color: var(--ion-color-medium) !important;
-  }
-
   .alertConfirm {
     color: var(--ion-color-secondary) !important;
-  }
-
-  .alertDanger {
-    color: var(--ion-color-danger) !important;
-  }
-  .alert-message {
-    color: black !important;
-    text-align: center !important;
   }
 }
 
@@ -71,14 +59,11 @@
     color: var(--ion-color-danger) !important;
     text-align: center !important;
   }
-
-  .alertConfirm {
-    color: var(--ion-color-secondary) !important;
+  .alertMedium {
+    color: var(--ion-color-dark) !important;
   }
-
-  .alert-message {
-    color: black !important;
-    text-align: center !important;
+  .alertConfirm {
+    color: var(--ion-color-danger) !important;
   }
 }
 
@@ -87,13 +72,12 @@
     color: var(--ion-color-warning) !important;
     text-align: center !important;
   }
-
   .alertConfirm {
     color: var(--ion-color-secondary) !important;
   }
+}
 
-  .alert-message {
-    color: black !important;
-    text-align: center !important;
-  }
+.alert-message {
+  color: black !important;
+  text-align: center !important;
 }
