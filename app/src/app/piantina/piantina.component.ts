@@ -13,7 +13,7 @@ export class PiantinaComponent {
 
   // VARIABILI MAPPA SVG
   private nodeZoom;
-  private zoomValue = 0.2;
+  private zoomValue = 0.4;
 
   // CALENDARIO
   private _daysConfig: DayConfig[] = [];
