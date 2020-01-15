@@ -14,7 +14,6 @@ export class PiantinaComponent {
   // VARIABILI MAPPA SVG
   private nodeZoom;
   private zoomValue = 0.2;
-  private debug;
 
   // CALENDARIO
   private _daysConfig: DayConfig[] = [];
@@ -34,28 +33,27 @@ export class PiantinaComponent {
 
   ionViewDidEnter() {
     this.nodeZoom = document.querySelector('#oggettoSVG') as HTMLElement;
-    this.debug = document.querySelector('#mahnz') as HTMLElement;
     this.nodeZoom.style.zoom = this.zoomValue + '';
   }
 
   // FUNZIONE ZOOM MAPPA SVG
   public zoomIn(value, precision) {
-    if (this.zoomValue < 1) {
+    if (this.zoomValue < 1.2) {
       this.zoomValue = Number((this.zoomValue + value).toFixed(precision));
       this.nodeZoom.style.zoom = this.zoomValue + '';
     }
-    if (this.zoomValue >= 1) {
-      this.zoomValue = 1;
+    if (this.zoomValue >= 1.2) {
+      this.zoomValue = 1.2;
       this.nodeZoom.style.zoom = this.zoomValue + '';
     }
   }
   public zoomOut(value, precision) {
-    if (this.zoomValue > 0.2) {
+    if (this.zoomValue > 0.4) {
       this.zoomValue = Number((this.zoomValue - value).toFixed(precision));
       this.nodeZoom.style.zoom = this.zoomValue + '';
     }
-    if (this.zoomValue <= 0.2) {
-      this.zoomValue = 0.2;
+    if (this.zoomValue <= 0.4) {
+      this.zoomValue = 0.4;
       this.nodeZoom.style.zoom = this.zoomValue + '';
     }
   }
@@ -65,13 +63,11 @@ export class PiantinaComponent {
     this.menu.open();
   }
 
-  onPinch(event: any): void {
+  // Pinch per l'immagine
+  handlePinch(event: any): void {
     if (event.scale < 1.0) {
-      // User moved fingers closer together
       this.zoomOut(event.scale / 100, 3);
-      this.debug.innerHTML = event.scale / 1000;
     } else if (event.scale > 1.0) {
-      this.debug.innerHTML = event.scale / 1000;
       this.zoomIn(event.scale / 1000, 3);
     }
   }

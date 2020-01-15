@@ -50,7 +50,7 @@
         <ion-icon name="remove"></ion-icon>
       </ion-button>
     </div>
-    <div class="divSVG" (pinch)="onPinch($event)">
+    <div class="divSVG" (pinch)="handlePinch($event)">
       <object
         data="../../../assets/planimetria.svg"
         id="oggettoSVG"
@@ -59,11 +59,7 @@
     </div>
   </ion-card>
 
-  <div>
-    <label id="mahnz">Cosa c'è scritto</label>
-  </div>
-
-  <ion-card (swiperight)="handleSwipe()">
+  <ion-card (swiperight)="handleSwipe()" (pinch)="handlePinch($event)">
     <ion-card-header>
       <ion-card-title class="ion-text-center">
         <ion-icon ios="ios-hand" md="md-hand" color="warning"></ion-icon>
