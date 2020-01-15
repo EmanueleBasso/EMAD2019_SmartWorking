@@ -10,31 +10,63 @@
 </ion-header>
 
 <ion-content>
-
-  <ion-card>
-    <ion-item>
-      <ion-label><b>Scegli il piano</b></ion-label>
-      <ion-button slot="end" (click)="mostraPiano()" fill="outline">Lista progetti</ion-button>
+  <ion-card (swiperight)="handleSwipe()">
+    <ion-item lines="full">
+      <ion-label color="primary">
+        Scegli il piano
+      </ion-label>
+      <ion-button (click)="mostraPiano()" fill="outline" color="tertiary">
+        Lista progetti
+      </ion-button>
     </ion-item>
     <ion-item lines="none">
-      <ion-label><b>Scegli la stanza</b></ion-label>
-      <ion-button slot="end" (click)="mostraStanza()" fill="outline">Lista progetti</ion-button>
+      <ion-label color="primary">
+        Scegli la stanza
+      </ion-label>
+      <ion-button (click)="mostraPiano()" fill="outline" color="tertiary">
+        Lista progetti
+      </ion-button>
     </ion-item>
   </ion-card>
 
   <ion-card>
-    <div class="divSVG" (click)="apriCalendarioPrenotaPosto($event)">
-      <object data="../../../assets/planimetria.svg" class="oggettoSVG" (click)="changeOpacity()"
-        type="image/svg+xml"></object>
+    <div class="divZoomButton">
+      <ion-button
+        (click)="zoomIn(0.2, 1)"
+        fill="outline"
+        size="small"
+        [color]="zoomValue < 1 ? 'secondary' : 'medium'"
+        [disabled]="zoomValue >= 1"
+      >
+        <ion-icon name="add"></ion-icon>
+      </ion-button>
+      <ion-button
+        (click)="zoomOut(0.2, 1)"
+        fill="outline"
+        size="small"
+        [color]="zoomValue > 0.2 ? 'secondary' : 'medium'"
+        [disabled]="zoomValue <= 0.2"
+      >
+        <ion-icon name="remove"></ion-icon>
+      </ion-button>
     </div>
-    <ion-button expand="block" (click)="zoomIn()">Zoom in</ion-button>
-    <ion-button expand="block" (click)="zoomOut()">Zoom out</ion-button>
+    <div class="divSVG" (pinch)="onPinch($event)">
+      <object
+        data="../../../assets/planimetria.svg"
+        id="oggettoSVG"
+        type="image/svg+xml"
+      ></object>
+    </div>
   </ion-card>
 
-  <ion-card>
+  <div>
+    <label id="mahnz">Cosa c'è scritto</label>
+  </div>
+
+  <ion-card (swiperight)="handleSwipe()">
     <ion-card-header>
       <ion-card-title class="ion-text-center">
-        <ion-icon ios="ios-hand" md="md-hand"></ion-icon>
+        <ion-icon ios="ios-hand" md="md-hand" color="warning"></ion-icon>
         <br />
         Seleziona una postazione e scegli i giorni in cui vuoi prenotare quel
         posto.

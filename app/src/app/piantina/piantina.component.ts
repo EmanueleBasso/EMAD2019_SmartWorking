@@ -1,4 +1,5 @@
-import { AlertController } from '@ionic/angular';
+import * as Hammer from 'hammerjs';
+import { AlertController, MenuController } from '@ionic/angular';
 
 import { Component } from '@angular/core';
 import { DayConfig, CalendarComponentOptions } from 'ion2-calendar';
@@ -10,19 +11,17 @@ import { DayConfig, CalendarComponentOptions } from 'ion2-calendar';
 })
 export class PiantinaComponent {
 
+  // VARIABILI MAPPA SVG
   private nodeZoom;
-  private zoomValue;
+  private zoomValue = 0.2;
+  private debug;
 
-  //CALENDARIO
+  // CALENDARIO
   private _daysConfig: DayConfig[] = [];
   private _color: string = 'primary';
 
-  constructor(public alertController: AlertController) {
-  }
+  constructor(private alertController: AlertController, private menu: MenuController) {
 
-  ionViewWillEnter(){
-    this.nodeZoom = document.querySelector('.oggettoSVG') as HTMLElement;
-    this.zoomValue = +this.nodeZoom.style.zoom;
   }
 
   options: CalendarComponentOptions = {
@@ -33,27 +32,47 @@ export class PiantinaComponent {
     daysConfig: this._daysConfig,
   };
 
-  //FUNZIONE ZOOM MAPPA
-  private zoomIn() {
-    if(this.zoomValue >= 1.5 ){
-      //disable +
-      //node['disabled'] = true;
+  ionViewDidEnter() {
+    this.nodeZoom = document.querySelector('#oggettoSVG') as HTMLElement;
+    this.debug = document.querySelector('#mahnz') as HTMLElement;
+    this.nodeZoom.style.zoom = this.zoomValue + '';
+  }
+
+  // FUNZIONE ZOOM MAPPA SVG
+  public zoomIn(value, precision) {
+    if (this.zoomValue < 1) {
+      this.zoomValue = Number((this.zoomValue + value).toFixed(precision));
+      this.nodeZoom.style.zoom = this.zoomValue + '';
     }
-    else{
-      //enable -
-      this.zoomValue = this.zoomValue + 0.2;
+    if (this.zoomValue >= 1) {
+      this.zoomValue = 1;
       this.nodeZoom.style.zoom = this.zoomValue + '';
     }
   }
-  private zoomOut(){
-    if(this.zoomValue <= 0.3 ){
-      //disable +
-      //node['disabled'] = true;
-    }
-    else{
-      //enable -
-      this.zoomValue = this.zoomValue - 0.2;
+  public zoomOut(value, precision) {
+    if (this.zoomValue > 0.2) {
+      this.zoomValue = Number((this.zoomValue - value).toFixed(precision));
       this.nodeZoom.style.zoom = this.zoomValue + '';
+    }
+    if (this.zoomValue <= 0.2) {
+      this.zoomValue = 0.2;
+      this.nodeZoom.style.zoom = this.zoomValue + '';
+    }
+  }
+
+  // Swipe per il menu laterale
+  handleSwipe() {
+    this.menu.open();
+  }
+
+  onPinch(event: any): void {
+    if (event.scale < 1.0) {
+      // User moved fingers closer together
+      this.zoomOut(event.scale / 100, 3);
+      this.debug.innerHTML = event.scale / 1000;
+    } else if (event.scale > 1.0) {
+      this.debug.innerHTML = event.scale / 1000;
+      this.zoomIn(event.scale / 1000, 3);
     }
   }
 

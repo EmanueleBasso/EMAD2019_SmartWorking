@@ -53,7 +53,7 @@ export class LoginPage implements OnInit {
       const email = form.value.email;
       const password = form.value.password;
       let yourEmail: string = '';
-      console.log(email, password);
+      // console.log(email, password);
 
       if (!password || !email) {
         // email o password non inserita
