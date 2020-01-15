@@ -1,0 +1,44 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>
+      Prenota Posto
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-card>
+    <ion-item>
+      <ion-label><b>Scegli il piano</b></ion-label>
+      <ion-button slot="end" (click)="mostraPiano()" fill="outline">Lista progetti</ion-button>
+    </ion-item>
+    <ion-item lines="none">
+      <ion-label><b>Scegli la stanza</b></ion-label>
+      <ion-button slot="end" (click)="mostraStanza()" fill="outline">Lista progetti</ion-button>
+    </ion-item>
+  </ion-card>
+
+  <ion-card>
+    <div class="divSVG" (click)="apriCalendarioPrenotaPosto($event)">
+      <object data="../../../assets/planimetria.svg" class="oggettoSVG" (click)="changeOpacity()"
+        type="image/svg+xml"></object>
+    </div>
+    <ion-button expand="block" (click)="zoomIn()">Zoom in</ion-button>
+    <ion-button expand="block" (click)="zoomOut()">Zoom out</ion-button>
+  </ion-card>
+
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title class="ion-text-center">
+        <ion-icon ios="ios-hand" md="md-hand"></ion-icon>
+        <br />
+        Seleziona una postazione e scegli i giorni in cui vuoi prenotare quel
+        posto.
+      </ion-card-title>
+    </ion-card-header>
+  </ion-card>
+</ion-content>

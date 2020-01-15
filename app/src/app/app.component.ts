@@ -31,7 +31,7 @@ export class AppComponent {
     },
     {
       title: 'Prenota Posto',
-      url: '/prenotaPosto',
+      url: '/piantina',
       icon: 'map'
     }
   ];

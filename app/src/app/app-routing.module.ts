@@ -37,8 +37,12 @@ const routes: Routes = [
     path: 'calendario-dipendenti',
     loadChildren: './calendario-dipendenti/calendario-dipendenti.module#CalendarioDipendentiPageModule',
     canLoad: [AuthGuard]
+  },
+  {
+    path: 'piantina',
+    loadChildren: './piantina/piantina.module#PiantinaModule',
+    canLoad: [AuthGuard]
   }
-
 ];
 
 @NgModule({
