@@ -1,9 +1,63 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>formProgetti</ion-title>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>
+      Inserisci un nuovo progetto
+    </ion-title>
   </ion-toolbar>
 </ion-header>
+<body>
+<ion-content  padding>
 
-<ion-content>
+  <div style="margin-top:5%">
+  <ion-card padding>
+  <ion-card-header>
+              <ion-card-title>
+                  <ion-item lines="none" style=" font-size: 50px; " text-center>
+                       <ion-icon name="document" color="primary"  style=" font-size: 50px; "></ion-icon>  <ion-label color="primary" padding>Inserisci un nuovo progetto</ion-label>
+                    </ion-item>
+              </ion-card-title> 
+                </ion-card-header>
+    
+    <form #f="ngForm" (ngSubmit)="onSubmit(f)">
+       <ion-col  size-lg="4" offset-lg="4" size-md="6" offset-md="3">
+              <ion-list >
+               
+                <ion-item  class="input-item">
+                
+                
+                   
+                  <ion-input color=primary placeholder="Enter Scope..."></ion-input>
+                  
+                </ion-item>
+                <ion-item  class="input-item">
+              
+                    <ion-input color=primary placeholder="Enter Description..."></ion-input>
+                  
+                </ion-item>
+                <ion-item  class="input-item">
+                  
+                    <ion-input color=primary placeholder="Enter Manager..."></ion-input>
+                  
+                </ion-item>
+               
+                 <ion-item>
+                    <ion-label>State</ion-label>
+                    <ion-toggle slot="start" name="manager" checked></ion-toggle>
+                </ion-item>
+                
+              </ion-list>
+            </ion-col>
+      <ion-button  type="submit"  expand="block" class="ion-margin">  Inserisci </ion-button>                   
+    </form>
+
+      
+   
+      </ion-card>   
+  </div>
+
 
 </ion-content>
+</body>

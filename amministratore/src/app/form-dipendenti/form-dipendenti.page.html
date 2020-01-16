@@ -8,48 +8,60 @@
     </ion-title>
   </ion-toolbar>
 </ion-header>
-
+<body>
 <ion-content  padding>
 
-  <div>
- 
+  <div style="margin-top:5%">
+  <ion-card padding>
+  <ion-card-header>
+              <ion-card-title>
+                  <ion-item lines="none" style=" font-size: 50px; " text-center>
+                       <ion-icon name="people" color="primary"  style=" font-size: 50px; "></ion-icon><ion-label color="primary" padding> Inserisci un nuovo dipendnete</ion-label>
+                    </ion-item>
+              </ion-card-title> 
+                </ion-card-header>
+    
     <form #f="ngForm" (ngSubmit)="onSubmit(f)">
-       <ion-col size-lg="4" offset-lg="4" size-md="6" offset-md="3">
-              <ion-list>
+       <ion-col  size-lg="4" offset-lg="4" size-md="6" offset-md="3">
+              <ion-list >
+               
                 <ion-item  class="input-item">
-                  <ion-label>Nome</ion-label>
-                    <ion-input placeholder="Enter input..."></ion-input>
+                
+                
+                   
+                  <ion-input color=primary placeholder="Enter Name..."></ion-input>
                   
                 </ion-item>
                 <ion-item  class="input-item">
-                  <ion-label>Cognome</ion-label>
-                    <ion-input placeholder="Enter input..."></ion-input>
+              
+                    <ion-input color=primary placeholder="Enter Surname..."></ion-input>
                   
                 </ion-item>
                 <ion-item  class="input-item">
-                  <ion-label>E-mail</ion-label>
-                    <ion-input placeholder="Enter input..."></ion-input>
+                  
+                    <ion-input color=primary placeholder="Enter E-mail..."></ion-input>
                   
                 </ion-item>
                 <ion-item  class="input-item">
-                  <ion-label>Password</ion-label>
-                    <ion-input placeholder="Enter input..."></ion-input>
+                 
+                    <ion-input color=primary placeholder="Enter Password..."></ion-input>
                   
                 </ion-item>
                  <ion-item>
                     <ion-label>Manager</ion-label>
-                    <ion-toggle ></ion-toggle>
-                    </ion-item>
+                    <ion-toggle slot="start" name="manager" checked></ion-toggle>
+                </ion-item>
                 
               </ion-list>
             </ion-col>
-      <ion-button type="submit" block>Inserisci</ion-button>                   
+      <ion-button  type="submit"  expand="block" class="ion-margin">  Inserisci </ion-button>                   
     </form>
 
       
    
-        
+      </ion-card>   
   </div>
 
 
 </ion-content>
+</body>
