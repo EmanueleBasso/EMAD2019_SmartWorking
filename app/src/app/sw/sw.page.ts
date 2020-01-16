@@ -1,4 +1,4 @@
-import { CalendarComponentOptions, DayConfig } from 'ion2-calendar';
+import { CalendarComponentOptions } from 'ion2-calendar';
 import { AlertController, NavController, MenuController } from '@ionic/angular';
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
@@ -14,7 +14,6 @@ export class SwPage implements OnInit {
 
   private date: Date;
   private selectedDays: Array<string> = [];
-  private _daysConfig: DayConfig[] = [];
   private _color: string = 'primary';
 
   options: CalendarComponentOptions = {
@@ -22,7 +21,6 @@ export class SwPage implements OnInit {
     showMonthPicker: false,
     pickMode: 'multi',
     showToggleButtons: true,
-    daysConfig: this._daysConfig,
   };
 
   constructor(private alertController: AlertController, private navCtrl: NavController,
@@ -251,6 +249,7 @@ export class SwPage implements OnInit {
   async presentAlertGiorniBloccati(giorni) {
     const alert = await this.alertController.create({
       header: 'Errore',
+      cssClass: 'alertClass2',
       message: 'I seguenti giorni sono stati bloccati: ' + giorni + '. Rivedi le tue scelte',
       buttons: [
         {
