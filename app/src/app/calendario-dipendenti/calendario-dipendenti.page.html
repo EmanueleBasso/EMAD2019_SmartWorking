@@ -21,7 +21,24 @@
     </ion-item>
   </ion-card>
 
-  <ion-card>
+  <ion-card *ngIf="!progettoSelezionato.length">
+    <ion-card-header class="ion-text-center">
+      <ion-label
+        style="font-weight: bold;"
+        color="primary"
+        class="ion-text-center"
+      >
+        Lista dipendenti
+      </ion-label>
+    </ion-card-header>
+    <ion-list>
+      <ion-item lines="none">
+        Selezionare un progetto
+      </ion-item>
+    </ion-list>
+  </ion-card>
+
+  <ion-card *ngIf="progettoSelezionato.length">
     <ion-card-header class="ion-text-center">
       <ion-label
         style="font-weight: bold;"
@@ -33,26 +50,22 @@
     </ion-card-header>
 
     <ion-list>
-      <ion-item lines="none" *ngFor="let item of items">
-        <div>
+      <ion-item lines="full" *ngFor="let item of items">
+        <div style="width: 100%;">
           <div class="riga1">
-            <ion-grid class="ion-no-padding">
-              <ion-row class="ion-align-items-center">
-                <ion-col size="8">
-                  {{item.number}}) {{item.nome}} {{item.cognome}}
-                </ion-col>
-                <ion-col size="4">
-                  <ion-button
-                    (click)="onClickDettagliSW(item.number - 1)"
-                    fill="outline"
-                    color="tertiary"
-                    style="float: right;"
-                  >
-                    Dettagli
-                  </ion-button>
-                </ion-col>
-              </ion-row>
-            </ion-grid>
+            <ion-item lines="none" class="ion-no-padding" id="riga1">
+              <ion-label>
+                {{item.number}}) {{item.nome}} {{item.cognome}}
+              </ion-label>
+              <ion-button
+                (click)="onClickDettagliSW(item.number - 1)"
+                fill="outline"
+                slot="end"
+                color="tertiary"
+              >
+                Dettagli
+              </ion-button>
+            </ion-item>
           </div>
           <div class="riga2">
             <ion-grid class="ion-no-padding" *ngIf="click[item.number - 1]">
@@ -68,11 +81,11 @@
               </ion-col>
               <ion-col>
                 <ion-button
-                  class="ion-padding"
                   (click)="onClickBloccaSW(item.uid, item.nome, item.cognome, item.number - 1)"
                   expand="block"
                   [disabled]="impedisciSW[item.number - 1]"
                   [color]="impedisciSW[item.number - 1] ? 'medium' : 'danger'"
+                  style="height: 35px;"
                 >
                   Impedisci SW
                 </ion-button>
@@ -81,7 +94,6 @@
           </div>
         </div>
       </ion-item>
-      <ion-item-divider class="divider"></ion-item-divider>
     </ion-list>
   </ion-card>
 </ion-content>
