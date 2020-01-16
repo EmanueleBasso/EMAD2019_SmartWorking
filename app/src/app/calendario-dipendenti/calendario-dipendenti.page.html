@@ -67,7 +67,7 @@
               </ion-button>
             </ion-item>
           </div>
-          <div class="riga2">
+          <div class="riga2" *ngIf="!impedisciSW[item.number - 1]">
             <ion-grid class="ion-no-padding" *ngIf="click[item.number - 1]">
               <ion-col>
                 <ion-row style="justify-content: space-between !important;">
@@ -91,6 +91,15 @@
                 </ion-button>
               </ion-col>
             </ion-grid>
+          </div>
+          <div
+            class="riga2"
+            *ngIf="impedisciSW[item.number - 1] && click[item.number - 1]"
+            style="padding: 10px 0;"
+          >
+            <label style="color: var(--ion-color-medium);"
+              >Non ci sono giorni di SW</label
+            >
           </div>
         </div>
       </ion-item>
