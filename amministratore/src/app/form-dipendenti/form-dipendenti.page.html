@@ -1,0 +1,55 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>
+      Inserisci un nuovo dipendente
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content  padding>
+
+  <div>
+ 
+    <form #f="ngForm" (ngSubmit)="onSubmit(f)">
+       <ion-col size-lg="4" offset-lg="4" size-md="6" offset-md="3">
+              <ion-list>
+                <ion-item  class="input-item">
+                  <ion-label>Nome</ion-label>
+                    <ion-input placeholder="Enter input..."></ion-input>
+                  
+                </ion-item>
+                <ion-item  class="input-item">
+                  <ion-label>Cognome</ion-label>
+                    <ion-input placeholder="Enter input..."></ion-input>
+                  
+                </ion-item>
+                <ion-item  class="input-item">
+                  <ion-label>E-mail</ion-label>
+                    <ion-input placeholder="Enter input..."></ion-input>
+                  
+                </ion-item>
+                <ion-item  class="input-item">
+                  <ion-label>Password</ion-label>
+                    <ion-input placeholder="Enter input..."></ion-input>
+                  
+                </ion-item>
+                 <ion-item>
+                    <ion-label>Manager</ion-label>
+                    <ion-toggle ></ion-toggle>
+                    </ion-item>
+                
+              </ion-list>
+            </ion-col>
+      <ion-button type="submit" block>Inserisci</ion-button>                   
+    </form>
+
+      
+   
+        
+  </div>
+
+
+</ion-content>
