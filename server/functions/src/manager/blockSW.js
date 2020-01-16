@@ -16,24 +16,12 @@ module.exports = async (request, response) => {
         
     }
     
-    await db.collection('Dipendente').doc(uid)
-    .get().then((doc) => {
+    await db.collection('DipendentiBloccati').add({
 
-        db.collection('Dipendente').doc(uid).set({
+        dipendente: uid,
+        mese: currentMonth,
+        anno: date.getFullYear()
 
-            nome: doc.data().nome,
-            cognome: doc.data().cognome,
-            email: doc.data().email,
-            password: doc.data().password,
-            manager: doc.data().manager,
-            meseBloccato: currentMonth + 1
-    
-        }).then(() => {
-
-            return response.send({message: 'È stato bloccato il prossimo mese di Smart Working per il dipendente indicato'})
-
-        }).catch(error => {return response.send({hasError: true, error: error.message})})
-        
     }).catch(error => {return response.send({hasError: true, error: error.message})})
 
 }

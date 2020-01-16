@@ -216,7 +216,7 @@ module.exports = {
     
                     this.sendSmartWorkingCalendar(uid, request, response, dates)
                     
-                    this.commit()
+                    batch.commit()
     
                     console.log('MESE PRECEDENTE VUOTO OPPURE DATE COMPATIBILI. DATI INSERITI ED EMAIL INVIATA CON SUCCESSO!')
 
@@ -266,7 +266,7 @@ module.exports = {
         
                         this.sendSmartWorkingCalendar(uid, request, response, dates)
                         
-                        this.commit()
+                        batch.commit()
         
                         console.log('DATE VALIDE ED EMAIL INVIATA CON SUCCESSO!') 
         
