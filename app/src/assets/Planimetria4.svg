@@ -1,113 +1,118 @@
-<svg id="Linea_1" data-name="Linea 1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="2000" height="800" viewBox="0 0 2000 800">
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="2000" height="1000" viewBox="0 -100 2000 1000">
   <defs>
-    <style>
-      .cls-1 {
-        opacity: 0.25;
-      }
-    </style>
+    <clipPath id="clip-path">
+      <rect width="2000" height="800"/>
+    </clipPath>
     <image id="image" width="56" height="56" xlink:href="data:img/png;base64,iVBORw0KGgoAAAANSUhEUgAAADgAAAA4CAYAAACohjseAAAAhElEQVRoge3asQ2AMAwAQYPoKWlYJAMwdSZKyQTQoQwQCb3z16WJ/JJLL2epTyS2Zo6LGQK3/nFc93+TDNTq/n3mitIZSGcgnYF0BtIZSGcgnYF0BtIZSGcgnYF0BtIZSGcgnYF0BtIZSGcgnYF0BtIZSGcgnYF0c1389peyWbiiaBHxAleXBzYhRzGzAAAAAElFTkSuQmCC"/>
   </defs>
-  <image id="Livello_0" data-name="Livello 0" class="cls-1" width="2000" height="800" xlink:href="data:img/png;base64,iVBORw0KGgoAAAANSUhEUgAAB9AAAAMgCAYAAAB75flzAAAfs0lEQVR4nOzZQQGAQADDsIElDKAMRYi8x2QskdBvr+f73wAAAAAAAADAuHs9AAAAAAAAAADEQAcAAAAAAACAMtABAAAAAAAAmBcDHQAAAAAAAADKQAcAAAAAAABgXgx0AAAAAAAAACgDHQAAAAAAAIB5MdABAAAAAAAAoAx0AAAAAAAAAObFQAcAAAAAAACAMtABAAAAAAAAmBcDHQAAAAAAAADKQAcAAAAAAABgXgx0AAAAAAAAACgDHQAAAAAAAIB5MdABAAAAAAAAoAx0AAAAAAAAAObFQAcAAAAAAACAMtABAAAAAAAAmBcDHQAAAAAAAADKQAcAAAAAAABgXgx0AAAAAAAAACgDHQAAAAAAAIB5MdABAAAAAAAAoAx0AAAAAAAAAObFQAcAAAAAAACAMtABAAAAAAAAmBcDHQAAAAAAAADKQAcAAAAAAABgXgx0AAAAAAAAACgDHQAAAAAAAIB5MdABAAAAAAAAoAx0AAAAAAAAAObFQAcAAAAAAACAMtABAAAAAAAAmBcDHQAAAAAAAADKQAcAAAAAAABgXgx0AAAAAAAAACgDHQAAAAAAAIB5MdABAAAAAAAAoAx0AAAAAAAAAObFQAcAAAAAAACAMtABAAAAAAAAmBcDHQAAAAAAAADKQAcAAAAAAABgXgx0AAAAAAAAACgDHQAAAAAAAIB5MdABAAAAAAAAoAx0AAAAAAAAAObFQAcAAAAAAACAMtABAAAAAAAAmBcDHQAAAAAAAADKQAcAAAAAAABgXgx0AAAAAAAAACgDHQAAAAAAAIB5MdABAAAAAAAAoAx0AAAAAAAAAObFQAcAAAAAAACAMtABAAAAAAAAmBcDHQAAAAAAAADKQAcAAAAAAABgXgx0AAAAAAAAACgDHQAAAAAAAIB5MdABAAAAAAAAoAx0AAAAAAAAAObFQAcAAAAAAACAMtABAAAAAAAAmBcDHQAAAAAAAADKQAcAAAAAAABgXgx0AAAAAAAAACgDHQAAAAAAAIB5MdABAAAAAAAAoAx0AAAAAAAAAObFQAcAAAAAAACAMtABAAAAAAAAmBcDHQAAAAAAAADKQAcAAAAAAABgXgx0AAAAAAAAACgDHQAAAAAAAIB5MdABAAAAAAAAoAx0AAAAAAAAAObFQAcAAAAAAACAMtABAAAAAAAAmBcDHQAAAAAAAADKQAcAAAAAAABgXgx0AAAAAAAAACgDHQAAAAAAAIB5MdABAAAAAAAAoAx0AAAAAAAAAObFQAcAAAAAAACAMtABAAAAAAAAmBcDHQAAAAAAAADKQAcAAAAAAABgXgx0AAAAAAAAACgDHQAAAAAAAIB5MdABAAAAAAAAoAx0AAAAAAAAAObFQAcAAAAAAACAMtABAAAAAAAAmBcDHQAAAAAAAADKQAcAAAAAAABgXgx0AAAAAAAAACgDHQAAAAAAAIB5MdABAAAAAAAAoAx0AAAAAAAAAObFQAcAAAAAAACAMtABAAAAAAAAmBcDHQAAAAAAAADKQAcAAAAAAABgXgx0AAAAAAAAACgDHQAAAAAAAIB5MdABAAAAAAAAoAx0AAAAAAAAAObFQAcAAAAAAACAMtABAAAAAAAAmBcDHQAAAAAAAADKQAcAAAAAAABgXgx0AAAAAAAAACgDHQAAAAAAAIB5MdABAAAAAAAAoAx0AAAAAAAAAObFQAcAAAAAAACAMtABAAAAAAAAmBcDHQAAAAAAAADKQAcAAAAAAABgXgx0AAAAAAAAACgDHQAAAAAAAIB5MdABAAAAAAAAoAx0AAAAAAAAAObFQAcAAAAAAACAMtABAAAAAAAAmBcDHQAAAAAAAADKQAcAAAAAAABgXgx0AAAAAAAAACgDHQAAAAAAAIB5MdABAAAAAAAAoAx0AAAAAAAAAObFQAcAAAAAAACAMtABAAAAAAAAmBcDHQAAAAAAAADKQAcAAAAAAABgXgx0AAAAAAAAACgDHQAAAAAAAIB5MdABAAAAAAAAoAx0AAAAAAAAAObFQAcAAAAAAACAMtABAAAAAAAAmBcDHQAAAAAAAADKQAcAAAAAAABgXgx0AAAAAAAAACgDHQAAAAAAAIB5MdABAAAAAAAAoAx0AAAAAAAAAObFQAcAAAAAAACAMtABAAAAAAAAmBcDHQAAAAAAAADKQAcAAAAAAABgXgx0AAAAAAAAACgDHQAAAAAAAIB5MdABAAAAAAAAoAx0AAAAAAAAAObFQAcAAAAAAACAMtABAAAAAAAAmBcDHQAAAAAAAADKQAcAAAAAAABgXgx0AAAAAAAAACgDHQAAAAAAAIB5MdABAAAAAAAAoAx0AAAAAAAAAObFQAcAAAAAAACAMtABAAAAAAAAmBcDHQAAAAAAAADKQAcAAAAAAABgXgx0AAAAAAAAACgDHQAAAAAAAIB5MdABAAAAAAAAoAx0AAAAAAAAAObFQAcAAAAAAACAMtABAAAAAAAAmBcDHQAAAAAAAADKQAcAAAAAAABgXgx0AAAAAAAAACgDHQAAAAAAAIB5MdABAAAAAAAAoAx0AAAAAAAAAObFQAcAAAAAAACAMtABAAAAAAAAmBcDHQAAAAAAAADKQAcAAAAAAABgXgx0AAAAAAAAACgDHQAAAAAAAIB5MdABAAAAAAAAoAx0AAAAAAAAAObFQAcAAAAAAACAMtABAAAAAAAAmBcDHQAAAAAAAADKQAcAAAAAAABgXgx0AAAAAAAAACgDHQAAAAAAAIB5MdABAAAAAAAAoAx0AAAAAAAAAObFQAcAAAAAAACAMtABAAAAAAAAmBcDHQAAAAAAAADKQAcAAAAAAABgXgx0AAAAAAAAACgDHQAAAAAAAIB5MdABAAAAAAAAoAx0AAAAAAAAAObFQAcAAAAAAACAMtABAAAAAAAAmBcDHQAAAAAAAADKQAcAAAAAAABgXgx0AAAAAAAAACgDHQAAAAAAAIB5MdABAAAAAAAAoAx0AAAAAAAAAObFQAcAAAAAAACAMtABAAAAAAAAmBcDHQAAAAAAAADKQAcAAAAAAABgXgx0AAAAAAAAACgDHQAAAAAAAIB5MdABAAAAAAAAoAx0AAAAAAAAAObFQAcAAAAAAACAMtABAAAAAAAAmBcDHQAAAAAAAADKQAcAAAAAAABgXgx0AAAAAAAAACgDHQAAAAAAAIB5MdABAAAAAAAAoAx0AAAAAAAAAObFQAcAAAAAAACAMtABAAAAAAAAmBcDHQAAAAAAAADKQAcAAAAAAABgXgx0AAAAAAAAACgDHQAAAAAAAIB5MdABAAAAAAAAoAx0AAAAAAAAAObFQAcAAAAAAACAMtABAAAAAAAAmBcDHQAAAAAAAADKQAcAAAAAAABgXgx0AAAAAAAAACgDHQAAAAAAAIB5MdABAAAAAAAAoAx0AAAAAAAAAObFQAcAAAAAAACAMtABAAAAAAAAmBcDHQAAAAAAAADKQAcAAAAAAABgXgx0AAAAAAAAACgDHQAAAAAAAIB5MdABAAAAAAAAoAx0AAAAAAAAAObFQAcAAAAAAACAMtABAAAAAAAAmBcDHQAAAAAAAADKQAcAAAAAAABgXgx0AAAAAAAAACgDHQAAAAAAAIB5MdABAAAAAAAAoAx0AAAAAAAAAObFQAcAAAAAAACAMtABAAAAAAAAmBcDHQAAAAAAAADKQAcAAAAAAABgXgx0AAAAAAAAACgDHQAAAAAAAIB5MdABAAAAAAAAoAx0AAAAAAAAAObFQAcAAAAAAACAMtABAAAAAAAAmBcDHQAAAAAAAADKQAcAAAAAAABgXgx0AAAAAAAAACgDHQAAAAAAAIB5MdABAAAAAAAAoAx0AAAAAAAAAObFQAcAAAAAAACAMtABAAAAAAAAmBcDHQAAAAAAAADKQAcAAAAAAABgXgx0AAAAAAAAACgDHQAAAAAAAIB5MdABAAAAAAAAoAx0AAAAAAAAAObFQAcAAAAAAACAMtABAAAAAAAAmBcDHQAAAAAAAADKQAcAAAAAAABgXgx0AAAAAAAAACgDHQAAAAAAAIB5MdABAAAAAAAAoAx0AAAAAAAAAObFQAcAAAAAAACAMtABAAAAAAAAmBcDHQAAAAAAAADKQAcAAAAAAABgXgx0AAAAAAAAACgDHQAAAAAAAIB5MdABAAAAAAAAoAx0AAAAAAAAAObFQAcAAAAAAACAMtABAAAAAAAAmBcDHQAAAAAAAADKQAcAAAAAAABgXgx0AAAAAAAAACgDHQAAAAAAAIB5MdABAAAAAAAAoAx0AAAAAAAAAObFQAcAAAAAAACAMtABAAAAAAAAmBcDHQAAAAAAAADKQAcAAAAAAABgXgx0AAAAAAAAACgDHQAAAAAAAIB5MdABAAAAAAAAoAx0AAAAAAAAAObFQAcAAAAAAACAMtABAAAAAAAAmBcDHQAAAAAAAADKQAcAAAAAAABgXgx0AAAAAAAAACgDHQAAAAAAAIB5MdABAAAAAAAAoAx0AAAAAAAAAObFQAcAAAAAAACAMtABAAAAAAAAmBcDHQAAAAAAAADKQAcAAAAAAABgXgx0AAAAAAAAACgDHQAAAAAAAIB5MdABAAAAAAAAoAx0AAAAAAAAAObFQAcAAAAAAACAMtABAAAAAAAAmBcDHQAAAAAAAADKQAcAAAAAAABgXgx0AAAAAAAAACgDHQAAAAAAAIB5MdABAAAAAAAAoAx0AAAAAAAAAObFQAcAAAAAAACAMtABAAAAAAAAmBcDHQAAAAAAAADKQAcAAAAAAABgXgx0AAAAAAAAACgDHQAAAAAAAIB5MdABAAAAAAAAoAx0AAAAAAAAAObFQAcAAAAAAACAMtABAAAAAAAAmBcDHQAAAAAAAADKQAcAAAAAAABgXgx0AAAAAAAAACgDHQAAAAAAAIB5MdABAAAAAAAAoAx0AAAAAAAAAObFQAcAAAAAAACAMtABAAAAAAAAmBcDHQAAAAAAAADKQAcAAAAAAABgXgx0AAAAAAAAACgDHQAAAAAAAIB5MdABAAAAAAAAoAx0AAAAAAAAAObFQAcAAAAAAACAMtABAAAAAAAAmBcDHQAAAAAAAADKQAcAAAAAAABgXgx0AAAAAAAAACgDHQAAAAAAAIB5MdABAAAAAAAAoAx0AAAAAAAAAObFQAcAAAAAAACAMtABAAAAAAAAmBcDHQAAAAAAAADKQAcAAAAAAABgXgx0AAAAAAAAACgDHQAAAAAAAIB5MdABAAAAAAAAoAx0AAAAAAAAAObFQAcAAAAAAACAMtABAAAAAAAAmBcDHQAAAAAAAADKQAcAAAAAAABgXgx0AAAAAAAAACgDHQAAAAAAAIB5MdABAAAAAAAAoAx0AAAAAAAAAObFQAcAAAAAAACAMtABAAAAAAAAmBcDHQAAAAAAAADKQAcAAAAAAABgXgx0AAAAAAAAACgDHQAAAAAAAIB5MdABAAAAAAAAoAx0AAAAAAAAAObFQAcAAAAAAACAMtABAAAAAAAAmBcDHQAAAAAAAADKQAcAAAAAAABgXgx0AAAAAAAAACgDHQAAAAAAAIB5MdABAAAAAAAAoAx0AAAAAAAAAObFQAcAAAAAAACAMtABAAAAAAAAmBcDHQAAAAAAAADKQAcAAAAAAABgXgx0AAAAAAAAACgDHQAAAAAAAIB5MdABAAAAAAAAoAx0AAAAAAAAAObFQAcAAAAAAACAMtABAAAAAAAAmBcDHQAAAAAAAADKQAcAAAAAAABgXgx0AAAAAAAAACgDHQAAAAAAAIB5MdABAAAAAAAAoAx0AAAAAAAAAObFQAcAAAAAAACAMtABAAAAAAAAmBcDHQAAAAAAAADKQAcAAAAAAABgXgx0AAAAAAAAACgDHQAAAAAAAIB5MdABAAAAAAAAoAx0AAAAAAAAAObFQAcAAAAAAACAMtABAAAAAAAAmBcDHQAAAAAAAADKQAcAAAAAAABgXgx0AAAAAAAAACgDHQAAAAAAAIB5MdABAAAAAAAAoAx0AAAAAAAAAObFQAcAAAAAAACAMtABAAAAAAAAmBcDHQAAAAAAAADKQAcAAAAAAABgXgx0AAAAAAAAACgDHQAAAAAAAIB5MdABAAAAAAAAoAx0AAAAAAAAAObFQAcAAAAAAACAMtABAAAAAAAAmBcDHQAAAAAAAADKQAcAAAAAAABgXgx0AAAAAAAAACgDHQAAAAAAAIB5MdABAAAAAAAAoAx0AAAAAAAAAObFQAcAAAAAAACAMtABAAAAAAAAmBcDHQAAAAAAAADKQAcAAAAAAABgXgx0AAAAAAAAACgDHQAAAAAAAIB5MdABAAAAAAAAoAx0AAAAAAAAAObFQAcAAAAAAACAMtABAAAAAAAAmBcDHQAAAAAAAADKQAcAAAAAAABgXgx0AAAAAAAAACgDHQAAAAAAAIB5MdABAAAAAAAAoAx0AAAAAAAAAObFQAcAAAAAAACAMtABAAAAAAAAmBcDHQAAAAAAAADKQAcAAAAAAABgXgx0AAAAAAAAACgDHQAAAAAAAIB5MdABAAAAAAAAoAx0AAAAAAAAAObFQAcAAAAAAACAMtABAAAAAAAAmBcDHQAAAAAAAADKQAcAAAAAAABgXgx0AAAAAAAAACgDHQAAAAAAAIB5MdABAAAAAAAAoAx0AAAAAAAAAObFQAcAAAAAAACAMtABAAAAAAAAmBcDHQAAAAAAAADKQAcAAAAAAABgXgx0AAAAAAAAACgDHQAAAAAAAIB5MdABAAAAAAAAoAx0AAAAAAAAAObFQAcAAAAAAACAMtABAAAAAAAAmBcDHQAAAAAAAADKQAcAAAAAAABgXgx0AAAAAAAAACgDHQAAAAAAAIB5MdABAAAAAAAAoAx0AAAAAAAAAObFQAcAAAAAAACAMtABAAAAAAAAmBcDHQAAAAAAAADKQAcAAAAAAABgXgx0AAAAAAAAACgDHQAAAAAAgNOeHRMAAMAwDIp/1Tsmo2ADgHkJdAAAAAAAAAB4Ah0AAAAAAACAeQl0AAAAAAAAAHgCHQAAAAAAAIB5CXQAAAAAAAAAeAIdAAAAAAAAgHkJdAAAAAAAAAB4Ah0AAAAAAACAeQl0AAAAAAAAAHgCHQAAAAAAAIB5CXQAAAAAAAAAeAIdAAAAAAAAgHkJdAAAAAAAAAB4Ah0AAAAAAACAeQl0AAAAAAAAAHgCHQAAAAAAAIB5CXQAAAAAAAAAeAIdAAAAAAAAgHkJdAAAAAAAAAB4Ah0AAAAAAACAeQl0AAAAAAAAAHgCHQAAAAAAAIB5CXQAAAAAAAAAeAIdAAAAAAAAgHkJdAAAAAAAAAB4Ah0AAAAAAACAeQl0AAAAAAAAAHgCHQAAAAAAAIB5CXQAAAAAAAAAeAIdAAAAAAAAgHkJdAAAAAAAAAB4Ah0AAAAAAACAeQl0AAAAAAAAAHgCHQAAAAAAAIB5CXQAAAAAAAAAeAIdAAAAAAAAgHkJdAAAAAAAAAB4Ah0AAAAAAACAeQl0AAAAAAAAAHgCHQAAAAAAAIB5CXQAAAAAAAAAeAIdAAAAAAAAgHkJdAAAAAAAAAB4Ah0AAAAAAACAeQl0AAAAAAAAAHgCHQAAAAAAAIB5CXQAAAAAAAAAeAIdAAAAAAAAgHkJdAAAAAAAAAB4Ah0AAAAAAACAeQl0AAAAAAAAAHgCHQAAAAAAAIB5CXQAAAAAAAAAeAIdAAAAAAAAgHkJdAAAAAAAAAB4Ah0AAAAAAACAeQl0AAAAAAAAAHgCHQAAAAAAAIB5CXQAAAAAAAAAeAIdAAAAAAAAgHkJdAAAAAAAAAB4Ah0AAAAAAACAeQl0AAAAAAAAAHgCHQAAAAAAAIB5CXQAAAAAAAAAeAIdAAAAAAAAgHkJdAAAAAAAAAB4Ah0AAAAAAACAeQl0AAAAAAAAAHgCHQAAAAAAAIB5CXQAAAAAAAAAeAIdAAAAAAAAgHkJdAAAAAAAAAB4Ah0AAAAAAACAeQl0AAAAAAAAAHgCHQAAAAAAAIB5CXQAAAAAAAAAeAIdAAAAAAAAgHkJdAAAAAAAAAB4Ah0AAAAAAACAeQl0AAAAAAAAAHgCHQAAAAAAAIB5CXQAAAAAAAAAeAIdAAAAAAAAgHkJdAAAAAAAAAB4Ah0AAAAAAACAeQl0AAAAAAAAAHgCHQAAAAAAAIB5CXQAAAAAAAAAeAIdAAAAAAAAgHkJdAAAAAAAAAB4Ah0AAAAAAACAeQl0AAAAAAAAAHgCHQAAAAAAAIB5CXQAAAAAAAAAeAIdAAAAAAAAgHkJdAAAAAAAAAB4Ah0AAAAAAACAeQl0AAAAAAAAAHgCHQAAAAAAAIB5CXQAAAAAAAAAeAIdAAAAAAAAgHkJdAAAAAAAAAB4Ah0AAAAAAACAeQl0AAAAAAAAAHgCHQAAAAAAAIB5CXQAAAAAAAAAeAIdAAAAAAAAgHkJdAAAAAAAAAB4Ah0AAAAAAACAeQl0AAAAAAAAAHgCHQAAAAAAAIB5CXQAAAAAAAAAeAIdAAAAAAAAgHkJdAAAAAAAAAB4Ah0AAAAAAACAeQl0AAAAAAAAAHgCHQAAAAAAAIB5CXQAAAAAAAAAeAIdAAAAAAAAgHkJdAAAAAAAAAB4Ah0AAAAAAACAeQl0AAAAAAAAAHgCHQAAAAAAAIB5CXQAAAAAAAAAeAIdAAAAAAAAgHkJdAAAAAAAAAB4Ah0AAAAAAACAeQl0AAAAAAAAAHgCHQAAAAAAAIB5CXQAAAAAAAAAeAIdAAAAAAAAgHkJdAAAAAAAAAB4Ah0AAAAAAACAeQl0AAAAAAAAAHgCHQAAAAAAAIB5CXQAAAAAAAAAeAIdAAAAAAAAgHkJdAAAAAAAAAB4Ah0AAAAAAACAeQl0AAAAAAAAAHgCHQAAAAAAAIB5CXQAAAAAAAAAeAIdAAAAAAAAgHkJdAAAAAAAAAB4Ah0AAAAAAACAeQl0AAAAAAAAAHgCHQAAAAAAAIB5CXQAAAAAAAAAeAIdAAAAAAAAgHkJdAAAAAAAAAB4Ah0AAAAAAACAeQl0AAAAAAAAAHgCHQAAAAAAAIB5CXQAAAAAAAAAeAIdAAAAAAAAgHkJdAAAAAAAAAB4Ah0AAAAAAACAeQl0AAAAAAAAAHgCHQAAAAAAAIB5CXQAAAAAAAAAeAIdAAAAAAAAgHkJdAAAAAAAAAB4Ah0AAAAAAACAeQl0AAAAAAAAAHgCHQAAAAAAAIB5CXQAAAAAAAAAeAIdAAAAAAAAgHkJdAAAAAAAAAB4Ah0AAAAAAACAeQl0AAAAAAAAAHgCHQAAAAAAAIB5CXQAAAAAAAAAeAIdAAAAAAAAgHkJdAAAAAAAAAB4Ah0AAAAAAACAeQl0AAAAAAAAAHgCHQAAAAAAAIB5CXQAAAAAAAAAeAIdAAAAAAAAgHkJdAAAAAAAAAB4Ah0AAAAAAACAeQl0AAAAAAAAAHgCHQAAAAAAAIB5CXQAAAAAAAAAeAIdAAAAAAAAgHkJdAAAAAAAAAB4Ah0AAAAAAACAeQl0AAAAAAAAAHgCHQAAAAAAAIB5CXQAAAAAAAAAeAIdAAAAAAAAgHkJdAAAAAAAAAB4Ah0AAAAAAACAeQl0AAAAAAAAAHgCHQAAAAAAAIB5CXQAAAAAAAAAeAIdAAAAAAAAgHkJdAAAAAAAAAB4Ah0AAAAAAACAeQl0AAAAAAAAAHgCHQAAAAAAAIB5CXQAAAAAAAAAeAIdAAAAAAAAgHkJdAAAAAAAAAB4Ah0AAAAAAACAeQl0AAAAAAAAAHgCHQAAAAAAAIB5CXQAAAAAAAAAeAIdAAAAAAAAgHkJdAAAAAAAAAB4Ah0AAAAAAACAeQl0AAAAAAAAAHgCHQAAAAAAAIB5CXQAAAAAAAAAeAIdAAAAAAAAgHkJdAAAAAAAAAB4Ah0AAAAAAACAeQl0AAAAAAAAAHgCHQAAAAAAAIB5CXQAAAAAAAAAeAIdAAAAAAAAgHkJdAAAAAAAAAB4Ah0AAAAAAACAeQl0AAAAAAAAAHgCHQAAAAAAAIB5CXQAAAAAAAAAeAIdAAAAAAAAgHkJdAAAAAAAAAB4Ah0AAAAAAACAeQl0AAAAAAAAAHgCHQAAAAAAAIB5CXQAAAAAAAAAeAIdAAAAAAAAgHkJdAAAAAAAAAB4Ah0AAAAAAACAeQl0AAAAAAAAAHgCHQAAAAAAAIB5CXQAAAAAAAAAeAIdAAAAAAAAgHkJdAAAAAAAAAB4Ah0AAAAAAACAeQl0AAAAAAAAAHgCHQAAAAAAAIB5CXQAAAAAAAAAeAIdAAAAAAAAgHkJdAAAAAAAAAB4Ah0AAAAAAACAeQl0AAAAAAAAAHgCHQAAAAAAAIB5CXQAAAAAAAAAeAIdAAAAAAAAgHkJdAAAAAAAAAB4Ah0AAAAAAACAeQl0AAAAAAAAAHgCHQAAAAAAAIB5CXQAAAAAAAAAeAIdAAAAAAAAgHkJdAAAAAAAAAB4Ah0AAAAAAACAeQl0AAAAAAAAAHgCHQAAAAAAAIB5CXQAAAAAAAAAeAIdAAAAAAAAgHkJdAAAAAAAAAB4Ah0AAAAAAACAeQl0AAAAAAAAAHgCHQAAAAAAAIB5CXQAAAAAAAAAeAIdAAAAAAAAgHkJdAAAAAAAAAB4Ah0AAAAAAACAeQl0AAAAAAAAAHgCHQAAAAAAAIB5CXQAAAAAAAAAeAIdAAAAAAAAgHkJdAAAAAAAAAB4Ah0AAAAAAACAeQl0AAAAAAAAAHgCHQAAAAAAAIB5CXQAAAAAAAAAeAIdAAAAAAAAgHkJdAAAAAAAAAB4Ah0AAAAAAACAeQl0AAAAAAAAAHgCHQAAAAAAAIB5CXQAAAAAAAAAeAIdAAAAAAAAgHlVB6KJB90FdlxNAAAAAElFTkSuQmCC"/>
-  <g id="Gruppo_1" data-name="Gruppo 1">
-    <use id="Posto6" x="174" y="540" xlink:href="#image"/>
-    <use id="Posto5" x="234" y="540" xlink:href="#image"/>
-    <use id="Posto4" x="174" y="600" xlink:href="#image"/>
-    <use id="Posto3" x="234" y="600" xlink:href="#image"/>
-    <use id="Posto2" x="174" y="660" xlink:href="#image"/>
-    <use id="Posto1" x="234" y="660" xlink:href="#image"/>
-  </g>
-  <g id="Gruppo_2" data-name="Gruppo 2">
-    <use id="Posto6-2" data-name="Posto6" x="418" y="540" xlink:href="#image"/>
-    <use id="Posto5-2" data-name="Posto5" x="478" y="540" xlink:href="#image"/>
-    <use id="Posto4-2" data-name="Posto4" x="418" y="600" xlink:href="#image"/>
-    <use id="Posto3-2" data-name="Posto3" x="478" y="600" xlink:href="#image"/>
-    <use id="Posto2-2" data-name="Posto2" x="418" y="660" xlink:href="#image"/>
-    <use id="Posto1-2" data-name="Posto1" x="478" y="660" xlink:href="#image"/>
-  </g>
-  <g id="Gruppo_3" data-name="Gruppo 3">
-    <use id="Posto6-3" data-name="Posto6" x="791" y="539" xlink:href="#image"/>
-    <use id="Posto5-3" data-name="Posto5" x="791" y="599" xlink:href="#image"/>
-    <use id="Posto4-3" data-name="Posto4" x="731" y="539" xlink:href="#image"/>
-    <use id="Posto3-3" data-name="Posto3" x="731" y="599" xlink:href="#image"/>
-    <use id="Posto2-3" data-name="Posto2" x="671" y="539" xlink:href="#image"/>
-    <use id="Posto1-3" data-name="Posto1" x="671" y="599" xlink:href="#image"/>
-  </g>
-  <g id="Gruppo_4" data-name="Gruppo 4">
-    <use id="Posto6-4" data-name="Posto6" x="1060" y="539" xlink:href="#image"/>
-    <use id="Posto5-4" data-name="Posto5" x="1060" y="599" xlink:href="#image"/>
-    <use id="Posto4-4" data-name="Posto4" x="1000" y="539" xlink:href="#image"/>
-    <use id="Posto3-4" data-name="Posto3" x="1000" y="599" xlink:href="#image"/>
-    <use id="Posto2-4" data-name="Posto2" x="940" y="539" xlink:href="#image"/>
-    <use id="Posto1-4" data-name="Posto1" x="940" y="599" xlink:href="#image"/>
-  </g>
-  <g id="Gruppo_5" data-name="Gruppo 5">
-    <use id="Posto10" x="1687" y="630" xlink:href="#image"/>
-    <use id="Posto9" x="1687" y="570" xlink:href="#image"/>
-    <use id="Posto8" x="1627" y="570" xlink:href="#image"/>
-    <use id="Posto7" x="1627" y="630" xlink:href="#image"/>
-    <use id="Posto6-5" data-name="Posto6" x="1567" y="570" xlink:href="#image"/>
-    <use id="Posto5-5" data-name="Posto5" x="1567" y="630" xlink:href="#image"/>
-    <use id="Posto4-5" data-name="Posto4" x="1507" y="570" xlink:href="#image"/>
-    <use id="Posto3-5" data-name="Posto3" x="1507" y="630" xlink:href="#image"/>
-    <use id="Posto2-5" data-name="Posto2" x="1447" y="570" xlink:href="#image"/>
-    <use id="Posto1-5" data-name="Posto1" x="1447" y="630" xlink:href="#image"/>
-  </g>
-  <g id="Gruppo_5-2" data-name="Gruppo 5">
-    <use id="Posto6-6" data-name="Posto6" x="174" y="263" xlink:href="#image"/>
-    <use id="Posto5-6" data-name="Posto5" x="234" y="263" xlink:href="#image"/>
-    <use id="Posto4-6" data-name="Posto4" x="174" y="323" xlink:href="#image"/>
-    <use id="Posto3-6" data-name="Posto3" x="234" y="323" xlink:href="#image"/>
-    <use id="Posto2-6" data-name="Posto2" x="174" y="383" xlink:href="#image"/>
-    <use id="Posto1-6" data-name="Posto1" x="234" y="383" xlink:href="#image"/>
-  </g>
-  <g id="Gruppo_6" data-name="Gruppo 6">
-    <use id="Posto6-7" data-name="Posto6" x="418" y="263" xlink:href="#image"/>
-    <use id="Posto5-7" data-name="Posto5" x="478" y="263" xlink:href="#image"/>
-    <use id="Posto4-7" data-name="Posto4" x="418" y="323" xlink:href="#image"/>
-    <use id="Posto3-7" data-name="Posto3" x="478" y="323" xlink:href="#image"/>
-    <use id="Posto2-7" data-name="Posto2" x="418" y="383" xlink:href="#image"/>
-    <use id="Posto1-7" data-name="Posto1" x="478" y="383" xlink:href="#image"/>
-  </g>
-  <g id="Gruppo_7" data-name="Gruppo 7">
-    <use id="Posto6-8" data-name="Posto6" x="791" y="262" xlink:href="#image"/>
-    <use id="Posto5-8" data-name="Posto5" x="791" y="322" xlink:href="#image"/>
-    <use id="Posto4-8" data-name="Posto4" x="731" y="262" xlink:href="#image"/>
-    <use id="Posto3-8" data-name="Posto3" x="731" y="322" xlink:href="#image"/>
-    <use id="Posto2-8" data-name="Posto2" x="671" y="262" xlink:href="#image"/>
-    <use id="Posto1-8" data-name="Posto1" x="671" y="322" xlink:href="#image"/>
-  </g>
-  <g id="Gruppo_8" data-name="Gruppo 8">
-    <use id="Posto6-9" data-name="Posto6" x="1060" y="262" xlink:href="#image"/>
-    <use id="Posto5-9" data-name="Posto5" x="1060" y="322" xlink:href="#image"/>
-    <use id="Posto4-9" data-name="Posto4" x="1000" y="262" xlink:href="#image"/>
-    <use id="Posto3-9" data-name="Posto3" x="1000" y="322" xlink:href="#image"/>
-    <use id="Posto2-9" data-name="Posto2" x="940" y="262" xlink:href="#image"/>
-    <use id="Posto1-9" data-name="Posto1" x="940" y="322" xlink:href="#image"/>
-  </g>
-  <g id="Gruppo_9" data-name="Gruppo 9">
-    <use id="Posto4-10" data-name="Posto4" x="1407" y="340" xlink:href="#image"/>
-    <use id="Posto3-10" data-name="Posto3" x="1407" y="400" xlink:href="#image"/>
-    <use id="Posto2-10" data-name="Posto2" x="1347" y="340" xlink:href="#image"/>
-    <use id="Posto1-10" data-name="Posto1" x="1347" y="400" xlink:href="#image"/>
-  </g>
-  <g id="Gruppo_9-2" data-name="Gruppo 9">
-    <use id="Posto8-2" data-name="Posto8" x="479" y="70" xlink:href="#image"/>
-    <use id="Posto7-2" data-name="Posto7" x="479" y="130" xlink:href="#image"/>
-    <use id="Posto6-10" data-name="Posto6" x="419" y="70" xlink:href="#image"/>
-    <use id="Posto5-10" data-name="Posto5" x="419" y="130" xlink:href="#image"/>
-    <use id="Posto4-11" data-name="Posto4" x="359" y="70" xlink:href="#image"/>
-    <use id="Posto3-11" data-name="Posto3" x="359" y="130" xlink:href="#image"/>
-    <use id="Posto2-11" data-name="Posto2" x="299" y="70" xlink:href="#image"/>
-    <use id="Posto1-11" data-name="Posto1" x="299" y="130" xlink:href="#image"/>
-  </g>
-  <g id="Gruppo_10" data-name="Gruppo 10">
-    <use id="Posto8-3" data-name="Posto8" x="849" y="70" xlink:href="#image"/>
-    <use id="Posto7-3" data-name="Posto7" x="849" y="130" xlink:href="#image"/>
-    <use id="Posto6-11" data-name="Posto6" x="789" y="70" xlink:href="#image"/>
-    <use id="Posto5-11" data-name="Posto5" x="789" y="130" xlink:href="#image"/>
-    <use id="Posto4-12" data-name="Posto4" x="729" y="70" xlink:href="#image"/>
-    <use id="Posto3-12" data-name="Posto3" x="729" y="130" xlink:href="#image"/>
-    <use id="Posto2-12" data-name="Posto2" x="669" y="70" xlink:href="#image"/>
-    <use id="Posto1-12" data-name="Posto1" x="669" y="130" xlink:href="#image"/>
+  <g clip-path="url(#clip-path)">
+    <g id="Linea_1" data-name="Linea 1">
+      <g id="Gruppo_1" data-name="Gruppo 1">
+        <use id="Posto6" x="174" y="540" xlink:href="#image"/>
+        <use id="Posto5" x="234" y="540" xlink:href="#image"/>
+        <use id="Posto4" x="174" y="600" xlink:href="#image"/>
+        <use id="Posto3" x="234" y="600" xlink:href="#image"/>
+        <use id="Posto2" x="174" y="660" xlink:href="#image"/>
+        <use id="Posto1" x="234" y="660" xlink:href="#image"/>
+      </g>
+      <g id="Gruppo_2" data-name="Gruppo 2">
+        <use id="Posto6-2" data-name="Posto6" x="418" y="540" xlink:href="#image"/>
+        <use id="Posto5-2" data-name="Posto5" x="478" y="540" xlink:href="#image"/>
+        <use id="Posto4-2" data-name="Posto4" x="418" y="600" xlink:href="#image"/>
+        <use id="Posto3-2" data-name="Posto3" x="478" y="600" xlink:href="#image"/>
+        <use id="Posto2-2" data-name="Posto2" x="418" y="660" xlink:href="#image"/>
+        <use id="Posto1-2" data-name="Posto1" x="478" y="660" xlink:href="#image"/>
+      </g>
+      <g id="Gruppo_3" data-name="Gruppo 3">
+        <use id="Posto6-3" data-name="Posto6" x="791" y="539" xlink:href="#image"/>
+        <use id="Posto5-3" data-name="Posto5" x="791" y="599" xlink:href="#image"/>
+        <use id="Posto4-3" data-name="Posto4" x="731" y="539" xlink:href="#image"/>
+        <use id="Posto3-3" data-name="Posto3" x="731" y="599" xlink:href="#image"/>
+        <use id="Posto2-3" data-name="Posto2" x="671" y="539" xlink:href="#image"/>
+        <use id="Posto1-3" data-name="Posto1" x="671" y="599" xlink:href="#image"/>
+      </g>
+      <g id="Gruppo_4" data-name="Gruppo 4">
+        <use id="Posto6-4" data-name="Posto6" x="1060" y="539" xlink:href="#image"/>
+        <use id="Posto5-4" data-name="Posto5" x="1060" y="599" xlink:href="#image"/>
+        <use id="Posto4-4" data-name="Posto4" x="1000" y="539" xlink:href="#image"/>
+        <use id="Posto3-4" data-name="Posto3" x="1000" y="599" xlink:href="#image"/>
+        <use id="Posto2-4" data-name="Posto2" x="940" y="539" xlink:href="#image"/>
+        <use id="Posto1-4" data-name="Posto1" x="940" y="599" xlink:href="#image"/>
+      </g>
+      <g id="Gruppo_5" data-name="Gruppo 5">
+        <use id="Posto10" x="1687" y="630" xlink:href="#image"/>
+        <use id="Posto9" x="1687" y="570" xlink:href="#image"/>
+        <use id="Posto8" x="1627" y="570" xlink:href="#image"/>
+        <use id="Posto7" x="1627" y="630" xlink:href="#image"/>
+        <use id="Posto6-5" data-name="Posto6" x="1567" y="570" xlink:href="#image"/>
+        <use id="Posto5-5" data-name="Posto5" x="1567" y="630" xlink:href="#image"/>
+        <use id="Posto4-5" data-name="Posto4" x="1507" y="570" xlink:href="#image"/>
+        <use id="Posto3-5" data-name="Posto3" x="1507" y="630" xlink:href="#image"/>
+        <use id="Posto2-5" data-name="Posto2" x="1447" y="570" xlink:href="#image"/>
+        <use id="Posto1-5" data-name="Posto1" x="1447" y="630" xlink:href="#image"/>
+      </g>
+    </g>
+    <g id="Linea_2" data-name="Linea 2">
+      <g id="Gruppo_5-2" data-name="Gruppo 5">
+        <use id="Posto6-6" data-name="Posto6" x="174" y="263" xlink:href="#image"/>
+        <use id="Posto5-6" data-name="Posto5" x="234" y="263" xlink:href="#image"/>
+        <use id="Posto4-6" data-name="Posto4" x="174" y="323" xlink:href="#image"/>
+        <use id="Posto3-6" data-name="Posto3" x="234" y="323" xlink:href="#image"/>
+        <use id="Posto2-6" data-name="Posto2" x="174" y="383" xlink:href="#image"/>
+        <use id="Posto1-6" data-name="Posto1" x="234" y="383" xlink:href="#image"/>
+      </g>
+      <g id="Gruppo_6" data-name="Gruppo 6">
+        <use id="Posto6-7" data-name="Posto6" x="418" y="263" xlink:href="#image"/>
+        <use id="Posto5-7" data-name="Posto5" x="478" y="263" xlink:href="#image"/>
+        <use id="Posto4-7" data-name="Posto4" x="418" y="323" xlink:href="#image"/>
+        <use id="Posto3-7" data-name="Posto3" x="478" y="323" xlink:href="#image"/>
+        <use id="Posto2-7" data-name="Posto2" x="418" y="383" xlink:href="#image"/>
+        <use id="Posto1-7" data-name="Posto1" x="478" y="383" xlink:href="#image"/>
+      </g>
+      <g id="Gruppo_7" data-name="Gruppo 7">
+        <use id="Posto6-8" data-name="Posto6" x="791" y="262" xlink:href="#image"/>
+        <use id="Posto5-8" data-name="Posto5" x="791" y="322" xlink:href="#image"/>
+        <use id="Posto4-8" data-name="Posto4" x="731" y="262" xlink:href="#image"/>
+        <use id="Posto3-8" data-name="Posto3" x="731" y="322" xlink:href="#image"/>
+        <use id="Posto2-8" data-name="Posto2" x="671" y="262" xlink:href="#image"/>
+        <use id="Posto1-8" data-name="Posto1" x="671" y="322" xlink:href="#image"/>
+      </g>
+      <g id="Gruppo_8" data-name="Gruppo 8">
+        <use id="Posto6-9" data-name="Posto6" x="1060" y="262" xlink:href="#image"/>
+        <use id="Posto5-9" data-name="Posto5" x="1060" y="322" xlink:href="#image"/>
+        <use id="Posto4-9" data-name="Posto4" x="1000" y="262" xlink:href="#image"/>
+        <use id="Posto3-9" data-name="Posto3" x="1000" y="322" xlink:href="#image"/>
+        <use id="Posto2-9" data-name="Posto2" x="940" y="262" xlink:href="#image"/>
+        <use id="Posto1-9" data-name="Posto1" x="940" y="322" xlink:href="#image"/>
+      </g>
+      <g id="Gruppo_9" data-name="Gruppo 9">
+        <use id="Posto4-10" data-name="Posto4" x="1407" y="340" xlink:href="#image"/>
+        <use id="Posto3-10" data-name="Posto3" x="1407" y="400" xlink:href="#image"/>
+        <use id="Posto2-10" data-name="Posto2" x="1347" y="340" xlink:href="#image"/>
+        <use id="Posto1-10" data-name="Posto1" x="1347" y="400" xlink:href="#image"/>
+      </g>
+    </g>
+    <g id="Linea_3" data-name="Linea 3">
+      <g id="Gruppo_9-2" data-name="Gruppo 9">
+        <use id="Posto8-2" data-name="Posto8" x="479" y="70" xlink:href="#image"/>
+        <use id="Posto7-2" data-name="Posto7" x="479" y="130" xlink:href="#image"/>
+        <use id="Posto6-10" data-name="Posto6" x="419" y="70" xlink:href="#image"/>
+        <use id="Posto5-10" data-name="Posto5" x="419" y="130" xlink:href="#image"/>
+        <use id="Posto4-11" data-name="Posto4" x="359" y="70" xlink:href="#image"/>
+        <use id="Posto3-11" data-name="Posto3" x="359" y="130" xlink:href="#image"/>
+        <use id="Posto2-11" data-name="Posto2" x="299" y="70" xlink:href="#image"/>
+        <use id="Posto1-11" data-name="Posto1" x="299" y="130" xlink:href="#image"/>
+      </g>
+      <g id="Gruppo_10" data-name="Gruppo 10">
+        <use id="Posto8-3" data-name="Posto8" x="849" y="70" xlink:href="#image"/>
+        <use id="Posto7-3" data-name="Posto7" x="849" y="130" xlink:href="#image"/>
+        <use id="Posto6-11" data-name="Posto6" x="789" y="70" xlink:href="#image"/>
+        <use id="Posto5-11" data-name="Posto5" x="789" y="130" xlink:href="#image"/>
+        <use id="Posto4-12" data-name="Posto4" x="729" y="70" xlink:href="#image"/>
+        <use id="Posto3-12" data-name="Posto3" x="729" y="130" xlink:href="#image"/>
+        <use id="Posto2-12" data-name="Posto2" x="669" y="70" xlink:href="#image"/>
+        <use id="Posto1-12" data-name="Posto1" x="669" y="130" xlink:href="#image"/>
+      </g>
+    </g>
   </g>
 </svg>
