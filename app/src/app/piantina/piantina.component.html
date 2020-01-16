@@ -1,0 +1,72 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>
+      Prenota Posto
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card (swiperight)="handleSwipe()">
+    <ion-item lines="full">
+      <ion-label color="primary">
+        Scegli il piano
+      </ion-label>
+      <ion-button (click)="mostraPiano()" fill="outline" color="tertiary">
+        Lista progetti
+      </ion-button>
+    </ion-item>
+    <ion-item lines="none">
+      <ion-label color="primary">
+        Scegli la stanza
+      </ion-label>
+      <ion-button (click)="mostraPiano()" fill="outline" color="tertiary">
+        Lista progetti
+      </ion-button>
+    </ion-item>
+  </ion-card>
+
+  <ion-card>
+    <div class="divZoomButton">
+      <ion-button
+        (click)="zoomIn(0.2, 1)"
+        fill="outline"
+        size="small"
+        [color]="zoomValue < 1.2 ? 'secondary' : 'medium'"
+        [disabled]="zoomValue >= 1.2"
+      >
+        <ion-icon name="add"></ion-icon>
+      </ion-button>
+      <ion-button
+        (click)="zoomOut(0.2, 1)"
+        fill="outline"
+        size="small"
+        [color]="zoomValue > 0.4 ? 'secondary' : 'medium'"
+        [disabled]="zoomValue <= 0.4"
+      >
+        <ion-icon name="remove"></ion-icon>
+      </ion-button>
+    </div>
+    <div class="divSVG" (pinch)="handlePinch($event)">
+      <object
+        data="../../../assets/Planimetria4.svg"
+        id="oggettoSVG"
+        type="image/svg+xml"
+      ></object>
+    </div>
+  </ion-card>
+
+  <ion-card (swiperight)="handleSwipe()" (pinch)="handlePinch($event)">
+    <ion-card-header>
+      <ion-card-title class="ion-text-center">
+        <ion-icon ios="ios-hand" md="md-hand" color="warning"></ion-icon>
+        <br />
+        Seleziona una postazione e scegli i giorni in cui vuoi prenotare quel
+        posto.
+      </ion-card-title>
+    </ion-card-header>
+  </ion-card>
+</ion-content>

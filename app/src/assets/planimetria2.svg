@@ -1,0 +1,69 @@
+<svg id="Linea_1" data-name="Linea 1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1000" height="1000" viewBox="0 0 1000 1000">
+  <defs>
+    <image id="image" width="56" height="56" xlink:href="data:img/png;base64,iVBORw0KGgoAAAANSUhEUgAAADgAAAA4CAYAAACohjseAAAAhElEQVRoge3asQ2AMAwAQYPoKWlYJAMwdSZKyQTQoQwQCb3z16WJ/JJLL2epTyS2Zo6LGQK3/nFc93+TDNTq/n3mitIZSGcgnYF0BtIZSGcgnYF0BtIZSGcgnYF0BtIZSGcgnYF0BtIZSGcgnYF0BtIZSGcgnYF0c1389peyWbiiaBHxAleXBzYhRzGzAAAAAElFTkSuQmCC"/>
+  </defs>
+  <g id="Gruppo_1" data-name="Gruppo 1">
+    <use id="Posto8" x="625" y="785" xlink:href="#image"/>
+    <use id="Posto7" x="565" y="785" xlink:href="#image"/>
+    <use id="Posto6" x="625" y="725" xlink:href="#image"/>
+    <use id="Posto5" x="565" y="725" xlink:href="#image"/>
+    <use id="Posto4" x="625" y="665" xlink:href="#image"/>
+    <use id="Posto3" x="565" y="665" xlink:href="#image"/>
+    <use id="Posto2" x="625" y="605" xlink:href="#image"/>
+    <use id="Posto1" x="565" y="605" xlink:href="#image"/>
+  </g>
+  <g id="Gruppo_2" data-name="Gruppo 2">
+    <use id="Posto8-2" data-name="Posto8" x="850" y="787" xlink:href="#image"/>
+    <use id="Posto7-2" data-name="Posto7" x="790" y="787" xlink:href="#image"/>
+    <use id="Posto6-2" data-name="Posto6" x="850" y="727" xlink:href="#image"/>
+    <use id="Posto5-2" data-name="Posto5" x="790" y="727" xlink:href="#image"/>
+    <use id="Posto4-2" data-name="Posto4" x="850" y="667" xlink:href="#image"/>
+    <use id="Posto3-2" data-name="Posto3" x="790" y="667" xlink:href="#image"/>
+    <use id="Posto2-2" data-name="Posto2" x="849" y="607" xlink:href="#image"/>
+    <use id="Posto1-2" data-name="Posto1" x="790" y="607" xlink:href="#image"/>
+  </g>
+  <g id="Gruppo_3" data-name="Gruppo 3">
+    <use id="Posto8-3" data-name="Posto8" x="798" y="414" xlink:href="#image"/>
+    <use id="Posto7-3" data-name="Posto7" x="798" y="474" xlink:href="#image"/>
+    <use id="Posto6-3" data-name="Posto6" x="738" y="414" xlink:href="#image"/>
+    <use id="Posto5-3" data-name="Posto5" x="738" y="474" xlink:href="#image"/>
+    <use id="Posto4-3" data-name="Posto4" x="678" y="414" xlink:href="#image"/>
+    <use id="Posto3-3" data-name="Posto3" x="678" y="474" xlink:href="#image"/>
+    <use id="Posto2-3" data-name="Posto2" x="618" y="414" xlink:href="#image"/>
+    <use id="Posto1-3" data-name="Posto1" x="618" y="474" xlink:href="#image"/>
+  </g>
+  <g id="Gruppo_4" data-name="Gruppo 4">
+    <use id="Posto8-4" data-name="Posto8" x="850" y="286" xlink:href="#image"/>
+    <use id="Posto7-4" data-name="Posto7" x="790" y="286" xlink:href="#image"/>
+    <use id="Posto6-4" data-name="Posto6" x="850" y="226" xlink:href="#image"/>
+    <use id="Posto5-4" data-name="Posto5" x="790" y="226" xlink:href="#image"/>
+    <use id="Posto4-4" data-name="Posto4" x="850" y="166" xlink:href="#image"/>
+    <use id="Posto3-4" data-name="Posto3" x="790" y="166" xlink:href="#image"/>
+    <use id="Posto2-4" data-name="Posto2" x="850" y="106" xlink:href="#image"/>
+    <use id="Posto1-4" data-name="Posto1" x="790" y="106" xlink:href="#image"/>
+  </g>
+  <g id="Gruppo_9" data-name="Gruppo 9">
+    <use id="Posto6-5" data-name="Posto6" x="231" y="377" xlink:href="#image"/>
+    <use id="Posto5-5" data-name="Posto5" x="231" y="437" xlink:href="#image"/>
+    <use id="Posto4-5" data-name="Posto4" x="171" y="377" xlink:href="#image"/>
+    <use id="Posto3-5" data-name="Posto3" x="171" y="437" xlink:href="#image"/>
+    <use id="Posto2-5" data-name="Posto2" x="111" y="377" xlink:href="#image"/>
+    <use id="Posto1-5" data-name="Posto1" x="111" y="437" xlink:href="#image"/>
+  </g>
+  <g id="Gruppo_10" data-name="Gruppo 10">
+    <use id="Posto6-6" data-name="Posto6" x="231" y="585" xlink:href="#image"/>
+    <use id="Posto5-6" data-name="Posto5" x="231" y="645" xlink:href="#image"/>
+    <use id="Posto4-6" data-name="Posto4" x="171" y="585" xlink:href="#image"/>
+    <use id="Posto3-6" data-name="Posto3" x="171" y="645" xlink:href="#image"/>
+    <use id="Posto2-6" data-name="Posto2" x="111" y="585" xlink:href="#image"/>
+    <use id="Posto1-6" data-name="Posto1" x="111" y="645" xlink:href="#image"/>
+  </g>
+  <g id="Gruppo_11" data-name="Gruppo 11">
+    <use id="Posto6-7" data-name="Posto6" x="232" y="793" xlink:href="#image"/>
+    <use id="Posto5-7" data-name="Posto5" x="232" y="853" xlink:href="#image"/>
+    <use id="Posto4-7" data-name="Posto4" x="172" y="793" xlink:href="#image"/>
+    <use id="Posto3-7" data-name="Posto3" x="172" y="853" xlink:href="#image"/>
+    <use id="Posto2-7" data-name="Posto2" x="112" y="793" xlink:href="#image"/>
+    <use id="Posto1-7" data-name="Posto1" x="112" y="853" xlink:href="#image"/>
+  </g>
+</svg>

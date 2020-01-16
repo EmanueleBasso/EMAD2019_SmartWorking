@@ -1,4 +1,4 @@
-import { CalendarComponentOptions } from 'ion2-calendar';
+import { CalendarComponentOptions, DayConfig } from 'ion2-calendar';
 import { AlertController, NavController, MenuController } from '@ionic/angular';
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
@@ -13,24 +13,20 @@ import LoadingService from '../providers/loading.service';
 export class SwPage implements OnInit {
 
   private date: Date;
-  private selectedDays: Array<string>;
-
-  arrayData: string[];
-  _color: string = 'primary';
-  //_showToggleButtons: boolean = false;
-  //_showMonthPicker: boolean = false;
-  //_disableWeeks: number[] = [0, 6];
-  //_weekStart: number = 0;
+  private selectedDays: Array<string> = [];
+  private _daysConfig: DayConfig[] = [];
+  private _color: string = 'primary';
 
   options: CalendarComponentOptions = {
     color: this._color,
     showMonthPicker: false,
     pickMode: 'multi',
     showToggleButtons: true,
+    daysConfig: this._daysConfig,
   };
 
   constructor(private alertController: AlertController, private navCtrl: NavController,
-              private http: HttpClient, private loadingService: LoadingService, private menu: MenuController) { }
+    private http: HttpClient, private loadingService: LoadingService, private menu: MenuController) { }
 
   ngOnInit() {
     moment.locale('it-IT');
@@ -91,6 +87,7 @@ export class SwPage implements OnInit {
   async presentAlertIniziale(giorni) {
     const alert = await this.alertController.create({
       header: 'Info',
+      cssClass: 'alertClass3',
       message: 'Ricorda che puoi scegliere al massimo ' + giorni + ' giorni di Smart Working a settimana',
       buttons: [
         {
@@ -104,6 +101,7 @@ export class SwPage implements OnInit {
   async presentAlertPrenotato() {
     const alert = await this.alertController.create({
       header: 'Attenzione',
+      cssClass: 'alertClass2',
       message: 'Hai già prenotato lo Smart Working per il prossimo mese',
       buttons: [
         {
@@ -130,6 +128,7 @@ export class SwPage implements OnInit {
   async presentAlertPrimaDel15(giorno) {
     const alert = await this.alertController.create({
       header: 'Attenzione',
+      cssClass: 'alertClass3',
       message: 'La prenotazione del piano sarà disponibile tra ' + (15 - giorno) + ((giorno === 1) ? ' giorno' : ' giorni'),
       buttons: [
         {
@@ -156,6 +155,7 @@ export class SwPage implements OnInit {
   async presentAlertGiorniDisponibili() {
     const alert = await this.alertController.create({
       header: 'Attenzione',
+      cssClass: 'alertClass',
       message: 'Puoi selezionare altri giorni di Smart Working. Vuoi proseguire lo stesso?',
       buttons: [
         {
@@ -174,6 +174,7 @@ export class SwPage implements OnInit {
 
   async presentAlertTroppiGiorniSW(giorni) {
     const alert = await this.alertController.create({
+      cssClass: 'alertClass2',
       header: 'Errore',
       message: 'Puoi selezionare al massimo ' + giorni + ' giorni di Smart Working alla settimana. Rivedi le tue scelte',
       buttons: [
@@ -188,6 +189,7 @@ export class SwPage implements OnInit {
   async presentAlertSWSalvatoCorrettamente() {
     const alert = await this.alertController.create({
       header: 'Successo',
+      cssClass: 'alertClass',
       message: 'Il piano di Smart Working è stato salvato correttamente per il mese successivo',
       buttons: [
         {
@@ -213,6 +215,7 @@ export class SwPage implements OnInit {
   async presentAlertSWErrore(message: string, destination: string, disabledNav: boolean) {
     const alert = await this.alertController.create({
       header: 'Attenzione',
+      cssClass: 'alertClass3',
       message: message,
       buttons: [
         {
@@ -223,17 +226,32 @@ export class SwPage implements OnInit {
     await alert.present();
 
     // se clicca fuori dall'alert questo lo riporta indietro
-    if (!disabledNav)
+    if (!disabledNav) {
       alert.onWillDismiss().then(() => {
         this.navCtrl.navigateBack('/' + destination);
       });
+    }
   }
 
   async presentAlertSWErroreUltimaSettimanaMesePrecedente() {
     const alert = await this.alertController.create({
       header: 'Errore',
+      cssClass: 'alertClass2',
       message: 'Le tue scelte sono incompatibili con il piano di Smart Working del mese precedente. Hai + \
                 già selezionato dei giorni per la prima settimana',
+      buttons: [
+        {
+          text: 'OK'
+        }
+      ]
+    });
+    await alert.present();
+  }
+
+  async presentAlertGiorniBloccati(giorni) {
+    const alert = await this.alertController.create({
+      header: 'Errore',
+      message: 'I seguenti giorni sono stati bloccati: ' + giorni + '. Rivedi le tue scelte',
       buttons: [
         {
           text: 'OK'
@@ -392,9 +410,26 @@ export class SwPage implements OnInit {
     this.http.post(url, JSON.stringify(body)).subscribe(response => {
       const hasError = response['hasError'];
       const error = response['error'];
+      const areBlockedDays = response['areBlockedDays'];
 
       this.loadingService.dismissLoading();
-      if (hasError === false) {
+
+      if (areBlockedDays !== undefined) {
+        let giorni = '';
+        const dates = response['dates'] as [];
+
+        for(let i = 0; i < dates.length; i = i + 1) {
+          const date = dates[i]['giorno'] + '/' + dates[i]['mese'] + '/' + dates[i]['anno'];
+
+          giorni += date;
+
+          if (i < (dates.length - 1)) {
+            giorni += ', ';
+          }
+        }
+
+        this.presentAlertGiorniBloccati(giorni);
+      } else if (hasError === false) {
         this.presentAlertSWSalvatoCorrettamente();
       } else {
         this.presentAlertSWErrore(error, '', true);

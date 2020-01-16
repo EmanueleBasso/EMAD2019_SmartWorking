@@ -1,0 +1,80 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>
+        <ion-icon name="business" ></ion-icon> Organizzazione aziendale
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+    
+
+
+   <!-- <ion-item lines="none" style=" font-size: 50px; ">
+        <ion-icon name="business" color="primary"  style=" font-size: 50px; "></ion-icon> <ion-label padding color="primary">Organizzazione aziendale</ion-label>
+      </ion-item>-->
+  <ion-list>
+    <ion-item *ngFor="let item of items">
+      <div style="margin-right: 10px;">
+        <ion-icon [name]="item.icon"></ion-icon>
+      </div>
+      Home
+      <div class="item-note" slot="end">
+        End
+      </div>
+    </ion-item>
+  </ion-list>
+  <ion-col size=12>
+    
+      <ion-card>
+        <ion-card-header>
+          <ion-card-title>
+              <ion-item lines="none" style=" font-size: 50px; ">
+                  <ion-icon name="people" color="primary"  style=" font-size: 50px; "></ion-icon> <ion-label color="primary" padding>Dipendenti</ion-label>
+                </ion-item>
+          </ion-card-title> 
+            </ion-card-header>
+              <ion-card-content>
+                <ion-item>
+                    <ion-icon name="person"></ion-icon> <ion-label padding>Numero dipendenti in azienda</ion-label>
+                </ion-item>
+                <ion-item>
+                    <ion-icon name="home" ></ion-icon><ion-label padding>Numero smart worker giornaliero</ion-label>
+                </ion-item>
+                <ion-item>
+                    <ion-icon name="briefcase" ></ion-icon><ion-label padding>Numero dipendenti in sede giornaliero</ion-label>
+                </ion-item>
+               
+
+              </ion-card-content>
+      </ion-card>
+      <ion-card>
+          <ion-card-header>
+              <ion-card-title>
+                  <ion-item lines="none" style=" font-size: 50px; ">
+                      <ion-icon name="bookmark" color="primary"  style=" font-size: 50px; "></ion-icon> <ion-label color="primary" padding>Postazioni</ion-label>
+                    </ion-item>
+              </ion-card-title> 
+                </ion-card-header>
+
+              <ion-card-content >
+                  <ion-item>
+                      <ion-icon name="desktop"></ion-icon> <ion-label padding>Numero posti in azienda</ion-label>
+                  </ion-item>
+                  <ion-item>
+                      <ion-icon name="bookmark" ></ion-icon><ion-label padding>numero postazioni occupate giornaliero</ion-label>
+                  </ion-item>
+                  <ion-item>
+                      <ion-icon name="bookmark"></ion-icon><ion-label padding>numero postazioni libere giornaliero</ion-label>
+                  </ion-item>
+               
+              </ion-card-content>
+      </ion-card>
+    
+    </ion-col>
+  <!--<app-basic-calendar></app-basic-calendar>-->
+
+</ion-content>
+

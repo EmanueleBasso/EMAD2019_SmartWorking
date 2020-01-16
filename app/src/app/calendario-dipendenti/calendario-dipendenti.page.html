@@ -9,8 +9,8 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-  <ion-card (swiperight)="handleSwipe()">
+<ion-content (swiperight)="handleSwipe()">
+  <ion-card>
     <ion-item lines="none">
       <ion-label color="primary">
         Seleziona un progetto
@@ -21,104 +21,7 @@
     </ion-item>
   </ion-card>
 
-  <ion-card *ngIf="visualizzareDipendenti" (swiperight)="handleSwipe()">
-    <ion-card-header class="ion-text-center">
-      <ion-label
-        style="font-weight: bold;"
-        color="primary"
-        class="ion-text-center"
-      >
-        Lista dipendenti del progetto x {{progetto}} con abilitazione SW
-      </ion-label>
-    </ion-card-header>
-
-    <ion-list *ngFor="let item of items">
-      <ion-radio-group>
-        <ion-grid fixed>
-          <ion-row>
-            <ion-col>
-              <ion-item lines="none" style="height: 33px;">
-                <ion-label>1. Piero Della Francesca</ion-label>
-              </ion-item>
-            </ion-col>
-          </ion-row>
-          <ion-row>
-            <ion-col>
-              <ion-item lines="none">
-                <ion-radio
-                  color="danger"
-                  class="ion-margin-end"
-                  name="{{item.name}}"
-                  value="{{item.value}}"
-                >
-                </ion-radio>
-                <ion-label class="ion-no-margin" color="danger"
-                  >Disabilita</ion-label
-                >
-              </ion-item>
-            </ion-col>
-            <ion-col>
-              <ion-item lines="none">
-                <ion-radio
-                  checked
-                  class="ion-margin-end"
-                  name="{{item.name}}"
-                  value="{{item.value}}"
-                >
-                </ion-radio>
-                <ion-label class="ion-no-margin" color="success"
-                  >Abilita</ion-label
-                >
-              </ion-item>
-            </ion-col>
-          </ion-row>
-        </ion-grid>
-      </ion-radio-group>
-      <ion-item-divider class="divider"></ion-item-divider>
-      <ion-radio-group>
-        <ion-grid fixed>
-          <ion-row>
-            <ion-col>
-              <ion-item lines="none" style="height: 33px;">
-                <ion-label>2. Piergianfranco Fumagalli</ion-label>
-              </ion-item>
-            </ion-col>
-          </ion-row>
-          <ion-row>
-            <ion-col>
-              <ion-item lines="none">
-                <ion-radio
-                  color="danger"
-                  class="ion-margin-end"
-                  value="{{item.value}}"
-                >
-                </ion-radio>
-                <ion-label class="ion-no-margin" color="danger"
-                  >Disabilita</ion-label
-                >
-              </ion-item>
-            </ion-col>
-            <ion-col>
-              <ion-item lines="none">
-                <ion-radio
-                  checked
-                  class="ion-margin-end"
-                  value="{{item.value}}"
-                >
-                </ion-radio>
-                <ion-label class="ion-no-margin" color="success"
-                  >Abilita</ion-label
-                >
-              </ion-item>
-            </ion-col>
-          </ion-row>
-        </ion-grid>
-      </ion-radio-group>
-      <ion-item-divider class="divider"></ion-item-divider>
-    </ion-list>
-  </ion-card>
-
-  <ion-card (swiperight)="handleSwipe()">
+  <ion-card>
     <ion-card-header class="ion-text-center">
       <ion-label
         style="font-weight: bold;"
@@ -130,77 +33,82 @@
     </ion-card-header>
 
     <ion-list>
-      <ion-radio-group (ionChange)="radioGroupChange($event)">
-        <ion-grid fixed>
-          <ion-row>
-            <ion-col>
-              <ion-item lines="none" style="height: 33px;">
-                <ion-label>1. Piero Della Francesca</ion-label>
-              </ion-item>
-            </ion-col>
-          </ion-row>
-          <ion-row>
-            <ion-col>
-              <ion-item lines="none">
-                <ion-radio
-                  value="disabilita1"
+      <ion-item lines="none">
+        <div>
+          <div class="riga1">
+            <ion-grid class="ion-no-padding">
+              <ion-row class="ion-align-items-center">
+                <ion-col size="8">
+                  1) Piero Della Francescaaaaa
+                </ion-col>
+                <ion-col size="4">
+                  <ion-button
+                    (click)="onClickDettagliSW()"
+                    fill="outline"
+                    color="tertiary"
+                    style="float: right;"
+                  >
+                    Dettagli
+                  </ion-button>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+          </div>
+          <div class="riga2">
+            <ion-grid class="ion-no-padding" *ngIf="click">
+              <ion-col>
+                <ion-row style="justify-content: space-between !important;">
+                  <ion-card
+                    class="ion-no-margin ion-padding"
+                    style="margin-bottom: 10px;"
+                    >12/21/20</ion-card
+                  >
+                  <ion-card
+                    class="ion-no-margin ion-padding"
+                    style="margin-bottom: 10px;"
+                    >13/21/20</ion-card
+                  >
+                  <ion-card
+                    class="ion-no-margin ion-padding"
+                    style="margin-bottom: 10px;"
+                    >14/21/20</ion-card
+                  >
+                  <ion-card
+                    class="ion-no-margin ion-padding"
+                    style="margin-bottom: 10px;"
+                    >15/21/20</ion-card
+                  >
+                  <ion-card
+                    class="ion-no-margin ion-padding"
+                    style="margin-bottom: 10px;"
+                    >16/21/20</ion-card
+                  >
+                  <ion-card
+                    class="ion-no-margin ion-padding"
+                    style="margin-bottom: 10px;"
+                    >17/21/20</ion-card
+                  >
+                  <ion-card
+                    class="ion-no-margin ion-padding"
+                    style="margin-bottom: 10px;"
+                    >18/21/20</ion-card
+                  >
+                </ion-row>
+              </ion-col>
+              <ion-col>
+                <ion-button
+                  class="ion-padding"
+                  (click)="onClickBloccaSW()"
                   color="danger"
-                  class="ion-margin-end"
+                  expand="block"
                 >
-                </ion-radio>
-                <ion-label class="ion-no-margin" color="danger"
-                  >Disabilita</ion-label
-                >
-              </ion-item>
-            </ion-col>
-            <ion-col>
-              <ion-item lines="none">
-                <ion-radio value="abilita1" checked class="ion-margin-end" color="success">
-                </ion-radio>
-                <ion-label class="ion-no-margin" color="success"
-                  >Abilita</ion-label
-                >
-              </ion-item>
-            </ion-col>
-          </ion-row>
-        </ion-grid>
-      </ion-radio-group>
-      <ion-item-divider class="divider"></ion-item-divider>
-      <ion-radio-group (ionChange)="radioGroupChange($event)" color="success">
-        <ion-grid fixed>
-          <ion-row>
-            <ion-col>
-              <ion-item lines="none" style="height: 33px;">
-                <ion-label>2. Piergianfranco Fumagalli</ion-label>
-              </ion-item>
-            </ion-col>
-          </ion-row>
-          <ion-row>
-            <ion-col>
-              <ion-item lines="none">
-                <ion-radio
-                  value="disabilita2"
-                  color="danger"
-                  class="ion-margin-end"
-                >
-                </ion-radio>
-                <ion-label class="ion-no-margin" color="danger"
-                  >Disabilita</ion-label
-                >
-              </ion-item>
-            </ion-col>
-            <ion-col>
-              <ion-item lines="none">
-                <ion-radio value="abilita2" checked class="ion-margin-end" color="success">
-                </ion-radio>
-                <ion-label class="ion-no-margin" color="success"
-                  >Abilita</ion-label
-                >
-              </ion-item>
-            </ion-col>
-          </ion-row>
-        </ion-grid>
-      </ion-radio-group>
+                  Blocca Sw
+                </ion-button>
+              </ion-col>
+            </ion-grid>
+          </div>
+        </div>
+      </ion-item>
       <ion-item-divider class="divider"></ion-item-divider>
     </ion-list>
   </ion-card>

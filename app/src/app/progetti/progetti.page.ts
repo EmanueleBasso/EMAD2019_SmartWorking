@@ -12,7 +12,7 @@ import LoadingService from '../providers/loading.service';
 })
 export class ProgettiPage implements OnInit {
   private progetti: Array<Object> = [];
-  private progettoSelezionato: string = "";
+  private progettoSelezionato: string = '';
   public items: Array<Object> = [];
   public visualizzareDipendenti: boolean = false;
   public giorno: string;
@@ -37,7 +37,7 @@ export class ProgettiPage implements OnInit {
         const hasError = response['hasError'];
 
         if (hasError !== undefined) {
-          this.presentAlert('Attenzione', 'Si è verificato un errore. Provare a riaccedere alla pagina');
+          this.presentAlert3('Attenzione', 'Si è verificato un errore. Provare a riaccedere alla pagina');
           return;
         }
 
@@ -58,6 +58,37 @@ export class ProgettiPage implements OnInit {
   async presentAlert(header, message) {
     const alert = await this.alertController.create({
       header: header,
+      cssClass: 'alertClass',
+      message: message,
+      buttons: [
+        {
+          text: 'OK'
+        }
+      ]
+    });
+    await alert.present();
+  }
+
+  //Css danger
+  async presentAlert2(header, message) {
+    const alert = await this.alertController.create({
+      header: header,
+      cssClass: 'alertClass2',
+      message: message,
+      buttons: [
+        {
+          text: 'OK'
+        }
+      ]
+    });
+    await alert.present();
+  }
+
+  //Css warning
+  async presentAlert3(header, message) {
+    const alert = await this.alertController.create({
+      header: header,
+      cssClass: 'alertClass3',
       message: message,
       buttons: [
         {
@@ -77,7 +108,7 @@ export class ProgettiPage implements OnInit {
         {
           text: 'Indietro',
           role: 'cancel',
-          cssClass: 'alertDanger',
+          cssClass: 'alertMedium',
         }, {
           text: 'Conferma',
           handler: (res) => {
@@ -91,15 +122,13 @@ export class ProgettiPage implements OnInit {
               }
             }
 
-            // Se clicca conferma senza selezionare niente il bottone resta disabilitato
-            if (res !== undefined) {
-              const node = document.querySelector('#btnBloccaGiorno') as HTMLElement;
-              node['color'] = 'danger';
-              node['disabled'] = false;
-            }
-            // inoltre l'alert continua ad essere mostrato, così è forzato a premere sul tasto indietro
-            else {
+            // Se clicca conferma senza selezionare niente l'alert continua ad essere mostrato, 
+            // così è forzato a premere sul tasto indietro
+            if (this.progettoSelezionato === undefined) {
+              this.progettoSelezionato = '';
               this.mostraProgetti();
+            }
+            else {
             }
           }
         }
@@ -120,7 +149,7 @@ export class ProgettiPage implements OnInit {
         this.loadingService.dismissLoading();
 
         if (hasError !== undefined) {
-          this.presentAlert('Attenzione', 'Si è verificato un errore. Provare a riaccedere alla pagina');
+          this.presentAlert3('Attenzione', 'Si è verificato un errore. Provare a riaccedere alla pagina');
         } else {
           const days = [];
 
@@ -131,9 +160,10 @@ export class ProgettiPage implements OnInit {
             });
           }
 
+          //pickMode: [single, multi] | posto: [null, "n° posto"]
           const popover = await this.popoverCtrl.create({
             component: NotificationsComponent,
-            componentProps: {daysBlocked: days},
+            componentProps: { daysBlocked: days, pickMode: 'single', posto: null },
             event: myEvent,
             animated: true,
             translucent: true
@@ -176,7 +206,7 @@ export class ProgettiPage implements OnInit {
                 const hasError = response['hasError'];
 
                 if (hasError === true) {
-                  this.presentAlert('Errore', 'Errore nel salvare la scelta');
+                  this.presentAlert2('Errore', 'Errore nel salvare la scelta');
                 } else {
                   this.presentAlert('Successo', 'Giorno bloccato con successo');
                 }
@@ -212,7 +242,7 @@ export class ProgettiPage implements OnInit {
 
         if (hasError !== undefined) {
           this.loadingService.dismissLoading();
-          this.presentAlert('Attenzione', 'Si è verificato un errore. Provare a riaccedere alla pagina');
+          this.presentAlert3('Attenzione', 'Si è verificato un errore. Provare a riaccedere alla pagina');
           return;
         }
 

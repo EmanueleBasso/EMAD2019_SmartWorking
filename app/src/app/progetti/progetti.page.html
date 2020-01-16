@@ -30,13 +30,15 @@
         Seleziona il giorno in cui visualizzare lo Smart Working
       </ion-label>
     </ion-card-header>
-    <ion-calendar
+      <ion-calendar
       (change)="onChange($event)"
       [options]="options"
       type="string"
       format="YYYY-MM-DD"
+      *ngIf="progettoSelezionato.length"
     >
     </ion-calendar>
+
   </ion-card>
   <ion-card *ngIf="visualizzareDipendenti" (swiperight)="handleSwipe()">
     <ion-card-header class="ion-text-center">
@@ -56,6 +58,23 @@
     </ion-list>
   </ion-card>
 
+  <ion-card *ngIf="!visualizzareDipendenti && progettoSelezionato.length" (swiperight)="handleSwipe()">
+    <ion-card-header class="ion-text-center">
+      <ion-label
+        style="font-weight: bold;"
+        color="primary"
+        class="ion-text-center"
+      >
+        Dipendenti in Smart Working
+      </ion-label>
+    </ion-card-header>
+    <ion-list>
+      <ion-item lines="none">
+        Selezionare un giorno
+      </ion-item>
+    </ion-list>
+  </ion-card>
+
   <ion-card (swiperight)="handleSwipe()">
     <ion-card-header class="ion-text-center">
       <ion-label
@@ -68,10 +87,10 @@
     </ion-card-header>
     <ion-button
       id="btnBloccaGiorno"
-      color="medium"
       expand="block"
       class="ion-margin"
-      disabled="true"
+      [color]="progettoSelezionato.length ? 'danger' : 'medium'"
+      [disabled]="!progettoSelezionato.length"
       (click)="notifications($event)"
     >
       Apri calendario
