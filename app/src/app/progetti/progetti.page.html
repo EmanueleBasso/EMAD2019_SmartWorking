@@ -30,7 +30,12 @@
         Seleziona il giorno in cui visualizzare lo Smart Working
       </ion-label>
     </ion-card-header>
-      <ion-calendar
+    <ion-list *ngIf="!progettoSelezionato.length" class="ion-no-padding">
+      <ion-item lines="none">
+        Selezionare prima un progetto
+      </ion-item>
+    </ion-list>
+    <ion-calendar
       (change)="onChange($event)"
       [options]="options"
       type="string"
@@ -38,7 +43,6 @@
       *ngIf="progettoSelezionato.length"
     >
     </ion-calendar>
-
   </ion-card>
   <ion-card *ngIf="visualizzareDipendenti" (swiperight)="handleSwipe()">
     <ion-card-header class="ion-text-center">
@@ -58,7 +62,10 @@
     </ion-list>
   </ion-card>
 
-  <ion-card *ngIf="!visualizzareDipendenti && progettoSelezionato.length" (swiperight)="handleSwipe()">
+  <ion-card
+    *ngIf="!visualizzareDipendenti && progettoSelezionato.length"
+    (swiperight)="handleSwipe()"
+  >
     <ion-card-header class="ion-text-center">
       <ion-label
         style="font-weight: bold;"
@@ -85,10 +92,15 @@
         Blocca un giorno di Smart Working
       </ion-label>
     </ion-card-header>
+    <ion-list *ngIf="!progettoSelezionato.length" class="ion-no-padding">
+      <ion-item lines="none">
+        Selezionare prima un progetto
+      </ion-item>
+    </ion-list>
     <ion-button
       id="btnBloccaGiorno"
       expand="block"
-      class="ion-margin"
+      style="margin: 5px 16px 16px 16px;"
       [color]="progettoSelezionato.length ? 'danger' : 'medium'"
       [disabled]="!progettoSelezionato.length"
       (click)="notifications($event)"

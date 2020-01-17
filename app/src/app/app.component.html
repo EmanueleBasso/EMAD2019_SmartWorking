@@ -9,17 +9,41 @@
       <ion-content>
         <ion-list>
           <ion-menu-toggle auto-hide="false" *ngFor="let p of appPages">
-            <ion-item [routerDirection]="'root'" [routerLink]="[p.url]">
-              <ion-icon slot="start" [name]="p.icon" color="secondary"></ion-icon>
+            <ion-item
+              [routerDirection]="'root'"
+              [routerLink]="[p.url]"
+              class="ion-no-padding"
+              lines="full"
+            >
+              <ion-icon
+                slot="start"
+                [name]="p.icon"
+                color="secondary"
+                style="margin: 0 15px;"
+              ></ion-icon>
               <ion-label>
                 {{ p.title }}
               </ion-label>
             </ion-item>
           </ion-menu-toggle>
 
-          <ion-menu-toggle class="onlyManager" auto-hide="false" *ngFor="let p of appPagesManager">
-            <ion-item [routerDirection]="'root'" [routerLink]="[p.url]">
-              <ion-icon slot="start" [name]="p.icon" color="secondary"></ion-icon>
+          <ion-menu-toggle
+            class="onlyManager"
+            auto-hide="false"
+            *ngFor="let p of appPagesManager"
+          >
+            <ion-item
+              [routerDirection]="'root'"
+              [routerLink]="[p.url]"
+              class="ion-no-padding"
+              lines="full"
+            >
+              <ion-icon
+                slot="start"
+                [name]="p.icon"
+                color="secondary"
+                style="margin: 0 15px;"
+              ></ion-icon>
               <ion-label>
                 {{ p.title }}
               </ion-label>
@@ -27,8 +51,18 @@
           </ion-menu-toggle>
 
           <ion-menu-toggle auto-hide="false">
-            <ion-item (click)="logout()" button>
-              <ion-icon slot="start" [name]="'log-out'" color="tertiary"></ion-icon>
+            <ion-item
+              (click)="logout()"
+              button
+              lines="full"
+              class="ion-no-padding"
+            >
+              <ion-icon
+                slot="start"
+                [name]="'log-out'"
+                color="danger"
+                style="margin: 0 15px;"
+              ></ion-icon>
               <ion-label>
                 Logout
               </ion-label>
@@ -37,7 +71,11 @@
         </ion-list>
       </ion-content>
     </ion-menu>
-    <ion-router-outlet main id="my-content" *ngIf="internet"></ion-router-outlet>
+    <ion-router-outlet
+      main
+      id="my-content"
+      *ngIf="internet"
+    ></ion-router-outlet>
 
     <ion-header *ngIf="!internet">
       <ion-toolbar color="primary">

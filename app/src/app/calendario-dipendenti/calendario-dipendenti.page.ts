@@ -9,12 +9,12 @@ import LoadingService from '../providers/loading.service';
   styleUrls: ['./calendario-dipendenti.page.scss'],
 })
 export class CalendarioDipendentiPage implements OnInit {
-  private progetti: Array<Object> = [];
+  private progetti: Array<any> = [];
   private progettoSelezionato: string = '';
   public nomeProgettoSelezionato: string = '';
-  private items: Array<Object> = [];
-  public click: Array<Object> = [];
-  public impedisciSW: Array<Object> = [];
+  private items: Array<any> = [];
+  public click: Array<any> = [];
+  public impedisciSW: Array<any> = [];
 
   constructor(private menu: MenuController, private loadingService: LoadingService,
     private alertController: AlertController, private http: HttpClient) { }
@@ -66,7 +66,7 @@ export class CalendarioDipendentiPage implements OnInit {
     const alert = await this.alertController.create({
       header: 'Attenzione',
       cssClass: 'alertClass2',
-      message: 'Sei sicuro di voler bloccare lo Smart Working all\'utente ' + "\"" + nomeUtente + "\" per il mese successivo?",
+      message: 'Sei sicuro di voler bloccare lo Smart Working all\'utente ' + '"' + nomeUtente + '" per il mese successivo?',
       buttons: [
         {
           text: 'Indietro',
@@ -79,12 +79,12 @@ export class CalendarioDipendentiPage implements OnInit {
             this.loadingService.presentLoading('Aspetta...').then(() => {
 
               const url = 'https://europe-west1-smart-working-5f3ea.cloudfunctions.net/blockSW';
-        
+
               this.http.get(url + '?uid=' + uidDipendente).subscribe(response => {
                 const hasError = response['hasError'];
-        
+
                 this.loadingService.dismissLoading();
-        
+
                 if (hasError === true) {
                   this.presentAlert3('Attenzione', 'Si è verificato un errore. Provare a riaccedere alla pagina');
                 } else {
@@ -104,11 +104,12 @@ export class CalendarioDipendentiPage implements OnInit {
   async presentAlertBloccatoCorrettamente() {
     const alert = await this.alertController.create({
       header: 'Successo',
-      cssClass: 'alertClass',
+      cssClass: 'alertClass4',
       message: 'Dipendente bloccato con successo',
       buttons: [
         {
-          text: 'OK'
+          text: 'OK',
+          cssClass: 'alertConfirm',
         }
       ]
     });
@@ -138,7 +139,7 @@ export class CalendarioDipendentiPage implements OnInit {
             for (let i = 0; i < this.progetti.length; i = i + 1) {
               if (this.progetti[i]['value'] === res) {
                 this.nomeProgettoSelezionato = this.progetti[i]['label'];
-                
+
                 this.progetti[i]['checked'] = true;
               } else {
                 this.progetti[i]['checked'] = false;
@@ -166,7 +167,7 @@ export class CalendarioDipendentiPage implements OnInit {
     this.loadingService.presentLoading('Aspetta...').then(() => {
 
       const url = 'https://europe-west1-smart-working-5f3ea.cloudfunctions.net/getAssignedUsers';
-      
+
       this.http.get(url + '?project=' + this.progettoSelezionato).subscribe(response => {
         const hasError = response['hasError'];
 
@@ -182,19 +183,19 @@ export class CalendarioDipendentiPage implements OnInit {
         for (let i = 0; i < (response as []).length; i = i + 1) {
           let dates = [];
 
-          for(let j = 0; j < (response[i].calendario as []).length; j = j + 1) {
+          for (let j = 0; j < (response[i].calendario as []).length; j = j + 1) {
             let data = '';
 
-            if(response[i].calendario[j].giorno.length === 1) {
+            if (response[i].calendario[j].giorno.length === 1) {
               data += '0';
             }
 
             data += response[i].calendario[j].giorno + '/';
-            
-            if(response[i].calendario[j].mese.length === 1) {
+
+            if (response[i].calendario[j].mese.length === 1) {
               data += '0';
             }
-            
+
             data += response[i].calendario[j].mese + '/' + response[i].calendario[j].anno;
 
             dates.push(data);
