@@ -17,6 +17,14 @@ const routes: Routes = [
     path: 'form-progetti',
     loadChildren: () => import('./form-progetti/form-progetti.module').then( m => m.FormProgettiPageModule)
   },
+  {
+    path: 'form-dipendenti',
+    loadChildren: () => import('./form-dipendenti/form-dipendenti.module').then( m => m.FormDipendentiPageModule)
+  },
+  {
+    path: 'form-dipendenti',
+    loadChildren: () => import('./form-dipendenti/form-dipendenti.module').then( m => m.FormDipendentiPageModule)
+  },
 ];
 
 @NgModule({

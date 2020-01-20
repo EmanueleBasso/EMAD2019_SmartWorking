@@ -80,6 +80,16 @@
   }
 }
 
+.alertClass4 {
+  .alert-title {
+    color: var(--ion-color-success) !important;
+    text-align: center !important;
+  }
+  .alertConfirm {
+    color: var(--ion-color-success) !important;
+  }
+}
+
 .alert-message {
   color: black !important;
   text-align: center !important;

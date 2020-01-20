@@ -11,8 +11,12 @@ import { NavController } from '@ionic/angular';
 export class ProgettiPage implements OnInit {
   names:string[];
   navController: any;
-
-  constructor() {
+ 
+  goAnOtherPage(){
+    this.navCtrl.navigateRoot('/form-progetti');
+  }
+  
+  constructor(public navCtrl: NavController) {
     this.names=['Progetto1','Progetto2','Progetto3'];
     
     }

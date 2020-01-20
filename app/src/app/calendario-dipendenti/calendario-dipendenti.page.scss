@@ -1,3 +1,10 @@
-.divider{
-    min-block-size: auto;
+.divider {
+  min-block-size: auto;
+}
+
+ion-item {
+  #riga1 {
+    --padding: 0px;
+    --inner-padding-end: 0px;
+  }
 }

@@ -1,4 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { NavController} from '@ionic/angular';
+
+
+
+
+
 
 @Component({
   selector: 'app-dipendenti',
@@ -7,9 +13,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DipendentiPage implements OnInit {
   names:string[];
-  navController: any;
 
-  constructor() {
+  
+  goAnOtherPage(){
+    this.navCtrl.navigateRoot('/form-dipendenti');
+  }
+  
+  constructor(public navCtrl: NavController) {
     this.names=['Dipendente1','Dipendente2','Dipendente3'];
     
     }
