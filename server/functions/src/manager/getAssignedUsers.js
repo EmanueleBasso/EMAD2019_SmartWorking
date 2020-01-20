@@ -6,10 +6,18 @@ module.exports = (request, response) => {
 
     var project = request.query.project
     var today = new Date()
-    var currentMonth = today.getMonth() + 1
+    var blockedMonth = (today.getMonth() + 2) + ''
+    var blockedYear = today.getFullYear() + ''
     var employees = []
     var i = 0
     var flag = 1
+
+    if (blockedMonth == '13') {
+
+        blockedMonth = '1'
+        blockedYear = (today.getFullYear() + 1) + ''
+
+    }
 
     response.append('Access-Control-Allow-Origin', ['*'])
 
@@ -23,15 +31,12 @@ module.exports = (request, response) => {
 
                 await db.collection('DipendentiBloccati')
                 .where('dipendente', '==', document.id)
-                .where('anno', '==', 2020).get().then(async blockedMonths => {
-
-                    console.log('CURRENT MONTH: ' + currentMonth + ' ' + currentMonth.length)
+                .where('mese', '==', blockedMonth)
+                .where('anno', '==', blockedYear).get().then(async blockedMonths => {
 
                     if (blockedMonths.size != 0) {
 
                         employees[i].meseSuccessivoBloccato = true
-
-                        console.log('BLOCCATO')
 
                     }
 
@@ -45,11 +50,7 @@ module.exports = (request, response) => {
     
                                 employees[i].calendario.push({giorno: date.data().giorno, mese: date.data().mese, anno: date.data().anno})
     
-                            employees[i].calendario.sort(function(data1, data2) {
-                                if (data1 <= data2)    return -1;
-                                else if (data1 >= data2) return  1;
-                                else                      return  0;
-                              })
+                            employees[i].calendario = utils.sortDates(employees[i].calendario)
     
                         })
     

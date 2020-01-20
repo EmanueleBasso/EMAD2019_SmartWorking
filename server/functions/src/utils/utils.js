@@ -141,7 +141,6 @@ module.exports = {
             date = dates[i].giorno + "/" + dates[i].mese + "/" + dates[i].anno
             s = s
             + "<div style=\"display: flex; align-items: center; justify-content: center; flex-direction: row\">"
-            + "<img style=\"width: 30px; height: 30px;\" src=\"https://firebasestorage.googleapis.com/v0/b/smart-working-5f3ea.appspot.com/o/calendar.png?alt=media&token=9d32b1a0-e195-4768-9fae-af0e6d0eec59\" />"
             + "<p style=\"font-size: 20px; font-weight: bold; margin-left: 15px;\">"+ date +"</p>"
             + "</div>"
         }
@@ -235,8 +234,8 @@ module.exports = {
                         })
                     })
         
-                    prevDatesSorted = utils.sortDates(prevDatesSorted)
-                    newDatesSorted = utils.sortDates(dates)
+                    prevDatesSorted = this.sortDates(prevDatesSorted)
+                    newDatesSorted = this.sortDates(dates)
         
                     if (prevDatesSorted.length > 1) {
 
@@ -260,7 +259,7 @@ module.exports = {
                         
                     }
         
-                    if (utils.areValidDates(compareArray)) {
+                    if (this.areValidDates(compareArray)) {
         
                         this.addDates(dates, uid, batch)
         

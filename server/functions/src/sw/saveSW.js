@@ -20,6 +20,7 @@ module.exports = async(request, response) => {
     var dates = body.dates
     var batch = db.batch()
     var date = new Date()
+    var monthOfInterest = date.getMonth() + 1
     var flag = 1
 
     await db.collection("AssociazioneDipendenteProgetto").where('dipendente', '==', uid).get().then(async snapshot => {
@@ -37,7 +38,7 @@ module.exports = async(request, response) => {
                             
                                 var blockedDate
 
-                                if (blocked.data().giorno >= date.getDay() && blocked.data().mese >= date.getMonth() + 1 && blocked.data().anno >= date.getFullYear()) {
+                                if (blocked.data().giorno >= date.getDay() && blocked.data().mese >= monthOfInterest && blocked.data().anno >= date.getFullYear()) {
 
                                     blockedDate = {giorno: blocked.data().giorno, mese: blocked.data().mese, anno: blocked.data().anno}
                 

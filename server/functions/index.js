@@ -30,16 +30,16 @@ const getProjectBlcokedDays = require('./src/manager/getProjectBlcokedDays');
 const blockSW = require('./src/manager/blockSW');
 
 module.exports = {
-  //'isManager': functions.region('europe-west1').https.onRequest(isManagerModule),
-  //'checkSWAlreadyEntered': functions.region('europe-west1').https.onRequest(checkSWAlreadyEnteredModule),
-  //'saveSW': functions.region('europe-west1').https.onRequest(saveSW),
-  //'checkWhoInSW': functions.region('europe-west1').https.onRequest(checkWhoInSW),
+  'isManager': functions.region('europe-west1').https.onRequest(isManagerModule),
+  'checkSWAlreadyEntered': functions.region('europe-west1').https.onRequest(checkSWAlreadyEnteredModule),
+  'saveSW': functions.region('europe-west1').https.onRequest(saveSW),
+  'checkWhoInSW': functions.region('europe-west1').https.onRequest(checkWhoInSW),
   'getAssignedUsers': functions.region('europe-west1').https.onRequest(getAssignedUsers),
   'getProjects': functions.region('europe-west1').https.onRequest(getProjects),
-  //'saveToken': functions.region('europe-west1').https.onRequest(saveTokenModule),
-  //'deleteToken': functions.region('europe-west1').https.onRequest(deleteTokenModule),
-  //'notification': functions.region('europe-west1').https.onRequest(notificationModule),
-  //'blockSWDay': functions.region('europe-west1').https.onRequest(blockSWDay),
-  //'getProjectBlcokedDays': functions.region('europe-west1').https.onRequest(getProjectBlcokedDays),
-  //'blockSW': functions.region('europe-west1').https.onRequest(blockSW)
+  'saveToken': functions.region('europe-west1').https.onRequest(saveTokenModule),
+  'deleteToken': functions.region('europe-west1').https.onRequest(deleteTokenModule),
+  'notification': functions.region('europe-west1').https.onRequest(notificationModule),
+  'blockSWDay': functions.region('europe-west1').https.onRequest(blockSWDay),
+  'getProjectBlcokedDays': functions.region('europe-west1').https.onRequest(getProjectBlcokedDays),
+  'blockSW': functions.region('europe-west1').https.onRequest(blockSW)
 };
