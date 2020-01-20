@@ -67,7 +67,7 @@
               </ion-button>
             </ion-item>
           </div>
-          <div class="riga2" *ngIf="!impedisciSW[item.number - 1]">
+          <div class="riga2">
             <ion-grid class="ion-no-padding" *ngIf="click[item.number - 1]">
               <ion-col>
                 <ion-row style="justify-content: space-between !important;">
@@ -78,8 +78,17 @@
                     >{{data}}</ion-card
                   >
                 </ion-row>
+                <div
+                  class="riga2"
+                  *ngIf="(item.dates.length == 0) && click[item.number - 1]"
+                  style="padding: 10px 0;"
+                >
+                  <label style="color: var(--ion-color-medium);"
+                    >Non ci sono giorni di SW</label
+                  >
+                </div>
               </ion-col>
-              <ion-col>
+              <ion-col *ngIf="!impedisciSW[item.number - 1]">
                 <ion-button
                   (click)="onClickBloccaSW(item.uid, item.nome, item.cognome, item.number - 1)"
                   expand="block"
@@ -91,15 +100,6 @@
                 </ion-button>
               </ion-col>
             </ion-grid>
-          </div>
-          <div
-            class="riga2"
-            *ngIf="impedisciSW[item.number - 1] && click[item.number - 1]"
-            style="padding: 10px 0;"
-          >
-            <label style="color: var(--ion-color-medium);"
-              >Non ci sono giorni di SW</label
-            >
           </div>
         </div>
       </ion-item>

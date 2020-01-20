@@ -437,8 +437,7 @@ export class SwPage implements OnInit {
   }
 
   ionViewWillEnter() {
-    const giorno = 20;
-    //const giorno = this.date.getDate();
+    const giorno = this.date.getDate();
 
     if (giorno < 15) {
       this.presentAlertPrimaDel15(giorno);
@@ -449,10 +448,13 @@ export class SwPage implements OnInit {
       const url = 'https://europe-west1-smart-working-5f3ea.cloudfunctions.net/checkSWAlreadyEntered';
 
       this.http.get(url + '?uid=' + uid).subscribe(response => {
+        const blocked = response['blocked'];
         const alreadyEntered = response['alreadyEntered'];
 
         this.loadingService.dismissLoading();
-        if (alreadyEntered) {
+        if (blocked !== undefined) {
+          this.presentAlertSWErrore('Non ti è permesso pianificare lo Smart Working per il prossimo mese', 'home', false);
+        } else if (alreadyEntered) {
           this.presentAlertSWErrore('Hai già prenotato i giorni di Smart Working per il prossimo mese', 'home', false);
         } else {
           this.presentAlertIniziale(2);
