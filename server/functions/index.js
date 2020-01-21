@@ -28,6 +28,9 @@ const getProjects = require('./src/manager/getProjects');
 const blockSWDay = require('./src/manager/blockSWDay');
 const getProjectBlcokedDays = require('./src/manager/getProjectBlcokedDays');
 const blockSW = require('./src/manager/blockSW');
+const getFloors = require('./src/piantina/getFloors');
+const getRooms = require('./src/piantina/getRooms');
+const getPlanimetry = require('./src/piantina/getPlanimetry');
 
 module.exports = {
   'isManager': functions.region('europe-west1').https.onRequest(isManagerModule),
@@ -41,5 +44,8 @@ module.exports = {
   'notification': functions.region('europe-west1').https.onRequest(notificationModule),
   'blockSWDay': functions.region('europe-west1').https.onRequest(blockSWDay),
   'getProjectBlcokedDays': functions.region('europe-west1').https.onRequest(getProjectBlcokedDays),
-  'blockSW': functions.region('europe-west1').https.onRequest(blockSW)
+  'blockSW': functions.region('europe-west1').https.onRequest(blockSW),
+  'getFloors': functions.region('europe-west1').https.onRequest(getFloors),
+  'getRooms': functions.region('europe-west1').https.onRequest(getRooms),
+  'getPlanimetry': functions.region('europe-west1').https.onRequest(getPlanimetry),
 };

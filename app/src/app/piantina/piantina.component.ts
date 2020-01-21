@@ -1,15 +1,23 @@
 import * as Hammer from 'hammerjs';
-import { AlertController, MenuController } from '@ionic/angular';
 
-import { Component } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { AlertController, MenuController } from '@ionic/angular';
+import { Component, OnInit } from '@angular/core';
 import { DayConfig, CalendarComponentOptions } from 'ion2-calendar';
+import LoadingService from '../providers/loading.service';
 
 @Component({
   selector: 'app-piantina',
   templateUrl: './piantina.component.html',
   styleUrls: ['./piantina.component.scss'],
 })
-export class PiantinaComponent {
+export class PiantinaComponent implements OnInit {
+
+  private piani: Array<any> = [];
+  private stanze: Array<any> = [];
+
+  public pianoSelezionato:string = '';
+  public stanzaSelezionata:string = '';
 
   // VARIABILI MAPPA SVG
   private nodeZoom;
@@ -19,10 +27,6 @@ export class PiantinaComponent {
   private _daysConfig: DayConfig[] = [];
   private _color: string = 'primary';
 
-  constructor(private alertController: AlertController, private menu: MenuController) {
-
-  }
-
   options: CalendarComponentOptions = {
     color: this._color,
     showMonthPicker: false,
@@ -31,9 +35,52 @@ export class PiantinaComponent {
     daysConfig: this._daysConfig,
   };
 
+  constructor(private alertController: AlertController, private menu: MenuController,
+              public loadingService: LoadingService,private http: HttpClient) { }
+
+  ngOnInit() {
+    this.loadingService.presentLoading('Aspetta...').then(() => {
+
+      const url = 'https://europe-west1-smart-working-5f3ea.cloudfunctions.net/getFloors';
+
+      this.http.get(url).subscribe(response => {
+        const hasError = response['hasError'];
+
+        if (hasError !== undefined) {
+          this.presentAlert3('Attenzione', 'Si è verificato un errore. Provare a riaccedere alla pagina');
+          return;
+        }
+
+        for (let i = 0; i < (response as []).length; i = i + 1) {
+          this.piani.push({
+            label: response[i].nome,
+            type: 'radio',
+            value: response[i].nome,
+            checked: false
+          });
+        }
+
+        this.loadingService.dismissLoading();
+      });
+    });
+  }
+
+  async presentAlert3(header, message) {
+    const alert = await this.alertController.create({
+      header: header,
+      cssClass: 'alertClass3',
+      message: message,
+      buttons: [
+        {
+          text: 'OK'
+        }
+      ]
+    });
+    await alert.present();
+  }
+
   ionViewDidEnter() {
-    this.nodeZoom = document.querySelector('#oggettoSVG') as HTMLElement;
-    this.nodeZoom.style.zoom = this.zoomValue + '';
+
   }
 
   // FUNZIONE ZOOM MAPPA SVG
@@ -47,6 +94,7 @@ export class PiantinaComponent {
       this.nodeZoom.style.zoom = this.zoomValue + '';
     }
   }
+
   public zoomOut(value, precision) {
     if (this.zoomValue > 0.4) {
       this.zoomValue = Number((this.zoomValue - value).toFixed(precision));
@@ -72,44 +120,40 @@ export class PiantinaComponent {
     }
   }
 
-  //ALERT PER LA SCELTA DEL PIANO E DELLA STANZA
-  async mostraPiano() {
+  async mostraPiani() {
     const alert = await this.alertController.create({
-      header: 'Scegli il progetto!',
-      inputs: [
-        {
-          name: 'piano1',
-          type: 'radio',
-          label: 'piano 1',
-          value: 'p1',
-          id: 'idp1',
-          checked: true,
-        }, {
-          name: 'piano2',
-          type: 'radio',
-          label: 'piano 2',
-          value: 'p2',
-        },
-        {
-          name: 'piano3',
-          type: 'radio',
-          label: 'piano 3',
-          value: 'p3'
-        }
-      ],
+      header: 'Seleziona il piano',
+      inputs: this.piani,
+      cssClass: 'alertClass',
       buttons: [
         {
           text: 'Indietro',
           role: 'cancel',
-          cssClass: 'secondary',
-
-          handler: () => {
-            console.log('Cancella');
-          }
+          cssClass: 'alertMedium',
         }, {
           text: 'Conferma',
-          handler: () => {
-            console.log('Okay');
+          handler: (res) => {
+            this.stanzaSelezionata = '';
+            
+            this.pianoSelezionato = res;
+
+            for (let i = 0; i < this.piani.length; i = i + 1) {
+              if (this.piani[i]['value'] === res) {
+                this.piani[i]['checked'] = true;
+              } else {
+                this.piani[i]['checked'] = false;
+              }
+            }
+
+            // Se clicca conferma senza selezionare niente l'alert continua ad essere mostrato, 
+            // così è forzato a premere sul tasto indietro
+            if (this.pianoSelezionato === undefined) {
+              this.pianoSelezionato = '';
+              this.mostraPiani();
+            }
+            else {
+              this.caricaStanze();
+            }
           }
         }
       ]
@@ -118,49 +162,119 @@ export class PiantinaComponent {
     await alert.present();
   }
 
-  async mostraStanza() {
-    const alert = await this.alertController.create({
-      header: 'Scegli il progetto!',
-      inputs: [
-        {
-          name: 'stanza1',
-          type: 'radio',
-          label: 'stanza 1',
-          value: 's1',
-          id: 'sdp1',
-          checked: true,
-        }, {
-          name: 'stanza2',
-          type: 'radio',
-          label: 'stanza 2',
-          value: 's2',
-        },
-        {
-          name: 'stanza3',
-          type: 'radio',
-          label: 'stanza 3',
-          value: 's3'
+  caricaStanze() {
+    this.loadingService.presentLoading('Aspetta...').then(() => {
+
+      const url = 'https://europe-west1-smart-working-5f3ea.cloudfunctions.net/getRooms';
+
+      this.http.get(url + '?floor=' + this.pianoSelezionato).subscribe(response => {
+        const hasError = response['hasError'];
+
+        if (hasError !== undefined) {
+          this.presentAlert3('Attenzione', 'Si è verificato un errore. Provare a riaccedere alla pagina');
+          return;
         }
-      ],
+
+        this.stanze = [];
+
+        for (let i = 0; i < (response as []).length; i = i + 1) {
+          this.stanze.push({
+            label: response[i].stanza,
+            type: 'radio',
+            value: response[i].stanza + '||' + response[i].planimetria,
+            checked: false
+          });
+        }
+
+        this.loadingService.dismissLoading();
+      });
+    });
+  }
+
+  async mostraStanze() {
+    const alert = await this.alertController.create({
+      header: 'Seleziona la stanza',
+      inputs: this.stanze,
+      cssClass: 'alertClass',
       buttons: [
         {
           text: 'Indietro',
           role: 'cancel',
-          cssClass: 'secondary',
-
-          handler: () => {
-            console.log('Cancella');
-          }
+          cssClass: 'alertMedium',
         }, {
           text: 'Conferma',
-          handler: () => {
-            console.log('Okay');
+          handler: (res) => {
+            if (res === undefined) {
+              this.stanzaSelezionata = undefined;
+            } else {
+              this.stanzaSelezionata = res.split('||')[0];
+            }
+
+            let nomePlanimetria = '';
+
+            for (let i = 0; i < this.stanze.length; i = i + 1) {
+              if (this.stanze[i]['value'] === res) {
+                this.stanze[i]['checked'] = true;
+
+                nomePlanimetria = res.split('||')[1];
+              } else {
+                this.stanze[i]['checked'] = false;
+              }
+            }
+
+            // Se clicca conferma senza selezionare niente l'alert continua ad essere mostrato, 
+            // così è forzato a premere sul tasto indietro
+            if (this.stanzaSelezionata === undefined) {
+              this.stanzaSelezionata = '';
+              this.mostraStanze();
+            } else {
+              this.caricaPlanimetria(nomePlanimetria);
+            }
           }
         }
       ]
     });
-
     await alert.present();
+  }
+
+  caricaPlanimetria(nomePlanimetria) {
+    this.loadingService.presentLoading('Aspetta...').then(() => {
+
+      const url = 'https://europe-west1-smart-working-5f3ea.cloudfunctions.net/getPlanimetry';
+
+      this.http.get(url + '?nameFile=' + nomePlanimetria).subscribe(response => {
+        const hasError = response['hasError'];
+
+        if (hasError !== undefined) {
+          this.presentAlert3('Attenzione', 'Si è verificato un errore. Provare a riaccedere alla pagina');
+          return;
+        }
+
+        let node = document.querySelector('#oggettoSVG') as HTMLElement;
+        node.innerHTML = response['file'];
+
+        this.nodeZoom = document.querySelector('#Linea_1') as HTMLElement;
+        this.nodeZoom.style.zoom = this.zoomValue + '';
+
+        const arrayUse = document.querySelectorAll('use');
+
+        for(let i = 0; i < arrayUse.length; i = i + 1) {
+          arrayUse[i].addEventListener('click', (e:Event) => {
+            const idPosto = arrayUse[i]['id'];
+
+            // cliccato il bottone, apri il calendario
+          })
+        }
+
+        this.loadingService.dismissLoading();
+      });
+    });
+  }
+
+  cliccato(id) {
+    console.log(id);
+
+    this.presentAlert3('Attenzione', 'Hai cliccato il posto ' + id);
   }
 
 }

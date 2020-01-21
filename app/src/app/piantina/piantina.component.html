@@ -15,21 +15,22 @@
       <ion-label color="primary">
         Scegli il piano
       </ion-label>
-      <ion-button (click)="mostraPiano()" fill="outline" color="tertiary">
-        Lista progetti
+      <ion-button (click)="mostraPiani()" fill="outline" color="tertiary">
+        Lista piani
       </ion-button>
     </ion-item>
-    <ion-item lines="none">
+
+    <ion-item lines="none" *ngIf="pianoSelezionato.length">
       <ion-label color="primary">
         Scegli la stanza
       </ion-label>
-      <ion-button (click)="mostraPiano()" fill="outline" color="tertiary">
-        Lista progetti
+      <ion-button (click)="mostraStanze()" fill="outline" color="tertiary">
+        Lista stanze
       </ion-button>
     </ion-item>
   </ion-card>
 
-  <ion-card>
+  <ion-card *ngIf="stanzaSelezionata.length">
     <div class="divZoomButton">
       <ion-button
         (click)="zoomIn(0.2, 1)"
@@ -52,16 +53,12 @@
         <ion-icon name="remove" slot="icon-only"></ion-icon>
       </ion-button>
     </div>
-    <div class="divSVG" (pinch)="handlePinch($event)">
-      <object
-        data="../../../assets/Planimetria4.svg"
-        id="oggettoSVG"
-        type="image/svg+xml"
-      ></object>
+    <div class="divSVG" id="oggettoSVG">
+      <!-- QUI C'È LA PLANIMETRIA -->
     </div>
   </ion-card>
 
-  <ion-card (swiperight)="handleSwipe()" (pinch)="handlePinch($event)">
+  <ion-card (swiperight)="handleSwipe()" *ngIf="stanzaSelezionata.length">
     <ion-card-header>
       <ion-card-title class="ion-text-center">
         <ion-icon ios="ios-hand" md="md-hand" color="warning"></ion-icon>
