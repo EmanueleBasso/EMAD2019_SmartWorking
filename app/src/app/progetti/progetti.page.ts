@@ -178,7 +178,12 @@ export class ProgettiPage implements OnInit {
 
             const giornoArray = popoverData.data.giorno.split(' ');
 
-            const day = giornoArray[1];
+            let day = giornoArray[1];
+
+            if (day[0] == '0') {
+              day = day.replace('0', '');
+            }
+
             let month = 0;
             switch (giornoArray[2]) {
               case 'Gen': month = 1; break;

@@ -40,7 +40,7 @@ export class SwPage implements OnInit {
 
       dataTo.setDate(31);
       dataTo.setMonth(0);
-      dataTo.setFullYear(dataFrom.getFullYear());
+      dataTo.setFullYear(dataFrom.getFullYear() + 1);
     } else {
       dataFrom.setDate(1);
       dataFrom.setMonth(dataFrom.getMonth() + 1);

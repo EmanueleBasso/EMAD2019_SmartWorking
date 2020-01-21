@@ -1,7 +1,9 @@
 import * as Hammer from 'hammerjs';
 
+import { NotificationsComponent } from './../notifications/notifications.component';
+
 import { HttpClient } from '@angular/common/http';
-import { AlertController, MenuController } from '@ionic/angular';
+import { AlertController, MenuController, PopoverController } from '@ionic/angular';
 import { Component, OnInit } from '@angular/core';
 import { DayConfig, CalendarComponentOptions } from 'ion2-calendar';
 import LoadingService from '../providers/loading.service';
@@ -18,6 +20,7 @@ export class PiantinaComponent implements OnInit {
 
   public pianoSelezionato:string = '';
   public stanzaSelezionata:string = '';
+  public postoSelezionato:string = '';
 
   // VARIABILI MAPPA SVG
   private nodeZoom;
@@ -36,7 +39,8 @@ export class PiantinaComponent implements OnInit {
   };
 
   constructor(private alertController: AlertController, private menu: MenuController,
-              public loadingService: LoadingService,private http: HttpClient) { }
+              public loadingService: LoadingService,private http: HttpClient,
+              public popoverCtrl: PopoverController) { }
 
   ngOnInit() {
     this.loadingService.presentLoading('Aspetta...').then(() => {
@@ -260,10 +264,10 @@ export class PiantinaComponent implements OnInit {
 
         for(let i = 0; i < arrayUse.length; i = i + 1) {
           arrayUse[i].addEventListener('click', (e:Event) => {
-            const idPosto = arrayUse[i]['id'];
+            this.postoSelezionato = arrayUse[i]['id'];
 
-            // cliccato il bottone, apri il calendario
-          })
+            this.notifications(e);
+         })
         }
 
         this.loadingService.dismissLoading();
@@ -271,10 +275,112 @@ export class PiantinaComponent implements OnInit {
     });
   }
 
-  cliccato(id) {
-    console.log(id);
+  async notifications(myEvent) {
+    this.loadingService.presentLoading('Aspetta...').then(() => {
+      const uid = localStorage.getItem('uid');
+      const url = 'https://europe-west1-smart-working-5f3ea.cloudfunctions.net/checkAlreadyBookedUp';
 
-    this.presentAlert3('Attenzione', 'Hai cliccato il posto ' + id);
+      this.http.get(url + '?uid=' + uid + '&floor=' + this.pianoSelezionato + '&room=' + this.stanzaSelezionata + '&position=' + this.postoSelezionato).toPromise().then(async (response) => {
+        const hasError = response['hasError'];
+
+        this.loadingService.dismissLoading();
+
+        if (hasError !== undefined) {
+          this.presentAlert3('Attenzione', 'Si è verificato un errore. Provare a riaccedere alla pagina');
+        } else {
+          const days = [];
+          
+          for (let i = 0; i < (response['giorniSW'] as []).length; i = i + 1) {
+            days.push({
+              date: new Date(parseInt(response['giorniSW'][i].anno), parseInt(response['giorniSW'][i].mese) - 1, parseInt(response['giorniSW'][i].giorno)),
+              disable: true,
+              subTitle: 'SW'
+            });
+          }
+
+          for (let i = 0; i < (response['giorniOccupati'] as []).length; i = i + 1) {
+            days.push({
+              date: new Date(parseInt(response['giorniOccupati'][i].anno), parseInt(response['giorniOccupati'][i].mese) - 1, parseInt(response['giorniOccupati'][i].giorno)),
+              disable: true,
+              subTitle: 'Occupato'
+            });
+          }
+          
+          //pickMode: [single, multi] | posto: [null, "n° posto"]
+          const popover = await this.popoverCtrl.create({
+            component: NotificationsComponent,
+            componentProps: { daysBlocked: days, pickMode: 'multi', posto: this.postoSelezionato},
+            event: myEvent,
+            animated: true,
+            translucent: true
+          });
+
+          await popover.present();
+
+          (await popover).onDidDismiss().then((popoverData) => {
+            if ((popoverData.data === undefined) || (popoverData.data.scelta === 'annulla') || (popoverData.data.date.length === 0)) {
+              return;
+            }
+
+            const body = {};
+            body['dates'] = [];
+            body['uid'] = localStorage.getItem('uid');
+            body['floor'] = this.pianoSelezionato;
+            body['room'] = this.stanzaSelezionata;
+            body['position'] = this.postoSelezionato;
+
+            for (let i = 0; i < (popoverData.data.date as []).length; i = i + 1) {
+              const giornoArray = (popoverData.data.date[i]._d + '').substring(0, 15).split(' ');
+  
+              let day = giornoArray[2];
+
+              if (day[0] == '0') {
+                day = day.replace('0', '');
+              }
+  
+              let month = 0;
+              switch (giornoArray[1]) {
+                case 'Jan': month = 1; break;
+                case 'Feb': month = 2; break;
+                case 'Mar': month = 3; break;
+                case 'Apr': month = 4; break;
+                case 'May': month = 5; break;
+                case 'Jun': month = 6; break;
+                case 'Jul': month = 7; break;
+                case 'Aug': month = 8; break;
+                case 'Sep': month = 9; break;
+                case 'Oct': month = 10; break;
+                case 'Nov': month = 11; break;
+                case 'Dec': month = 12; break;
+              }
+              const year = giornoArray[3];
+
+              body['dates'].push({
+                giorno: day,
+                mese: month,
+                anno: year
+              });
+            }
+
+            this.loadingService.presentLoading('Aspetta...').then(() => {
+              const url = 'https://europe-west1-smart-working-5f3ea.cloudfunctions.net/bookPosition';
+
+              this.http.post(url, JSON.stringify(body)).subscribe(response => {
+                const hasError = response['hasError'];
+          
+                this.loadingService.dismissLoading();
+          
+                if (hasError === true) {
+                  this.presentAlert3('Errore', 'Errore durante la prenotazione della postazione');
+                } else {
+                  this.presentAlert3('Successo', 'Postazione prenotata con successo');
+                }
+              });
+            });         
+          });
+        }
+      });
+    });
   }
 
 }

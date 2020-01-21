@@ -14,7 +14,6 @@ export class NotificationsComponent implements OnInit {
   nomeMese: string;
   titoloNotifica: string;
   giornoSelezionato: string;
-  private bottoneCliccato: string;
   private posto: string;
   private selectedDays: Array<string> = [];
 
@@ -61,9 +60,43 @@ export class NotificationsComponent implements OnInit {
       }
 
       this.titoloNotifica = this.nomeGiorno + ' ' + date.getDate() + ' ' + this.nomeMese + ' ' + date.getFullYear();
-    }
-    else {
-      this.titoloNotifica = "Posto n°" + this.posto;
+    } else {
+      const dataTo = new Date();
+
+      if (dataTo.getMonth() === 11) { 
+        dataTo.setDate(31);
+        dataTo.setMonth(0);
+        dataTo.setFullYear(dataTo.getFullYear() + 1);
+      } else {
+        dataTo.setMonth(dataTo.getMonth() + 1);
+  
+        let giorno = 31;
+        switch (dataTo.getMonth()) {
+          case 3:
+          case 5:
+          case 8:
+          case 10:
+            giorno = 30;
+            break;
+          case 1:
+            giorno = 28;
+  
+            // Bisestile
+            if (dataTo.getFullYear() % 400 === 0) {
+              giorno = giorno + 1;
+            } else if (((dataTo.getFullYear() % 4) === 0) && ((dataTo.getFullYear()) % 100 !== 0)) {
+              giorno = giorno + 1;
+            }
+  
+            break;
+        }
+  
+        dataTo.setDate(giorno);
+      }
+  
+      this.options.to = dataTo;
+
+      this.titoloNotifica = "Posto n° " + this.posto;
     }
   }
 
@@ -101,10 +134,13 @@ export class NotificationsComponent implements OnInit {
     else {
       this.selectedDays = $event;
     }
-    console.log(this.selectedDays);
   }
 
   onClickNotification(str: string) {
-    this.popoverCtrl.dismiss({ scelta: str, giorno: this.giornoSelezionato });
+    if (this.posto == null) {
+      this.popoverCtrl.dismiss({ scelta: str, giorno: this.giornoSelezionato });
+    } else {
+      this.popoverCtrl.dismiss({ scelta: str, date: this.selectedDays });
+    }
   }
 }
