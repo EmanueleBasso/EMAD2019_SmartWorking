@@ -357,7 +357,7 @@ export class PiantinaComponent implements OnInit {
 
               body['dates'].push({
                 giorno: day,
-                mese: month,
+                mese: month + '',
                 anno: year
               });
             }

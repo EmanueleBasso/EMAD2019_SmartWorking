@@ -156,7 +156,8 @@ export class ProgettiPage implements OnInit {
           for (let i = 0; i < (response as []).length; i = i + 1) {
             days.push({
               date: new Date(parseInt(response[i].anno), parseInt(response[i].mese) - 1, parseInt(response[i].giorno)),
-              disable: true
+              disable: true,
+              subTitle: 'Bloccato'
             });
           }
 
