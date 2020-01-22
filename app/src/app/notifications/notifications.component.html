@@ -1,5 +1,5 @@
 <ion-header>
-  <ion-toolbar color="danger">
+  <ion-toolbar color="{{ options.color }}">
     <ion-title>
       {{ titoloNotifica }}
     </ion-title>
@@ -29,7 +29,7 @@
       </ion-col>
       <ion-col size="6" style="text-align: end">
         <ion-button
-          color="danger"
+          color="{{ options.color }}"
           fill="clear"
           item-end
           (click)="onClickNotification('conferma')"

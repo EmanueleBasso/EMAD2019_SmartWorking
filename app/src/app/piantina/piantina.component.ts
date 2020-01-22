@@ -7,6 +7,7 @@ import { AlertController, MenuController, PopoverController } from '@ionic/angul
 import { Component, OnInit } from '@angular/core';
 import { DayConfig, CalendarComponentOptions } from 'ion2-calendar';
 import LoadingService from '../providers/loading.service';
+import $ from "jquery";
 
 @Component({
   selector: 'app-piantina',
@@ -18,9 +19,9 @@ export class PiantinaComponent implements OnInit {
   private piani: Array<any> = [];
   private stanze: Array<any> = [];
 
-  public pianoSelezionato:string = '';
-  public stanzaSelezionata:string = '';
-  public postoSelezionato:string = '';
+  public pianoSelezionato: string = '';
+  public stanzaSelezionata: string = '';
+  public postoSelezionato: string = '';
 
   // VARIABILI MAPPA SVG
   private nodeZoom;
@@ -39,12 +40,12 @@ export class PiantinaComponent implements OnInit {
   };
 
   constructor(private alertController: AlertController, private menu: MenuController,
-              public loadingService: LoadingService,private http: HttpClient,
-              public popoverCtrl: PopoverController) { }
+    public loadingService: LoadingService, private http: HttpClient,
+    public popoverCtrl: PopoverController) {
+  }
 
   ngOnInit() {
     this.loadingService.presentLoading('Aspetta...').then(() => {
-
       const url = 'https://europe-west1-smart-working-5f3ea.cloudfunctions.net/getFloors';
 
       this.http.get(url).subscribe(response => {
@@ -118,9 +119,9 @@ export class PiantinaComponent implements OnInit {
   // Pinch per l'immagine
   handlePinch(event: any): void {
     if (event.scale < 1.0) {
-      this.zoomOut(event.scale / 100, 3);
+      this.zoomOut(event.scale / 30, 2);
     } else if (event.scale > 1.0) {
-      this.zoomIn(event.scale / 1000, 3);
+      this.zoomIn(event.scale / 20, 2);
     }
   }
 
@@ -138,7 +139,7 @@ export class PiantinaComponent implements OnInit {
           text: 'Conferma',
           handler: (res) => {
             this.stanzaSelezionata = '';
-            
+
             this.pianoSelezionato = res;
 
             for (let i = 0; i < this.piani.length; i = i + 1) {
@@ -260,14 +261,23 @@ export class PiantinaComponent implements OnInit {
         this.nodeZoom = document.querySelector('#Linea_1') as HTMLElement;
         this.nodeZoom.style.zoom = this.zoomValue + '';
 
-        const arrayUse = document.querySelectorAll('use');
+        const hammertime = new Hammer(node, {
+          touchAction: "pan-x pan-y"
+        });
+        hammertime.get('pinch').set({ enable: true });
 
-        for(let i = 0; i < arrayUse.length; i = i + 1) {
-          arrayUse[i].addEventListener('click', (e:Event) => {
+        hammertime.on('pinch', (event) => {
+          this.handlePinch(event);
+        });
+
+
+        const arrayUse = document.querySelectorAll('use');
+        for (let i = 0; i < arrayUse.length; i = i + 1) {
+          arrayUse[i].addEventListener('click', (e: Event) => {
             this.postoSelezionato = arrayUse[i]['id'];
 
             this.notifications(e);
-         })
+          });
         }
 
         this.loadingService.dismissLoading();
@@ -289,7 +299,7 @@ export class PiantinaComponent implements OnInit {
           this.presentAlert3('Attenzione', 'Si è verificato un errore. Provare a riaccedere alla pagina');
         } else {
           const days = [];
-          
+
           for (let i = 0; i < (response['giorniSW'] as []).length; i = i + 1) {
             days.push({
               date: new Date(parseInt(response['giorniSW'][i].anno), parseInt(response['giorniSW'][i].mese) - 1, parseInt(response['giorniSW'][i].giorno)),
@@ -305,11 +315,11 @@ export class PiantinaComponent implements OnInit {
               subTitle: 'Occupato'
             });
           }
-          
+
           //pickMode: [single, multi] | posto: [null, "n° posto"]
           const popover = await this.popoverCtrl.create({
             component: NotificationsComponent,
-            componentProps: { daysBlocked: days, pickMode: 'multi', posto: this.postoSelezionato},
+            componentProps: { daysBlocked: days, pickMode: 'multi', posto: this.postoSelezionato, color: 'secondary' },
             event: myEvent,
             animated: true,
             translucent: true
@@ -331,13 +341,13 @@ export class PiantinaComponent implements OnInit {
 
             for (let i = 0; i < (popoverData.data.date as []).length; i = i + 1) {
               const giornoArray = (popoverData.data.date[i]._d + '').substring(0, 15).split(' ');
-  
+
               let day = giornoArray[2];
 
               if (day[0] == '0') {
                 day = day.replace('0', '');
               }
-  
+
               let month = 0;
               switch (giornoArray[1]) {
                 case 'Jan': month = 1; break;
@@ -367,20 +377,19 @@ export class PiantinaComponent implements OnInit {
 
               this.http.post(url, JSON.stringify(body)).subscribe(response => {
                 const hasError = response['hasError'];
-          
+
                 this.loadingService.dismissLoading();
-          
+
                 if (hasError === true) {
                   this.presentAlert3('Errore', 'Errore durante la prenotazione della postazione');
                 } else {
                   this.presentAlert3('Successo', 'Postazione prenotata con successo');
                 }
               });
-            });         
+            });
           });
         }
       });
     });
   }
-
 }

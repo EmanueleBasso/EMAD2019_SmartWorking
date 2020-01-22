@@ -164,7 +164,7 @@ export class ProgettiPage implements OnInit {
           //pickMode: [single, multi] | posto: [null, "n° posto"]
           const popover = await this.popoverCtrl.create({
             component: NotificationsComponent,
-            componentProps: { daysBlocked: days, pickMode: 'single', posto: null },
+            componentProps: { daysBlocked: days, pickMode: 'single', posto: null, color: 'danger' },
             event: myEvent,
             animated: true,
             translucent: true

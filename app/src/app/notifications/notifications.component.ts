@@ -19,7 +19,7 @@ export class NotificationsComponent implements OnInit {
 
   type: Date; // 'string' | 'js-date' | 'moment' | 'time' | 'object'
   options: CalendarComponentOptions = {
-    color: 'danger',
+    showAdjacentMonthDay: false,
   };
   day: string;
 
@@ -29,6 +29,7 @@ export class NotificationsComponent implements OnInit {
     this.options.daysConfig = this.navParams.get('daysBlocked');
     this.options.pickMode = this.navParams.get('pickMode');
     this.posto = this.navParams.get('posto');
+    this.options.color = this.navParams.get('color');
 
     moment.locale('it-IT');
 
@@ -63,13 +64,13 @@ export class NotificationsComponent implements OnInit {
     } else {
       const dataTo = new Date();
 
-      if (dataTo.getMonth() === 11) { 
+      if (dataTo.getMonth() === 11) {
         dataTo.setDate(31);
         dataTo.setMonth(0);
         dataTo.setFullYear(dataTo.getFullYear() + 1);
       } else {
         dataTo.setMonth(dataTo.getMonth() + 1);
-  
+
         let giorno = 31;
         switch (dataTo.getMonth()) {
           case 3:
@@ -80,20 +81,24 @@ export class NotificationsComponent implements OnInit {
             break;
           case 1:
             giorno = 28;
-  
+
             // Bisestile
             if (dataTo.getFullYear() % 400 === 0) {
               giorno = giorno + 1;
             } else if (((dataTo.getFullYear() % 4) === 0) && ((dataTo.getFullYear()) % 100 !== 0)) {
               giorno = giorno + 1;
             }
-  
+
             break;
         }
-  
+
+        if (this.options.color == null) {
+          this.options.color = 'danger';
+        }
+
         dataTo.setDate(giorno);
       }
-  
+
       this.options.to = dataTo;
 
       this.titoloNotifica = "Posto n° " + this.posto;
