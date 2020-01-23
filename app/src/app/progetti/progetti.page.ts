@@ -141,7 +141,7 @@ export class ProgettiPage implements OnInit {
   async notifications(myEvent) {
     this.loadingService.presentLoading('Aspetta...').then(() => {
       const id = this.progettoSelezionato;
-      const url = 'https://europe-west1-smart-working-5f3ea.cloudfunctions.net/getProjectBlcokedDays';
+      const url = 'https://europe-west1-smart-working-5f3ea.cloudfunctions.net/getProjectBlockedDays';
 
       this.http.get(url + '?project=' + id).toPromise().then(async (response) => {
         const hasError = response['hasError'];
