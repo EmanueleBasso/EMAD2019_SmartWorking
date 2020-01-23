@@ -7,7 +7,6 @@ import { AlertController, MenuController, PopoverController } from '@ionic/angul
 import { Component, OnInit } from '@angular/core';
 import { DayConfig, CalendarComponentOptions } from 'ion2-calendar';
 import LoadingService from '../providers/loading.service';
-import $ from "jquery";
 
 @Component({
   selector: 'app-piantina',
@@ -24,8 +23,8 @@ export class PiantinaComponent implements OnInit {
   public postoSelezionato: string = '';
 
   // VARIABILI MAPPA SVG
-  private nodeZoom;
-  private zoomValue = 0.4;
+  private svgNode;
+  zoom = 100;
 
   // CALENDARIO
   private _daysConfig: DayConfig[] = [];
@@ -89,25 +88,39 @@ export class PiantinaComponent implements OnInit {
   }
 
   // FUNZIONE ZOOM MAPPA SVG
-  public zoomIn(value, precision) {
-    if (this.zoomValue < 1.2) {
-      this.zoomValue = Number((this.zoomValue + value).toFixed(precision));
-      this.nodeZoom.style.zoom = this.zoomValue + '';
+  public zoomIn(value, isButton) {
+    if (isButton) {
+      this.svgNode.style.transition = 'all 1.5s cubic-bezier(0.22, 0.61, 0.36, 1) 0s';
+    } else {
+      this.svgNode.style.transition = 'all 0s ease 0s';
     }
-    if (this.zoomValue >= 1.2) {
-      this.zoomValue = 1.2;
-      this.nodeZoom.style.zoom = this.zoomValue + '';
+    if (this.zoom < 400) {
+      this.zoom = Number((this.zoom + value).toFixed(1));
+      this.svgNode.style.width = this.zoom + '%';
+      this.svgNode.style.height = this.zoom + '%';
+    }
+    if (this.zoom >= 400) {
+      this.zoom = 400;
+      this.svgNode.style.width = this.zoom + '%';
+      this.svgNode.style.height = this.zoom + '%';
     }
   }
 
-  public zoomOut(value, precision) {
-    if (this.zoomValue > 0.4) {
-      this.zoomValue = Number((this.zoomValue - value).toFixed(precision));
-      this.nodeZoom.style.zoom = this.zoomValue + '';
+  public zoomOut(value, isButton) {
+    if (isButton) {
+      this.svgNode.style.transition = 'all 1.5s cubic-bezier(0.22, 0.61, 0.36, 1) 0s';
+    } else {
+      this.svgNode.style.transition = 'all 0s ease 0s';
     }
-    if (this.zoomValue <= 0.4) {
-      this.zoomValue = 0.4;
-      this.nodeZoom.style.zoom = this.zoomValue + '';
+    if (this.zoom > 100) {
+      this.zoom = Number((this.zoom - value).toFixed(1));
+      this.svgNode.style.width = this.zoom + '%';
+      this.svgNode.style.height = this.zoom + '%';
+    }
+    if (this.zoom <= 100) {
+      this.zoom = 100;
+      this.svgNode.style.width = this.zoom + '%';
+      this.svgNode.style.height = this.zoom + '%';
     }
   }
 
@@ -119,9 +132,9 @@ export class PiantinaComponent implements OnInit {
   // Pinch per l'immagine
   handlePinch(event: any): void {
     if (event.scale < 1.0) {
-      this.zoomOut(event.scale / 30, 2);
+      this.zoomOut(event.scale * 5, false);
     } else if (event.scale > 1.0) {
-      this.zoomIn(event.scale / 20, 2);
+      this.zoomIn(event.scale, false);
     }
   }
 
@@ -255,14 +268,15 @@ export class PiantinaComponent implements OnInit {
           return;
         }
 
-        let node = document.querySelector('#oggettoSVG') as HTMLElement;
-        node.innerHTML = response['file'];
+        let divSvg = document.querySelector('#oggettoSVG') as HTMLElement;
+        divSvg.innerHTML = response['file'];
 
-        this.nodeZoom = document.querySelector('#Linea_1') as HTMLElement;
-        this.nodeZoom.style.zoom = this.zoomValue + '';
+        this.svgNode = document.querySelector('#Linea_1') as HTMLElement;
+        this.svgNode.style.width = this.zoom + '%';
+        this.svgNode.style.height = this.zoom + '%';
 
-        const hammertime = new Hammer(node, {
-          touchAction: "pan-x pan-y"
+        const hammertime = new Hammer(divSvg, {
+          touchAction: 'pan-x pan-y'
         });
         hammertime.get('pinch').set({ enable: true });
 
