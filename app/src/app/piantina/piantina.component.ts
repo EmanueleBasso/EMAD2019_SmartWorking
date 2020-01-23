@@ -285,10 +285,10 @@ export class PiantinaComponent implements OnInit {
         });
 
 
-        const arrayUse = document.querySelectorAll('use');
-        for (let i = 0; i < arrayUse.length; i = i + 1) {
-          arrayUse[i].addEventListener('click', (e: Event) => {
-            this.postoSelezionato = arrayUse[i]['id'];
+        const arrayImage = document.querySelectorAll('image');
+        for (let i = 0; i < arrayImage.length; i = i + 1) {
+          arrayImage[i].addEventListener('click', (e: Event) => {
+            this.postoSelezionato = arrayImage[i]['id'];
 
             this.notifications(e);
           });
