@@ -37,8 +37,7 @@
               },
               {
                 "input": "src/global.scss"
-              },
-              "./node_modules/leaflet/dist/leaflet.css"
+              }
             ],
             "scripts": []
           },
