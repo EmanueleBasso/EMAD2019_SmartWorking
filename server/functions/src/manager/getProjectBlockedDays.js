@@ -15,7 +15,7 @@ module.exports = async(request, response) => {
         
     }
 
-    var date = new Date()
+    var today = new Date()
 
     await db.collection('GiorniBloccati').where('progetto', '==', project)
         .get()
@@ -23,7 +23,9 @@ module.exports = async(request, response) => {
             
             collection.forEach(blocked => {
 
-                if (parseInt(blocked.data().giorno) >= date.getDay() && parseInt(blocked.data().mese) >= date.getMonth() + 1 && parseInt(blocked.data().anno) >= date.getFullYear())
+                var date = new Date(parseInt(blocked.data().anno), parseInt(blocked.data().mese) - 1, parseInt(blocked.data().giorno))
+
+                if (date.getTime() >= today.getTime())
 
                     blockedDates.push({giorno: blocked.data().giorno, mese: blocked.data().mese, anno: blocked.data().anno})
 

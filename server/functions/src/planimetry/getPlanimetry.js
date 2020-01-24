@@ -15,19 +15,19 @@ module.exports = async (request, response) => {
         return response.send({hasError: true, error: "Name file undefined"})
     }
 
-    storage.ref().child(nameFile).getDownloadURL().then( (url) => {
+    await storage.ref().child(nameFile).getDownloadURL().then( (url) => {
         var xhr = new XMLHttpRequest();
 
         xhr.responseType = 'blob';
         xhr.onload = function(event) {
           var blob = xhr.response;
 
-          response.send({file: blob})
+          return response.send({file: blob})
         };
         xhr.open('GET', url);
         xhr.send();
       }).catch(function(error) {
-        response.send({hasError: true, error: error.message})
+        return response.send({hasError: true, error: error.message})
     });
 
 }

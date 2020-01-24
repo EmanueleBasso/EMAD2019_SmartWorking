@@ -14,7 +14,7 @@ module.exports = async (request, response) => {
 
     var rooms = []
 
-    db.collection('Stanze').where('piano', '==', floor).get().then(snapshot => {
+    await db.collection('Stanze').where('piano', '==', floor).get().then(snapshot => {
 
         snapshot.forEach(elem => {
 
@@ -22,7 +22,7 @@ module.exports = async (request, response) => {
 
         })
 
-        response.send(rooms)
+        return response.send(rooms)
 
     }).catch(error => {return response.send({hasError: true, error: error.message})})
 }

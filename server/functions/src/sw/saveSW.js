@@ -20,7 +20,6 @@ module.exports = async(request, response) => {
     var dates = body.dates
     var batch = db.batch()
     var date = new Date()
-    var monthOfInterest = date.getMonth() + 1
     var flag = 1
 
     await db.collection("AssociazioneDipendenteProgetto").where('dipendente', '==', uid).get().then(async snapshot => {
@@ -35,10 +34,12 @@ module.exports = async(request, response) => {
                         if (collection.size != 0) {
             
                             collection.forEach(blocked => {
-                            
-                                var blockedDate
 
-                                if (blocked.data().giorno >= date.getDay() && blocked.data().mese >= monthOfInterest && blocked.data().anno >= date.getFullYear()) {
+                                var blockedDate
+                            
+                                var dateOfInterest = new Date(parseInt(blocked.data().anno), parseInt(blocked.data().mese) - 1, parseInt(blocked.data().giorno))
+
+                                if (dateOfInterest.getTime() >= date.getTime()) {
 
                                     blockedDate = {giorno: blocked.data().giorno, mese: blocked.data().mese, anno: blocked.data().anno}
                 
@@ -49,52 +50,48 @@ module.exports = async(request, response) => {
                                 }
                 
                             })
-                
-                            if (flag == snapshot.size) {
 
-                                if (blockedDates.length > 0) {
-                                
-                                    dates.forEach(date => {
-
-                                        if (utils.containsDate(date, blockedDates)) {
-
-                                            insertedBlockedDates.push({giorno: date.giorno, mese: date.mese, anno: date.anno})
-
-                                        }
-
-                                    })
-
-                                    if (insertedBlockedDates.length > 0) {
-
-                                        console.log(JSON.stringify(insertedBlockedDates))
-
-                                        response.send({areBlockedDays: true, dates: insertedBlockedDates})
-
-                                    } else {
-
-                                        utils.saveSW(request, response, uid, dates, batch) 
-
-                                    }
-                                    
-                                } else {
-
-                                    utils.saveSW(request, response, uid, dates, batch) 
-
-                                }
-
-                            } else {
-
-                                flag++
-
-                            }
+                            flag++
                 
                         } else {
 
                             flag++
 
                         }
+                        
+                        if (flag == snapshot.size) {
 
-                }).catch(error => console.log(error.message))
+                            if (blockedDates.length > 0) {
+                            
+                                dates.forEach(date => {
+
+                                    if (utils.containsDate(date, blockedDates)) {
+
+                                        insertedBlockedDates.push({giorno: date.giorno, mese: date.mese, anno: date.anno})
+
+                                    }
+
+                                })
+
+                                if (insertedBlockedDates.length > 0) {
+
+                                    response.send({areBlockedDays: true, dates: insertedBlockedDates})
+
+                                } else {
+
+                                    utils.saveSW(request, response, uid, dates, batch) 
+
+                                }
+                                
+                            } else {
+
+                                utils.saveSW(request, response, uid, dates, batch) 
+
+                            }
+
+                        }
+
+                }).catch(error => {return response.send({hasError: true, error: error.message})})
 
             })
 
@@ -104,7 +101,7 @@ module.exports = async(request, response) => {
 
         }
 
-    }).catch(error => console.log(error.message))
+    }).catch(error => {return response.send({hasError: true, error: error.message})})
 
 
 }

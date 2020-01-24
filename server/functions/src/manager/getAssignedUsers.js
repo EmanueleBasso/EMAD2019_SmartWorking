@@ -44,9 +44,9 @@ module.exports = (request, response) => {
 
                         collection.forEach(date => {
                             
-                            var newDate = new Date(parseInt(date.data().anno), parseInt(date.data().mese) -1, parseInt(date.data().giorno))
+                            var newDate = new Date(parseInt(date.data().anno), parseInt(date.data().mese) - 1, parseInt(date.data().giorno))
     
-                            if (newDate >= today)
+                            if (newDate.getTime() >= today.getTime())
     
                                 employees[i].calendario.push({giorno: date.data().giorno, mese: date.data().mese, anno: date.data().anno})
     

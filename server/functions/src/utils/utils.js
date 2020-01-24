@@ -134,6 +134,31 @@ module.exports = {
         })
     },
 
+    'deletePositions': async function deletePositions(dates, uid, response) {
+
+        dates.forEach(async elem => {
+
+            await db.collection('PostazioniOccupate').where('giorno', '==', elem.giorno)
+            .where('mese', '==', elem.mese)
+            .where('anno', '==', elem.anno)
+            .where('dipendente', '==', uid).get().then(datesPositions => {
+
+                if (datesPositions.size != 0) {
+
+                    datesPositions.forEach(position => {
+
+                        db.collection('PostazioniOccupate').doc(position.id).delete()
+
+                    })
+
+                }
+
+            }).catch(error => {return response.send({hasError: true, error: error.message})})
+
+        })
+
+    },
+
     'createSmartWorkingCalendarForEmail': function createSmartWorkingCalendarForEmail(dates) {
         let s = "";
 
@@ -190,17 +215,23 @@ module.exports = {
 
     'saveSW': async function(request, response, uid, dates, batch) {
 
-        await this.db.collection('SmartWorking').where('dipendente', '==', uid).get().then(snapshot => {
+        await db.collection('SmartWorking').where('dipendente', '==', uid).get().then(async snapshot => {
                         
             if (snapshot.size == 0) {
+
+                await this.deletePositions(dates, uid, response).then(() => {
                 
-                this.addDates(dates, uid, batch)
+                    this.addDates(dates, uid, batch)
+        
+                    this.sendSmartWorkingCalendar(uid, request, response, dates)
+                            
+                    batch.commit().then(() => {
+        
+                        console.log('DATI INSERITI ED EMAIL INVIATA CON SUCCESSO!')
     
-                this.sendSmartWorkingCalendar(uid, request, response, dates)
-                        
-                batch.commit()
-    
-                console.log('DATI INSERITI ED EMAIL INVIATA CON SUCCESSO!') 
+                    })
+
+                }).catch(error => {return response.send({hasError: true, error: error.message})})
     
             } else {
 
@@ -210,15 +241,21 @@ module.exports = {
                 prevCollection = snapshot.docs.filter(elem => elem.data().mese == current_month)
 
                 if (prevCollection.length == 0 || prevCollection.length == 1 && dates.length == 1) {
-    
-                    this.addDates(dates, uid, batch)
-    
-                    this.sendSmartWorkingCalendar(uid, request, response, dates)
-                    
-                    batch.commit()
-    
-                    console.log('MESE PRECEDENTE VUOTO OPPURE DATE COMPATIBILI. DATI INSERITI ED EMAIL INVIATA CON SUCCESSO!')
 
+                    await this.deletePositions(dates, uid, response).then(() => {
+                    
+                        this.addDates(dates, uid, batch)
+            
+                        this.sendSmartWorkingCalendar(uid, request, response, dates)
+                                
+                        batch.commit().then(() => {
+            
+                            console.log('MESE PRECEDENTE VUOTO OPPURE DATE COMPATIBILI. DATI INSERITI ED EMAIL INVIATA CON SUCCESSO!')
+        
+                        })
+    
+                    }).catch(error => {return response.send({hasError: true, error: error.message})})
+            
                 } else {
     
                     let prevDatesSorted = []
@@ -260,15 +297,21 @@ module.exports = {
                     }
         
                     if (this.areValidDates(compareArray)) {
-        
-                        this.addDates(dates, uid, batch)
-        
-                        this.sendSmartWorkingCalendar(uid, request, response, dates)
+
+                        await this.deletePositions(dates, uid, response).then(() => {
                         
-                        batch.commit()
+                            this.addDates(dates, uid, batch)
+                
+                            this.sendSmartWorkingCalendar(uid, request, response, dates)
+                                    
+                            batch.commit().then(() => {
+                
+                                console.log('DATE VALIDE ED EMAIL INVIATA CON SUCCESSO!') 
+            
+                            })
         
-                        console.log('DATE VALIDE ED EMAIL INVIATA CON SUCCESSO!') 
-        
+                        }).catch(error => {return response.send({hasError: true, error: error.message})})
+                            
                     } else {
         
                        response.send({hasError: true, error: 'Hai selezionato più di due giorni di Smart Working nella stessa settimana a cavallo tra il mese corrente e il prossimo'})

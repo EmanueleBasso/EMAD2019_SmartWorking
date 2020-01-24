@@ -8,7 +8,7 @@ module.exports = async (request, response) => {
 
     var floors = []
 
-    db.collection('Piani').get().then(snapshot => {
+    await db.collection('Piani').get().then(snapshot => {
 
         snapshot.forEach(elem => {
 
@@ -16,7 +16,7 @@ module.exports = async (request, response) => {
 
         })
 
-        response.send(floors)
+        return response.send(floors)
 
     }).catch(error => {return response.send({hasError: true, error: error.message})})
 }
