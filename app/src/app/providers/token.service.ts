@@ -59,10 +59,17 @@ export default class TokenService {
         });
 
         this.fcm.onNotification().subscribe(data => {
-            cordova.plugins['notification'].local.schedule({
-                title: 'Il team Smart Working',
-                text: 'Ciao, volevamo ricordarti che domani lavorerai da casa.',
-            });
+            if (data['body'] === 'Block') {
+                cordova.plugins['notification'].local.schedule({
+                    title: 'Il team Smart Working',
+                    text: 'Ciao, volevamo informarti che il tuo manager ha bloccato il giorno ' + data['day'] + '/' + data['month'] + '/' + data['year'] + '.',
+                });
+            } else if (data['body'] === 'SW') {
+                cordova.plugins['notification'].local.schedule({
+                    title: 'Il team Smart Working',
+                    text: 'Ciao, volevamo ricordarti che domani lavorerai da casa.',
+                });
+            }
         });
     }
 }

@@ -1,6 +1,7 @@
 const utils = require('../utils/utils');
-const db = utils.db;
+const admin = require('firebase-admin');
 
+const db = utils.db;
 
 module.exports = async(request, response) => {
 
@@ -38,6 +39,27 @@ module.exports = async(request, response) => {
 
                     }).catch(error => {return response.send({hasError: true, error: error.message})})
 
+                await db.collection('Tokens').doc(rel.data().dipendente).get().then( (elem) => {
+
+                    const token = elem.data().token
+
+                    const message = {
+                        notification:{
+                            title: 'Il team Smart Working',
+                            body: 'Ciao, volevamo informarti che il tuo manager ha bloccato il giorno ' + day + '/' + month + '/' + year + '.'
+                        },
+                        data: {
+                            body: 'Block',
+                            day: day,
+                            month: month,
+                            year: year
+                        },
+                        token: token
+                    }
+
+                    admin.messaging().send(message);
+                }).catch(error => {return response.send({hasError: true, error: error.message})})
+                
                 if (flag == rels.size) {
         
                     db.collection('GiorniBloccati').add({giorno: day, mese: month, anno: year, progetto: project}).then(() => {

@@ -23,7 +23,7 @@ module.exports = async(request, response) => {
             
             collection.forEach(blocked => {
 
-                if (blocked.data().giorno >= date.getDay() && blocked.data().mese >= date.getMonth() + 1 && blocked.data().anno >= date.getFullYear())
+                if (parseInt(blocked.data().giorno) >= date.getDay() && parseInt(blocked.data().mese) >= date.getMonth() + 1 && parseInt(blocked.data().anno) >= date.getFullYear())
 
                     blockedDates.push({giorno: blocked.data().giorno, mese: blocked.data().mese, anno: blocked.data().anno})
 
