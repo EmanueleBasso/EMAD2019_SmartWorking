@@ -101,7 +101,7 @@ export class NotificationsComponent implements OnInit {
 
       this.options.to = dataTo;
 
-      this.titoloNotifica = "Posto n° " + this.posto;
+      this.titoloNotifica = 'Posto n°' + this.posto.replace(/[^0-9]/g, '');
     }
   }
 
@@ -135,8 +135,7 @@ export class NotificationsComponent implements OnInit {
     if (this.posto == null) {
       this.titoloNotifica = this.nomeGiorno + ' ' + split[2] + ' ' + this.nomeMese + ' ' + split[3];
       this.giornoSelezionato = this.titoloNotifica;
-    }
-    else {
+    } else {
       this.selectedDays = $event;
     }
   }

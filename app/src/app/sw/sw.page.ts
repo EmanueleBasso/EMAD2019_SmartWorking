@@ -20,7 +20,6 @@ export class SwPage implements OnInit {
     color: this._color,
     showMonthPicker: false,
     pickMode: 'multi',
-    showToggleButtons: true,
   };
 
   constructor(private alertController: AlertController, private navCtrl: NavController,
@@ -89,7 +88,8 @@ export class SwPage implements OnInit {
       message: 'Ricorda che puoi scegliere al massimo ' + giorni + ' giorni di Smart Working a settimana',
       buttons: [
         {
-          text: 'OK'
+          text: 'OK',
+          cssClass: 'alertConfirm',
         }
       ]
     });
@@ -104,6 +104,7 @@ export class SwPage implements OnInit {
       buttons: [
         {
           text: 'OK',
+          cssClass: 'alertConfirm',
           handler: () => {
             this.navCtrl.navigateBack('/home');
           }
@@ -131,6 +132,7 @@ export class SwPage implements OnInit {
       buttons: [
         {
           text: 'OK',
+          cssClass: 'alertConfirm',
           handler: () => {
             this.navCtrl.navigateBack('/home');
           }
@@ -153,14 +155,16 @@ export class SwPage implements OnInit {
   async presentAlertGiorniDisponibili() {
     const alert = await this.alertController.create({
       header: 'Attenzione',
-      cssClass: 'alertClass',
+      cssClass: 'alertClass3',
       message: 'Puoi selezionare altri giorni di Smart Working. Vuoi proseguire lo stesso?',
       buttons: [
         {
           text: 'NO',
+          cssClass: 'alertMedium',
         },
         {
           text: 'SI',
+          cssClass: 'alertConfirm',
           handler: () => {
             this.saveSW();
           }
@@ -177,7 +181,8 @@ export class SwPage implements OnInit {
       message: 'Puoi selezionare al massimo ' + giorni + ' giorni di Smart Working alla settimana. Rivedi le tue scelte',
       buttons: [
         {
-          text: 'OK'
+          text: 'OK',
+          cssClass: 'alertConfirm',
         }
       ]
     });
@@ -187,11 +192,12 @@ export class SwPage implements OnInit {
   async presentAlertSWSalvatoCorrettamente() {
     const alert = await this.alertController.create({
       header: 'Successo',
-      cssClass: 'alertClass',
+      cssClass: 'alertClass4',
       message: 'Il piano di Smart Working è stato salvato correttamente per il mese successivo',
       buttons: [
         {
           text: 'OK',
+          cssClass: 'alertConfirm',
           handler: () => {
             this.navCtrl.navigateBack('/home');
           }
@@ -217,7 +223,8 @@ export class SwPage implements OnInit {
       message: message,
       buttons: [
         {
-          text: 'OK'
+          text: 'OK',
+          cssClass: 'alertConfirm',
         }
       ]
     });
@@ -239,7 +246,8 @@ export class SwPage implements OnInit {
                 già selezionato dei giorni per la prima settimana',
       buttons: [
         {
-          text: 'OK'
+          text: 'OK',
+          cssClass: 'alertConfirm',
         }
       ]
     });
@@ -253,7 +261,8 @@ export class SwPage implements OnInit {
       message: 'I seguenti giorni sono stati bloccati: ' + giorni + '. Rivedi le tue scelte',
       buttons: [
         {
-          text: 'OK'
+          text: 'OK',
+          cssClass: 'alertConfirm',
         }
       ]
     });
@@ -387,20 +396,20 @@ export class SwPage implements OnInit {
     for (let i = 0; i < this.selectedDays.length; i = i + 1) {
       const arrayDay = this.selectedDays[i].split('-');
 
-      if (arrayDay[2][0] == '0'){
+      if (arrayDay[2][0] == '0') {
 
-        if (arrayDay[1][0] == '0') 
+        if (arrayDay[1][0] == '0')
           body['dates'].push({ anno: arrayDay[0], mese: arrayDay[1].replace('0', ''), giorno: arrayDay[2].replace('0', '') });
-        else 
+        else
           body['dates'].push({ anno: arrayDay[0], mese: arrayDay[1], giorno: arrayDay[2].replace('0', '') });
 
       } else {
 
-        if (arrayDay[1][0] == '0') 
+        if (arrayDay[1][0] == '0')
           body['dates'].push({ anno: arrayDay[0], mese: arrayDay[1].replace('0', ''), giorno: arrayDay[2] });
-        else 
+        else
           body['dates'].push({ anno: arrayDay[0], mese: arrayDay[1], giorno: arrayDay[2] });
-          
+
       }
     }
 
@@ -417,7 +426,7 @@ export class SwPage implements OnInit {
         let giorni = '';
         const dates = response['dates'] as [];
 
-        for(let i = 0; i < dates.length; i = i + 1) {
+        for (let i = 0; i < dates.length; i = i + 1) {
           const date = dates[i]['giorno'] + '/' + dates[i]['mese'] + '/' + dates[i]['anno'];
 
           giorni += date;

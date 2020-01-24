@@ -32,12 +32,10 @@ export class HomePage implements OnInit {
   options: CalendarComponentOptions = {
     color: this._color,
     daysConfig: this._daysConfig,
-    // showMonthPicker: false,
-    // showToggleButtons: false,
   };
 
-  constructor(private menu: MenuController, private http: HttpClient, 
-              private loadingService: LoadingService, private alertController: AlertController) { }
+  constructor(private menu: MenuController, private http: HttpClient,
+    private loadingService: LoadingService, private alertController: AlertController) { }
 
   ngOnInit() {
     this.menu.enable(true);
@@ -53,7 +51,8 @@ export class HomePage implements OnInit {
       message: message,
       buttons: [
         {
-          text: 'OK'
+          text: 'OK',
+          cssClass: 'alertConfirm',
         }
       ]
     });
@@ -69,7 +68,7 @@ export class HomePage implements OnInit {
   }
 
   itemClick(number) {
-    this.click[number] = !this.click[number]; 
+    this.click[number] = !this.click[number];
   }
 
   // Swipe per il menu laterale
@@ -82,20 +81,20 @@ export class HomePage implements OnInit {
       this.start = new Date(data.getTime());
       this.finish = new Date(data.getTime());
 
-      switch(data.getDay()) {
+      switch (data.getDay()) {
         case 1: this.finish.setDate(data.getDate() + 4);
-                break;
+          break;
         case 2: this.start.setDate(data.getDate() - 1);
-                this.finish.setDate(data.getDate() + 3);
-                break;
+          this.finish.setDate(data.getDate() + 3);
+          break;
         case 3: this.start.setDate(data.getDate() - 2);
-                this.finish.setDate(data.getDate() + 2);
-                break;
+          this.finish.setDate(data.getDate() + 2);
+          break;
         case 4: this.start.setDate(data.getDate() - 3);
-                this.finish.setDate(data.getDate() + 1);
-                break;
+          this.finish.setDate(data.getDate() + 1);
+          break;
         case 5: this.start.setDate(data.getDate() - 4);
-                break;
+          break;
       }
 
       const url = 'https://europe-west1-smart-working-5f3ea.cloudfunctions.net/home';
@@ -116,9 +115,9 @@ export class HomePage implements OnInit {
 
       this.http.post(url, JSON.stringify(body)).subscribe(response => {
         const hasError = response['hasError'];
-  
+
         this.loadingService.dismissLoading();
-  
+
         if (hasError !== undefined) {
           this.presentAlert3('Attenzione', 'Si è verificato un errore. Provare a riaccedere alla pagina');
           return;
@@ -128,20 +127,20 @@ export class HomePage implements OnInit {
 
           let data = new Date(this.start.getTime());
 
-          for(let i = 0; i < 5; i++) {
+          for (let i = 0; i < 5; i++) {
             const obj = {
               number: i,
               title: this.giorni[i]
             };
 
             let found = false;
-            for(let j = 0; j < (response as []).length; j++) {
+            for (let j = 0; j < (response as []).length; j++) {
               let dataRes = new Date(response[j]['anno'], parseInt(response[j]['mese']) - 1, response[j]['giorno']);
 
               if (data.getTime() == dataRes.getTime()) {
                 if ((response[j]['isSmartWorkingDay'] !== undefined)) {
                   obj['icon'] = this.icons[0];
-                  obj['note'] = 'Lavori da casa'
+                  obj['note'] = 'Lavori da casa';
                   found = true;
                   break;
                 } else if ((response[j]['isCompanyDay'] !== undefined)) {
@@ -151,7 +150,6 @@ export class HomePage implements OnInit {
                   break;
                 }
               }
-
             }
 
             if (!found) {
@@ -168,5 +166,4 @@ export class HomePage implements OnInit {
       });
     });
   }
-
 }

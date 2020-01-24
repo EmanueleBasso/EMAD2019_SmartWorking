@@ -62,7 +62,8 @@ export class ProgettiPage implements OnInit {
       message: message,
       buttons: [
         {
-          text: 'OK'
+          text: 'OK',
+          cssClass: 'alertConfirm',
         }
       ]
     });
@@ -77,7 +78,8 @@ export class ProgettiPage implements OnInit {
       message: message,
       buttons: [
         {
-          text: 'OK'
+          text: 'OK',
+          cssClass: 'alertConfirm',
         }
       ]
     });
@@ -92,7 +94,8 @@ export class ProgettiPage implements OnInit {
       message: message,
       buttons: [
         {
-          text: 'OK'
+          text: 'OK',
+          cssClass: 'alertConfirm',
         }
       ]
     });
@@ -111,6 +114,7 @@ export class ProgettiPage implements OnInit {
           cssClass: 'alertMedium',
         }, {
           text: 'Conferma',
+          cssClass: 'alertConfirm',
           handler: (res) => {
             this.progettoSelezionato = res;
 

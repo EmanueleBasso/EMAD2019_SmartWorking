@@ -50,7 +50,8 @@
     text-align: center !important;
   }
   .alertConfirm {
-    color: var(--ion-color-secondary) !important;
+    color: var(--ion-color-primary) !important;
+    font-weight: bold;
   }
   .alertMedium {
     color: var(--ion-color-dark) !important;
@@ -67,6 +68,7 @@
   }
   .alertConfirm {
     color: var(--ion-color-danger) !important;
+    font-weight: bold;
   }
 }
 
@@ -76,7 +78,11 @@
     text-align: center !important;
   }
   .alertConfirm {
-    color: var(--ion-color-secondary) !important;
+    color: var(--ion-color-warning) !important;
+    font-weight: bold;
+  }
+  .alertMedium {
+    color: var(--ion-color-dark) !important;
   }
 }
 
@@ -87,6 +93,7 @@
   }
   .alertConfirm {
     color: var(--ion-color-success) !important;
+    font-weight: bold;
   }
 }
 

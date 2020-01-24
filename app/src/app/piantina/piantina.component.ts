@@ -76,7 +76,8 @@ export class PiantinaComponent implements OnInit {
       message: message,
       buttons: [
         {
-          text: 'OK'
+          text: 'OK',
+          cssClass: 'alertConfirm',
         }
       ]
     });
@@ -150,6 +151,7 @@ export class PiantinaComponent implements OnInit {
           cssClass: 'alertMedium',
         }, {
           text: 'Conferma',
+          cssClass: 'alertConfirm',
           handler: (res) => {
             this.stanzaSelezionata = '';
 
@@ -221,6 +223,7 @@ export class PiantinaComponent implements OnInit {
           cssClass: 'alertMedium',
         }, {
           text: 'Conferma',
+          cssClass: 'alertConfirm',
           handler: (res) => {
             if (res === undefined) {
               this.stanzaSelezionata = undefined;
