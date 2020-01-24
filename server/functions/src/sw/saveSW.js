@@ -53,10 +53,6 @@ module.exports = async(request, response) => {
 
                             flag++
                 
-                        } else {
-
-                            flag++
-
                         }
                         
                         if (flag == snapshot.size) {
@@ -90,6 +86,8 @@ module.exports = async(request, response) => {
                             }
 
                         }
+
+                        flag++
 
                 }).catch(error => {return response.send({hasError: true, error: error.message})})
 
