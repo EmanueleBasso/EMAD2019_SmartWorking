@@ -12,7 +12,6 @@ Per cominciare a sperimentare dobbiamo:
        - config.js e config.metadata.json in *ion2-calendar/dist*
        - calendar.service.js in *ion2-calendar/dist/services*
        - calendar.component.js in *ion2-calendar/dist/components*
-       - leaflet-src.js in *leaflet/dist*
     2. Aggiungere in  *platforms/android/app*:
        -   google-services.json
 
