@@ -145,7 +145,7 @@ export class HomePage implements OnInit {
                   break;
                 } else if ((response[j]['isCompanyDay'] !== undefined)) {
                   obj['icon'] = this.icons[1];
-                  obj['note'] = 'Posto ' + response[j]['postazione'] + ' Stanza ' + response[j]['stanza'] + ' Piano ' + response[j]['stanza'];
+                  obj['note'] = 'Posto ' + response[j]['postazione'].replace(/[^0-9]/g, '') + ' Stanza ' + response[j]['stanza'] + ' Piano ' + response[j]['stanza'];
                   found = true;
                   break;
                 }

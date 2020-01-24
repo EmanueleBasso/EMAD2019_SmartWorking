@@ -314,6 +314,7 @@ export class PiantinaComponent implements OnInit {
 
         if (hasError !== undefined) {
           this.presentAlert3('Attenzione', 'Si è verificato un errore. Provare a riaccedere alla pagina');
+          return;
         } else {
           const days = [];
 
@@ -322,6 +323,14 @@ export class PiantinaComponent implements OnInit {
               date: new Date(parseInt(response['giorniSW'][i].anno), parseInt(response['giorniSW'][i].mese) - 1, parseInt(response['giorniSW'][i].giorno)),
               disable: true,
               subTitle: 'SW'
+            });
+          }
+
+          for (let i = 0; i < (response['giorniPrenotati'] as []).length; i = i + 1) {
+            days.push({
+              date: new Date(parseInt(response['giorniPrenotati'][i].anno), parseInt(response['giorniPrenotati'][i].mese) - 1, parseInt(response['giorniPrenotati'][i].giorno)),
+              disable: true,
+              subTitle: 'Prenotato'
             });
           }
 
