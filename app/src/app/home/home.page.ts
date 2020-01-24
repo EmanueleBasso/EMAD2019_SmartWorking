@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-
-import { ModalController, MenuController } from '@ionic/angular';
+import { HttpClient } from '@angular/common/http';
+import { MenuController, AlertController } from '@ionic/angular';
 
 import * as moment from 'moment';
 import { CalendarComponentOptions, DayConfig } from 'ion2-calendar';
+import LoadingService from '../providers/loading.service';
 
 @Component({
   selector: 'app-home',
@@ -13,13 +14,14 @@ import { CalendarComponentOptions, DayConfig } from 'ion2-calendar';
 export class HomePage implements OnInit {
 
   // Dati lista
-  private icons = ['home', 'business'];
-  public items: Array<{ title: string; icon: string, note: string; }> = [];
-  private giorni: string[];
-  private num: number;
-  public click: boolean = false;
-  private haPrenotatoPosto = false;
+  private icons = ['home', 'business', 'warning'];
+  public items: Array<{}> = [];
+  private giorni: string[] = ['Lunedì', 'Martedì', 'Mercoledì', 'Giovedì', 'Venerdì'];
+  public click: Array<any> = [];
+
   private _daysConfig: DayConfig[] = [];
+  private start;
+  private finish;
 
   // CALENDARIO
   date1: string;
@@ -34,50 +36,137 @@ export class HomePage implements OnInit {
     // showToggleButtons: false,
   };
 
-  constructor(private modalCtrl: ModalController, private menu: MenuController) { }
+  constructor(private menu: MenuController, private http: HttpClient, 
+              private loadingService: LoadingService, private alertController: AlertController) { }
 
   ngOnInit() {
     this.menu.enable(true);
     moment.locale('it-IT');
 
-    this.giorni = ['Lunedì', 'Martedì', 'Mercoledì', 'Giovedì', 'Venerdì'];
-    for (let i = 0; i < 5; i++) {
-      this.num = Math.floor(Math.random() * this.icons.length);
-      this.items.push({
-        title: this.giorni[i],
-        icon: this.icons[this.num],
-        note: ((this.num === 1) ? ('Posto ' + i + ' Stanza ' + (i + i) + ' Piano ' + (i + 1)) : 'Sei a casa')
-      });
-    }
-    for (let i = 1; i < 10; i++) {
-      this._daysConfig.push({
-        date: new Date(2020, i, i + 1),
-        disable: true,
-        subTitle: 'bloccato', // al massimo 8 lettere altrimenti graficamente è brutto
-      });
-    }
+    this.caricaInformazioni(new Date());
+  }
+
+  async presentAlert3(header, message) {
+    const alert = await this.alertController.create({
+      header: header,
+      cssClass: 'alertClass3',
+      message: message,
+      buttons: [
+        {
+          text: 'OK'
+        }
+      ]
+    });
+    await alert.present();
   }
 
   onChange($event) {
-    console.log("Stringa del calendario 1: " + $event);
+    const dataSplit = $event.split('-');
+
+    const data = new Date(dataSplit[0], parseInt(dataSplit[1]) - 1, dataSplit[2]);
+
+    this.caricaInformazioni(data);
   }
 
-  itemClick() {
-    this.click = !this.click;
-    // L'ho messo qui il log della data di oggi perché ho usato una sola variabile per tutto :)
-    this.arrayData = this.date2.toString().split(' ', 4);
-    console.log("Data di oggi: " + this.arrayData);
-    if (!this.haPrenotatoPosto) {
-      for (let i = 0; i < this.items.length; i++) {
-        if (this.items[i].note !== 'Sei a casa') {
-          this.items[i].note = 'Non hai scelto il posto';
-        }
-      }
-    }
+  itemClick(number) {
+    this.click[number] = !this.click[number]; 
   }
 
   // Swipe per il menu laterale
   handleSwipe() {
     this.menu.open();
   }
+
+  caricaInformazioni(data) {
+    this.loadingService.presentLoading('Aspetta...').then(() => {
+      this.start = new Date(data.getTime());
+      this.finish = new Date(data.getTime());
+
+      switch(data.getDay()) {
+        case 1: this.finish.setDate(data.getDate() + 4);
+                break;
+        case 2: this.start.setDate(data.getDate() - 1);
+                this.finish.setDate(data.getDate() + 3);
+                break;
+        case 3: this.start.setDate(data.getDate() - 2);
+                this.finish.setDate(data.getDate() + 2);
+                break;
+        case 4: this.start.setDate(data.getDate() - 3);
+                this.finish.setDate(data.getDate() + 1);
+                break;
+        case 5: this.start.setDate(data.getDate() - 4);
+                break;
+      }
+
+      const url = 'https://europe-west1-smart-working-5f3ea.cloudfunctions.net/home';
+      const body = {};
+
+      body['dates'] = [];
+      body['dates'][0] = {
+        giorno: this.start.getDate(),
+        mese: this.start.getMonth() + 1,
+        anno: this.start.getFullYear(),
+      };
+      body['dates'][1] = {
+        giorno: this.finish.getDate(),
+        mese: this.finish.getMonth() + 1,
+        anno: this.finish.getFullYear(),
+      };
+      body['uid'] = localStorage.getItem('uid');
+
+      this.http.post(url, JSON.stringify(body)).subscribe(response => {
+        const hasError = response['hasError'];
+  
+        this.loadingService.dismissLoading();
+  
+        if (hasError !== undefined) {
+          this.presentAlert3('Attenzione', 'Si è verificato un errore. Provare a riaccedere alla pagina');
+          return;
+        } else {
+          this.items = [];
+          this.click = [];
+
+          let data = new Date(this.start.getTime());
+
+          for(let i = 0; i < 5; i++) {
+            const obj = {
+              number: i,
+              title: this.giorni[i]
+            };
+
+            let found = false;
+            for(let j = 0; j < (response as []).length; j++) {
+              let dataRes = new Date(response[j]['anno'], parseInt(response[j]['mese']) - 1, response[j]['giorno']);
+
+              if (data.getTime() == dataRes.getTime()) {
+                if ((response[j]['isSmartWorkingDay'] !== undefined)) {
+                  obj['icon'] = this.icons[0];
+                  obj['note'] = 'Lavori da casa'
+                  found = true;
+                  break;
+                } else if ((response[j]['isCompanyDay'] !== undefined)) {
+                  obj['icon'] = this.icons[1];
+                  obj['note'] = 'Posto ' + response[j]['postazione'] + ' Stanza ' + response[j]['stanza'] + ' Piano ' + response[j]['stanza'];
+                  found = true;
+                  break;
+                }
+              }
+
+            }
+
+            if (!found) {
+              obj['icon'] = this.icons[2];
+              obj['note'] = 'Non hai ancora scelto';
+            }
+
+            this.items.push(obj);
+            this.click.push(false);
+
+            data.setDate(data.getDate() + 1);
+          }
+        }
+      });
+    });
+  }
+
 }
