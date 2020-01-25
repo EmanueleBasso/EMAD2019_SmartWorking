@@ -13,6 +13,17 @@ export class FormProgettiPage implements OnInit {
 
   constructor(private loadingService: LoadingService, private alertController: AlertController, private navCtrl: NavController) { }
 
+  async presentAlertUnknown() {
+    const alert = await this.alertController.create({
+      header: 'Credenziali non valide!',
+      message: 'Inserire credenziali valide',
+      cssClass: 'alertClass2',
+      buttons: [{
+        text: 'OK',
+      }]
+    });
+    await alert.present();
+  }
 
   
   async presentAlertEmail() {
@@ -37,6 +48,13 @@ export class FormProgettiPage implements OnInit {
     const manager= form.value.manager;
     const state= form.value.state;
     console.log(scope,description,manager,state);
+
+       
+    if (!scope || !description || !manager  ) {
+      // email o password non inserita
+      this.presentAlertUnknown();
+      return;
+    }
      
     if (state === 'false' || state === false) {
       console.log('non attivo');
@@ -62,8 +80,19 @@ export class FormProgettiPage implements OnInit {
 
     console.log(state );
 
-   
-    this.navCtrl.navigateRoot('/progetti');
+    this.loadingService.presentLoading('Loading...').then(() => {
+
+      
+        this.loadingService.dismissLoading();
+
+        if (true) {
+          this.navCtrl.navigateRoot('/home');
+        } else {
+          this.presentAlertUnknown();
+        };
+    });
+
+   // this.navCtrl.navigateRoot('/progetti');
     
 
   }

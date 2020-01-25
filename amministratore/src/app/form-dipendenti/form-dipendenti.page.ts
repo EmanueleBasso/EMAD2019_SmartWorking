@@ -121,7 +121,19 @@ export class FormDipendentiPage implements OnInit {
 
       console.log(manager );
 
-      this.navCtrl.navigateRoot('/dipendenti');
+      this.loadingService.presentLoading('Loading...').then(() => {
+
+      
+        this.loadingService.dismissLoading();
+
+        if (true) {
+          this.navCtrl.navigateRoot('/home');
+        } else {
+          this.presentAlertUnknown();
+        };
+    });
+
+     // this.navCtrl.navigateRoot('/dipendenti');
    
   }
   
