@@ -29,27 +29,34 @@
                 
                 
                    
-                  <ion-input color=primary placeholder="Enter Name..."></ion-input>
+                  <ion-input color=primary  placeholder="Enter Name..." name="name" type="name"required
+                  ngModel ></ion-input>
                   
                 </ion-item>
                 <ion-item  class="input-item">
               
-                    <ion-input color=primary placeholder="Enter Surname..."></ion-input>
+                    <ion-input color=primary placeholder="Enter Surname..." name="surname" type="surname" required
+                    ngModel ></ion-input>
                   
                 </ion-item>
                 <ion-item  class="input-item">
                   
-                    <ion-input color=primary placeholder="Enter E-mail..."></ion-input>
+                    <ion-input color=primary placeholder="Enter E-mail..." name="email" type="email"  
+                    required
+                    ngModel                  
+                  ></ion-input>
                   
                 </ion-item>
                 <ion-item  class="input-item">
                  
-                    <ion-input color=primary placeholder="Enter Password..."></ion-input>
+                    <ion-input color=primary placeholder="Enter Password..." name="password" type="password" required
+                    ngModel ></ion-input>
                   
                 </ion-item>
                  <ion-item>
                     <ion-label>Manager</ion-label>
-                    <ion-toggle slot="start" name="manager" checked></ion-toggle>
+                    <ion-toggle slot="start" name="manager"  required ngModel=false></ion-toggle>
+                    
                 </ion-item>
                 
               </ion-list>
