@@ -55,7 +55,7 @@
                 
               </ion-list>
             </ion-col>  
-      <ion-button  type="submit" expand="block" class="ion-margin">  Inserisci </ion-button>   
+      <ion-button  type="submit" expand="block" class="ion-margin" style="margin-left: 30%; margin-right: 30%;">  Inserisci </ion-button>   
                   
     </form>
 
@@ -63,7 +63,41 @@
    
       </ion-card>   
   </div>
-
+  <div>
+    <ion-card padding>
+      <ion-card-header>
+                  <ion-card-title>
+                      <ion-item lines="none" style=" font-size: 50px; " text-center>
+                           <ion-icon name="document" color="primary"  style=" font-size: 50px; "></ion-icon>  <ion-label color="primary" padding>Associa dipendenti a progetto</ion-label>
+                        </ion-item>
+                  </ion-card-title> 
+                    </ion-card-header>
+        
+        
+           <ion-col  size-lg="4" offset-lg="4" size-md="6" offset-md="3">
+                  <ion-list >
+                   
+                    <ion-item *ngFor='let nome of names '>  
+                      <ion-label padding name="dip" >{{nome}}</ion-label>
+                       
+                                               
+                      <ion-checkbox color="primary" slot="end"  >
+                    
+                       
+                      </ion-checkbox>
+                      
+                    </ion-item>
+                    
+                  </ion-list>
+                </ion-col>  
+          <ion-button  type="submit" expand="block" class="ion-margin" style="margin-left: 30%; margin-right: 30%;">  Aggiungi </ion-button>   
+                      
+     
+    
+          
+       
+          </ion-card>
+  </div>
 
 </ion-content>
 </body>

@@ -10,8 +10,10 @@ import { isString, isNumber } from 'util';
   styleUrls: ['./form-progetti.page.scss'],
 })
 export class FormProgettiPage implements OnInit {
-
-  constructor(private loadingService: LoadingService, private alertController: AlertController, private navCtrl: NavController) { }
+  names:string[];
+  constructor(private loadingService: LoadingService, private alertController: AlertController, private navCtrl: NavController) {
+    this.names=['Dipendente1','Dipendente2','Dipendente3'];
+   }
 
   async presentAlertUnknown() {
     const alert = await this.alertController.create({

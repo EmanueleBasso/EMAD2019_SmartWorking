@@ -13,7 +13,7 @@ import { isString, isNumber } from 'util';
 export class FormDipendentiPage implements OnInit {
   ngOnInit() {
   }
-
+  
   constructor(private loadingService: LoadingService,private alertController: AlertController, private navCtrl: NavController) { }
   
   async presentAlertUnknown() {
@@ -65,6 +65,8 @@ export class FormDipendentiPage implements OnInit {
   }
 
   onSubmit(form: NgForm) {
+
+      
       let yourEmail: string = '';
       const name= form.value.name;
       const surname= form.value.surname;

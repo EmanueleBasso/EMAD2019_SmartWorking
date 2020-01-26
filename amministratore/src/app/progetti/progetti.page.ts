@@ -16,6 +16,7 @@ export class ProgettiPage implements OnInit {
     this.navCtrl.navigateRoot('/form-progetti');
   }
   
+  
   constructor(public navCtrl: NavController) {
     this.names=['Progetto1','Progetto2','Progetto3'];
     
