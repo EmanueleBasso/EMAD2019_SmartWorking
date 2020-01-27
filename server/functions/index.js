@@ -52,6 +52,6 @@ module.exports = {
   //'getRooms': functions.region('europe-west1').https.onRequest(getRooms),
   //'getPlanimetry': functions.region('europe-west1').https.onRequest(getPlanimetry),
   //'checkAlreadyBookedUp': functions.region('europe-west1').https.onRequest(checkAlreadyBookedUp),
-  //'home': functions.region('europe-west1').https.onRequest(home),
+  'home': functions.region('europe-west1').https.onRequest(home),
   //'bookPosition': functions.region('europe-west1').https.onRequest(bookPosition)
 };
