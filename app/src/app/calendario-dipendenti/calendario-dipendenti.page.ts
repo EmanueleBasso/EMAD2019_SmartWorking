@@ -29,7 +29,7 @@ export class CalendarioDipendentiPage implements OnInit {
         const hasError = response['hasError'];
 
         if (hasError !== undefined) {
-          this.presentAlert3('Attenzione', 'Si è verificato un errore. Provare a riaccedere alla pagina');
+          this.presentAlert3('Errore', 'Si è verificato un errore. Provare a riaccedere alla pagina');
           return;
         }
 
@@ -50,7 +50,7 @@ export class CalendarioDipendentiPage implements OnInit {
   async presentAlert3(header, message) {
     const alert = await this.alertController.create({
       header: header,
-      cssClass: 'alertClass3',
+      cssClass: 'alertClass2',
       message: message,
       buttons: [
         {
@@ -87,11 +87,13 @@ export class CalendarioDipendentiPage implements OnInit {
                 this.loadingService.dismissLoading();
 
                 if (hasError === true) {
-                  this.presentAlert3('Attenzione', 'Si è verificato un errore. Provare a riaccedere alla pagina');
+                  this.presentAlert3('Errore', 'Si è verificato un errore. Provare a riaccedere alla pagina');
                 } else {
                   this.impedisciSW[number] = true;
 
                   this.presentAlertBloccatoCorrettamente();
+                  
+                  this.caricaDipendenti();
                 }
               });
             });
@@ -174,7 +176,7 @@ export class CalendarioDipendentiPage implements OnInit {
         const hasError = response['hasError'];
 
         if (hasError !== undefined) {
-          this.presentAlert3('Attenzione', 'Si è verificato un errore. Provare a riaccedere alla pagina');
+          this.presentAlert3('Errore', 'Si è verificato un errore. Provare a riaccedere alla pagina');
           return;
         }
 

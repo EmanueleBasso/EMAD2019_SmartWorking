@@ -37,7 +37,7 @@ export class ProgettiPage implements OnInit {
         const hasError = response['hasError'];
 
         if (hasError !== undefined) {
-          this.presentAlert3('Attenzione', 'Si è verificato un errore. Provare a riaccedere alla pagina');
+          this.presentAlert2('Errore', 'Si è verificato un errore. Provare a riaccedere alla pagina');
           return;
         }
 
@@ -58,7 +58,7 @@ export class ProgettiPage implements OnInit {
   async presentAlert(header, message) {
     const alert = await this.alertController.create({
       header: header,
-      cssClass: 'alertClass',
+      cssClass: 'alertClass4',
       message: message,
       buttons: [
         {
@@ -75,22 +75,6 @@ export class ProgettiPage implements OnInit {
     const alert = await this.alertController.create({
       header: header,
       cssClass: 'alertClass2',
-      message: message,
-      buttons: [
-        {
-          text: 'OK',
-          cssClass: 'alertConfirm',
-        }
-      ]
-    });
-    await alert.present();
-  }
-
-  //Css warning
-  async presentAlert3(header, message) {
-    const alert = await this.alertController.create({
-      header: header,
-      cssClass: 'alertClass3',
       message: message,
       buttons: [
         {
@@ -153,7 +137,7 @@ export class ProgettiPage implements OnInit {
         this.loadingService.dismissLoading();
 
         if (hasError !== undefined) {
-          this.presentAlert3('Attenzione', 'Si è verificato un errore. Provare a riaccedere alla pagina');
+          this.presentAlert2('Errore', 'Si è verificato un errore. Provare a riaccedere alla pagina');
         } else {
           const days = [];
 
@@ -242,6 +226,10 @@ export class ProgettiPage implements OnInit {
       giorno = giorno.replace('0', '');
     }
 
+    if (mese[0] == '0') {
+      mese = mese.replace('0', '');
+    }
+
     this.loadingService.presentLoading('Aspetta...');
     const url = 'https://europe-west1-smart-working-5f3ea.cloudfunctions.net/checkWhoInSW';
 
@@ -252,7 +240,7 @@ export class ProgettiPage implements OnInit {
 
         if (hasError !== undefined) {
           this.loadingService.dismissLoading();
-          this.presentAlert3('Attenzione', 'Si è verificato un errore. Provare a riaccedere alla pagina');
+          this.presentAlert2('Errore', 'Si è verificato un errore. Provare a riaccedere alla pagina');
           return;
         }
 

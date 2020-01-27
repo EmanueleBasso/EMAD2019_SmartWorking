@@ -47,7 +47,7 @@ export class HomePage implements OnInit {
   async presentAlert3(header, message) {
     const alert = await this.alertController.create({
       header: header,
-      cssClass: 'alertClass3',
+      cssClass: 'alertClass2',
       message: message,
       buttons: [
         {
@@ -119,7 +119,7 @@ export class HomePage implements OnInit {
         this.loadingService.dismissLoading();
 
         if (hasError !== undefined) {
-          this.presentAlert3('Attenzione', 'Si è verificato un errore. Provare a riaccedere alla pagina');
+          this.presentAlert3('Errore', 'Si è verificato un errore. Provare a riaccedere alla pagina');
           return;
         } else {
           this.items = [];

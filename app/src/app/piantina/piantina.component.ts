@@ -51,7 +51,7 @@ export class PiantinaComponent implements OnInit {
         const hasError = response['hasError'];
 
         if (hasError !== undefined) {
-          this.presentAlert3('Attenzione', 'Si è verificato un errore. Provare a riaccedere alla pagina');
+          this.presentAlert3('Errore', 'Si è verificato un errore. Provare a riaccedere alla pagina');
           return;
         }
 
@@ -72,7 +72,7 @@ export class PiantinaComponent implements OnInit {
   async presentAlert3(header, message) {
     const alert = await this.alertController.create({
       header: header,
-      cssClass: 'alertClass3',
+      cssClass: 'alertClass2',
       message: message,
       buttons: [
         {
@@ -81,6 +81,22 @@ export class PiantinaComponent implements OnInit {
         }
       ]
     });
+    await alert.present();
+  }
+
+  async presentAlert4(header, message) {
+    const alert = await this.alertController.create({
+      header: header,
+      cssClass: 'alertClass4',
+      message: message,
+      buttons: [
+        {
+          text: 'OK',
+          cssClass: 'alertConfirm',
+        }
+      ]
+    });
+
     await alert.present();
   }
 
@@ -191,7 +207,7 @@ export class PiantinaComponent implements OnInit {
         const hasError = response['hasError'];
 
         if (hasError !== undefined) {
-          this.presentAlert3('Attenzione', 'Si è verificato un errore. Provare a riaccedere alla pagina');
+          this.presentAlert3('Errore', 'Si è verificato un errore. Provare a riaccedere alla pagina');
           return;
         }
 
@@ -267,7 +283,7 @@ export class PiantinaComponent implements OnInit {
         const hasError = response['hasError'];
 
         if (hasError !== undefined) {
-          this.presentAlert3('Attenzione', 'Si è verificato un errore. Provare a riaccedere alla pagina');
+          this.presentAlert3('Errore', 'Si è verificato un errore. Provare a riaccedere alla pagina');
           return;
         }
 
@@ -313,7 +329,7 @@ export class PiantinaComponent implements OnInit {
         this.loadingService.dismissLoading();
 
         if (hasError !== undefined) {
-          this.presentAlert3('Attenzione', 'Si è verificato un errore. Provare a riaccedere alla pagina');
+          this.presentAlert3('Errore', 'Si è verificato un errore. Provare a riaccedere alla pagina');
           return;
         } else {
           const days = [];
@@ -409,7 +425,7 @@ export class PiantinaComponent implements OnInit {
                 if (hasError === true) {
                   this.presentAlert3('Errore', 'Errore durante la prenotazione della postazione');
                 } else {
-                  this.presentAlert3('Successo', 'Postazione prenotata con successo');
+                  this.presentAlert4('Successo', 'Postazione prenotata con successo');
                 }
               });
             });
