@@ -17,7 +17,6 @@ export class HomePage implements OnInit {
   private icons = ['home', 'business', 'warning'];
   public items: Array<{}> = [];
   private giorni: string[] = ['Lunedì', 'Martedì', 'Mercoledì', 'Giovedì', 'Venerdì'];
-  public click: Array<any> = [];
 
   private _daysConfig: DayConfig[] = [];
   private start;
@@ -65,10 +64,6 @@ export class HomePage implements OnInit {
     const data = new Date(dataSplit[0], parseInt(dataSplit[1]) - 1, dataSplit[2]);
 
     this.caricaInformazioni(data);
-  }
-
-  itemClick(number) {
-    this.click[number] = !this.click[number];
   }
 
   // Swipe per il menu laterale
@@ -123,7 +118,6 @@ export class HomePage implements OnInit {
           return;
         } else {
           this.items = [];
-          this.click = [];
 
           let data = new Date(this.start.getTime());
 
@@ -158,7 +152,6 @@ export class HomePage implements OnInit {
             }
 
             this.items.push(obj);
-            this.click.push(false);
 
             data.setDate(data.getDate() + 1);
           }
