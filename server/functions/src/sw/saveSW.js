@@ -50,11 +50,9 @@ module.exports = async(request, response) => {
                                 }
                 
                             })
-
-                            flag++
                 
                         }
-                        
+
                         if (flag == snapshot.size) {
 
                             if (blockedDates.length > 0) {
@@ -71,7 +69,7 @@ module.exports = async(request, response) => {
 
                                 if (insertedBlockedDates.length > 0) {
 
-                                    response.send({areBlockedDays: true, dates: insertedBlockedDates})
+                                    return response.send({areBlockedDays: true, dates: insertedBlockedDates})
 
                                 } else {
 
@@ -84,7 +82,6 @@ module.exports = async(request, response) => {
                                 utils.saveSW(request, response, uid, dates, batch) 
 
                             }
-
                         }
 
                         flag++

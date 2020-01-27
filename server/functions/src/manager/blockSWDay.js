@@ -39,25 +39,30 @@ module.exports = async(request, response) => {
 
                     }).catch(error => {return response.send({hasError: true, error: error.message})})
 
-                await db.collection('Tokens').doc(rel.data().dipendente).get().then( (elem) => {
+                await db.collection('Tokens').doc(rel.data().dipendente).get().then( async (elem) => {
 
-                    const token = elem.data().token
+                    if (elem.exists) {
 
-                    const message = {
-                        notification:{
-                            title: 'Il team Smart Working',
-                            body: 'Ciao, volevamo informarti che il tuo manager ha bloccato il giorno ' + day + '/' + month + '/' + year + '.'
-                        },
-                        data: {
-                            body: 'Block',
-                            day: day,
-                            month: month,
-                            year: year
-                        },
-                        token: token
+                        const token = elem.data().token
+    
+                        const message = {
+                            notification:{
+                                title: 'Il team Smart Working',
+                                body: 'Ciao, volevamo informarti che il tuo manager ha bloccato il giorno ' + day + '/' + month + '/' + year + '.'
+                            },
+                            data: {
+                                body: 'Block',
+                                day: day,
+                                month: month,
+                                year: year
+                            },
+                            token: token
+                        }
+    
+                        await admin.messaging().send(message);
+
                     }
-
-                    admin.messaging().send(message);
+                    
                 }).catch(error => {return response.send({hasError: true, error: error.message})})
                 
                 if (flag == rels.size) {

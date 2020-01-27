@@ -8,6 +8,7 @@ module.exports = async (request, response) => {
     var today = new Date()
     var blockedMonth = today.getMonth() + 2 + ''
     var blockedYear = today.getFullYear() + ''
+    var flag = 1
 
     if (blockedMonth == '13') {
 
@@ -39,13 +40,17 @@ module.exports = async (request, response) => {
 
             if (snapshot.size != 0) {
 
-                snapshot.forEach(element => {
+                snapshot.forEach(async element => {
                     
-                    db.collection('SmartWorking').doc(element.id).delete().then(() => {
+                    await db.collection('SmartWorking').doc(element.id).delete().then(() => {
 
-                        console.log('DAY OF SW SUCCESFULLY DELETED!')
+                        if (flag == snapshot.size) {
 
-                        return response.send({hasError: false, message: 'SW del dipendente bloccato con successo!'})
+                            return response.send({hasError: false, message: 'SW del dipendente bloccato con successo!'})
+
+                        }
+
+                        flag++
 
                     }).catch(error => {return response.send({hasError: true, error: error.message})})
 
