@@ -97,6 +97,7 @@ export class AppComponent {
       }
 
       this.disconnectSubscription = this.network.onDisconnect().subscribe(() => {
+        this.loadingService.dismissLoading();
         this.internet = false;
       });
       this.connectSubscription = this.network.onConnect().subscribe(() => {

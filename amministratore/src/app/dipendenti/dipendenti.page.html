@@ -22,7 +22,7 @@
         </ion-item>
         <ion-item *ngFor='let nome of names '>
             <ion-icon name="person"></ion-icon>
-          <ion-label padding>{{nome}}</ion-label>
+          <ion-label padding (click)="goAnOtherPage()">{{nome}}</ion-label>
         </ion-item>
         </ion-card-content>
         </ion-card>
@@ -32,6 +32,6 @@
 
             
 
-<ion-button expand="block" (click)="goAnOtherPage()">Inserisci un nuovo dipendente
+<ion-button expand="block" (click)="goAnOtherPage()" style=" margin-left: 30%; margin-right: 30%;">Inserisci un nuovo dipendente
  </ion-button>
 </ion-content>

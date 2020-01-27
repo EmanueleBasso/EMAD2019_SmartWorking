@@ -22,14 +22,14 @@
           </ion-item>
           <ion-item *ngFor='let nome of names '>
               <ion-icon name="albums"></ion-icon>
-              <ion-label padding>{{nome}}</ion-label>
+              <ion-label padding (click)=goAnOtherPage(false) name="progettoX">{{nome}}</ion-label>
           </ion-item>
           </ion-card-content>
           </ion-card>
   
   </ion-col>
   </div>
-  <ion-button expand="block" onclick="itemClick()" (click)="goAnOtherPage()">Inserisci un nuovo progetto
+  <ion-button expand="block"  (click)="goAnOtherPage()"  name="bottoneInsert" #InserisciDip style="margin-left: 30%; margin-right: 30%;">Inserisci un nuovo progetto
 
   </ion-button>
 </ion-content>

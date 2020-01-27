@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { FormProgettiPage } from './form-progetti.page';
+import { FormProgettiPage } from "./form-progetti.page";
 
 const routes: Routes = [
   {

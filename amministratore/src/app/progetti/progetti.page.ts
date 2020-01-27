@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NavController } from '@ionic/angular';
+import { NavController, NavParams } from '@ionic/angular';
 
 
 @Component({
@@ -8,22 +8,16 @@ import { NavController } from '@ionic/angular';
   styleUrls: ['./progetti.page.scss'],
 })
 
-export class ProgettiPage implements OnInit {
-  names:string[];
-  navController: any;
- 
-  goAnOtherPage(){
+export class ProgettiPage {
+  names: string[];
+
+  goAnOtherPage(whatClicked) {
+    /*this.navPar.data = ['data', whatClicked];*/
     this.navCtrl.navigateRoot('/form-progetti');
   }
-  
-  constructor(public navCtrl: NavController) {
-    this.names=['Progetto1','Progetto2','Progetto3'];
-    
-    }
 
-    itemClick(){}
 
-  ngOnInit() {
+  constructor(public navCtrl: NavController, /*public navPar: NavParams*/) {
+    this.names = ['Progetto1', 'Progetto2', 'Progetto3'];
   }
-
 }
