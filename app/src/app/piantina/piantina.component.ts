@@ -107,7 +107,7 @@ export class PiantinaComponent implements OnInit {
   // FUNZIONE ZOOM MAPPA SVG
   public zoomIn(value, isButton) {
     if (isButton) {
-      this.svgNode.style.transition = 'all 1.5s cubic-bezier(0.22, 0.61, 0.36, 1) 0s';
+      this.svgNode.style.transition = 'all 1s ease-out 0s';
     } else {
       this.svgNode.style.transition = 'all 0s ease 0s';
     }
@@ -125,7 +125,7 @@ export class PiantinaComponent implements OnInit {
 
   public zoomOut(value, isButton) {
     if (isButton) {
-      this.svgNode.style.transition = 'all 1.5s cubic-bezier(0.22, 0.61, 0.36, 1) 0s';
+      this.svgNode.style.transition = 'all 1s ease-out 0s';
     } else {
       this.svgNode.style.transition = 'all 0s ease 0s';
     }
