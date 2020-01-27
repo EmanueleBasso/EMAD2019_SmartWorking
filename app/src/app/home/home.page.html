@@ -23,20 +23,12 @@
         </div>
         <div>
           <div>
-            <ion-label> {{item.title}} </ion-label>
+            <ion-label><b>{{item.title}}</b></ion-label>
           </div>
-          <div *ngIf="click[item.number]" style="font-size: 12px;">
+          <div style="font-size: 12px;">
             <ion-label id="notaPosto"> {{item.note}} </ion-label>
           </div>
         </div>
-        <ion-button
-          (click)="itemClick(item.number)"
-          slot="end"
-          fill="outline"
-          color="tertiary"
-        >
-          Dettagli
-        </ion-button>
       </ion-item>
     </ion-list>
   </ion-card>
