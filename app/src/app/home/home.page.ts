@@ -40,7 +40,9 @@ export class HomePage implements OnInit {
     this.menu.enable(true);
     moment.locale('it-IT');
 
-    this.caricaInformazioni(new Date());
+    const data = new Date();
+
+    this.caricaInformazioni(new Date(data.getFullYear(), data.getMonth(), data.getDate()));
   }
 
   async presentAlert3(header, message) {
@@ -119,7 +121,7 @@ export class HomePage implements OnInit {
         } else {
           this.items = [];
 
-          let data = new Date(this.start.getTime());
+          let data1 = new Date(this.start.getTime());
 
           for (let i = 0; i < 5; i++) {
             const obj = {
@@ -131,7 +133,7 @@ export class HomePage implements OnInit {
             for (let j = 0; j < (response as []).length; j++) {
               let dataRes = new Date(response[j]['anno'], parseInt(response[j]['mese']) - 1, response[j]['giorno']);
 
-              if (data.getTime() == dataRes.getTime()) {
+              if (data1.getTime() == dataRes.getTime()) {
                 if ((response[j]['isSmartWorkingDay'] !== undefined)) {
                   obj['icon'] = this.icons[0];
                   obj['note'] = 'Lavori da casa';
@@ -139,7 +141,7 @@ export class HomePage implements OnInit {
                   break;
                 } else if ((response[j]['isCompanyDay'] !== undefined)) {
                   obj['icon'] = this.icons[1];
-                  obj['note'] = 'Posto ' + response[j]['postazione'].replace(/[^0-9]/g, '') + ' Stanza ' + response[j]['stanza'] + ' Piano ' + response[j]['piano'];
+                  obj['note'] = 'Posto: ' + response[j]['postazione'].replace(/[^0-9]/g, '') + ', Stanza: ' + response[j]['stanza'] + ', Piano: ' + response[j]['piano'];
                   found = true;
                   break;
                 }
@@ -153,7 +155,7 @@ export class HomePage implements OnInit {
 
             this.items.push(obj);
 
-            data.setDate(data.getDate() + 1);
+            data1.setDate(data1.getDate() + 1);
           }
         }
       });
