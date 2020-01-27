@@ -13,7 +13,7 @@
 <ion-content  padding>
 
   <div style="margin-top:5%">
-  <ion-card padding>
+  <ion-card padding *ngIf="inserisci">
   <ion-card-header>
               <ion-card-title>
                   <ion-item lines="none" style=" font-size: 50px; " text-center>
@@ -64,7 +64,7 @@
       </ion-card>   
   </div>
   <div>
-    <ion-card padding>
+    <ion-card padding *ngIf="associa">
       <ion-card-header>
                   <ion-card-title>
                       <ion-item lines="none" style=" font-size: 50px; " text-center>
