@@ -22,7 +22,10 @@
         </ion-item>
         <ion-item *ngFor='let nome of names '>
             <ion-icon name="person"></ion-icon>
-          <ion-label padding (click)="goAnOtherPage()">{{nome}}</ion-label>
+          <ion-label padding>{{nome}}</ion-label>
+       
+                    <ion-toggle slot="end"  name="manager"  required ngModel=false ></ion-toggle>
+                    Manager
         </ion-item>
         </ion-card-content>
         </ion-card>

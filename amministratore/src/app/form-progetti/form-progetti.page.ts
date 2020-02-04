@@ -15,7 +15,7 @@ export class FormProgettiPage implements OnInit {
   inserisci = true;
   associa = false;
 
-  constructor(private loadingService: LoadingService, private alertController: AlertController, private navCtrl: NavController, private route: ActivatedRoute, private navPar: NavParams) {
+  constructor(private loadingService: LoadingService, private alertController: AlertController, private navCtrl: NavController, private route: ActivatedRoute) {
     this.names = ['Dipendente1', 'Dipendente2', 'Dipendente3'];
   }
 

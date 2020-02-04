@@ -25,6 +25,10 @@ const routes: Routes = [
     path: 'form-dipendenti',
     loadChildren: () => import('./form-dipendenti/form-dipendenti.module').then( m => m.FormDipendentiPageModule)
   },
+  {
+    path: 'associa-dipendenti',
+    loadChildren: () => import('./associa-dipendenti/associa-dipendenti.module').then( m => m.AssociaDipendentiPageModule)
+  },
 ];
 
 @NgModule({

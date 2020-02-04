@@ -1,0 +1,82 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title >
+      Gestione Progetti
+    </ion-title>
+  
+  </ion-toolbar>
+</ion-header>
+<body>
+<ion-content  padding>
+
+  
+      
+   
+     
+  <div>
+    <ion-card padding>
+      <ion-card-header>
+                  <ion-card-title>
+                      <ion-item lines="none" style=" font-size: 50px; " text-center>
+                           <ion-icon name="document" color="primary"  style=" font-size: 50px; "></ion-icon>  <ion-label color="primary" padding>Dipendenti associati</ion-label>
+                      </ion-item>
+                  </ion-card-title> 
+      </ion-card-header>
+      <ion-card>
+      
+                  <ion-card-content >
+                  
+                    <ion-item *ngFor='let nome of names '>
+                        <ion-icon name="person"></ion-icon>
+                      <ion-label padding >{{nome}}</ion-label>
+                    </ion-item>
+                  </ion-card-content>
+  </ion-card>
+    </ion-card>
+  </div>
+  <div>
+    <ion-card padding >
+      <ion-card-header>
+                  <ion-card-title>
+                      <ion-item lines="none" style=" font-size: 50px; " text-center>
+                           <ion-icon name="document" color="primary"  style=" font-size: 50px; "></ion-icon>  <ion-label color="primary" padding>Associa dipendenti</ion-label>
+                        </ion-item>
+                  </ion-card-title> 
+                    </ion-card-header>
+        
+       
+                <ion-card>
+                  <ion-card-header>
+                  <ion-card-title style=" text-align: center;"> <ion-label color="primary" padding >Cerca dipendenti </ion-label></ion-card-title>
+                  </ion-card-header>
+                  <ion-card-content >
+                  <ion-item style="align-items: center;">
+                      <ion-searchbar></ion-searchbar>
+                  </ion-item>
+                  <ion-item *ngFor='let nome of names '>
+                      <ion-icon name="person"></ion-icon>
+                    <ion-label padding >{{nome}}</ion-label>
+                    <ion-checkbox color="primary" slot="end"  >
+                    
+                       
+                    </ion-checkbox>
+                    
+                  </ion-item>
+                  </ion-card-content>
+                  </ion-card>
+          
+          
+         
+                      
+     
+    
+          
+       
+          </ion-card>
+  </div>
+
+</ion-content>
+</body>
