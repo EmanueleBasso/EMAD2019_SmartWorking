@@ -26,11 +26,6 @@ public appPages=[
     title:'Progetti',
     url:'/progetti',
     icon:'albums'
-  },
-  {
-    title:'Planimetria',
-    url:'Planimetria',
-    icon:'business'
   }
 ]
 

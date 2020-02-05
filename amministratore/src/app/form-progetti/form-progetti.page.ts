@@ -14,9 +14,15 @@ export class FormProgettiPage implements OnInit {
   names: string[];
   inserisci = true;
   associa = false;
+  public list=[];
 
   constructor(private loadingService: LoadingService, private alertController: AlertController, private navCtrl: NavController, private route: ActivatedRoute) {
     this.names = ['Dipendente1', 'Dipendente2', 'Dipendente3'];
+    this.list.push({
+      name:'Clara',
+      surname:'Monaco',
+      email:'clara@capgemnini.com'
+    });
   }
 
 
@@ -55,14 +61,14 @@ export class FormProgettiPage implements OnInit {
 
   onSubmit(form: NgForm) {
     let manager1: string = "";
-    const scope = form.value.scope;
+    const name = form.value.name;
     const description = form.value.description;
     const manager = form.value.manager;
     const state = form.value.state;
-    console.log(scope, description, manager, state);
+    console.log(name, description, manager, state);
 
 
-    if (!scope || !description || !manager) {
+    if (!name || !description || !manager) {
       // email o password non inserita
       this.presentAlertUnknown();
       return;
