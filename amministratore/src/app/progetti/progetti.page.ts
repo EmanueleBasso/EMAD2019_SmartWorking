@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { NavController, NavParams } from '@ionic/angular';
+import LoadingService from '../providers/loading.service';
+import { NavController } from '@ionic/angular';
+import {NavigationExtras} from '@angular/router';
+import { AlertController } from '@ionic/angular';
+import { HttpClient} from '@angular/common/http';
 
 
 @Component({
@@ -8,19 +12,71 @@ import { NavController, NavParams } from '@ionic/angular';
   styleUrls: ['./progetti.page.scss'],
 })
 
-export class ProgettiPage {
-  names: string[];
+export class ProgettiPage implements OnInit {
+  projects = [];
+
+  constructor(private http: HttpClient, private loadingService: LoadingService, 
+    private alertController: AlertController, public navCtrl: NavController) {}
+
+  ngOnInit() {
+    this.loadingService.presentLoading('Loading...').then(() => {
+
+      const url = 'https://europe-west1-smart-working-5f3ea.cloudfunctions.net/getAllProjects';
+
+      this.http.get(url).subscribe(response => {
+
+        if (response['hasError']) {
+
+          this.loadingService.dismissLoading();
+
+          this.presentAlertError(response['error']);
+
+        } else {
+
+          this.loadingService.dismissLoading();
+
+          this.projects = response['progetti'];
+
+        }
+
+      });
+
+    });
+
+  }
+
+  async presentAlertError(message: string) {
+    const alert = await this.alertController.create({
+      header: 'Errore',
+      message,
+      cssClass: 'alertClass2',
+      buttons: [{
+        text: 'OK',
+      }]
+    });
+
+    await alert.present();
+  }
 
   goAnOtherPage() {
-  
+
     this.navCtrl.navigateRoot('/form-progetti');
-  }
-  goGestioneProgetto(){
-    this.navCtrl.navigateRoot('/associa-dipendenti');
+
   }
 
+  goGestioneProgetto(id: string) {
 
-  constructor(public navCtrl: NavController) {
-    this.names = ['Progetto1', 'Progetto2', 'Progetto3'];
+    let navigationExtras: NavigationExtras = {
+
+      queryParams: {
+
+        id
+
+      }
+
+    }
+
+    this.navCtrl.navigateForward('/associa-dipendenti', navigationExtras);
+
   }
 }

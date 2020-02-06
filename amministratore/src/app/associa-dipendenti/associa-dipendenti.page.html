@@ -29,9 +29,9 @@
       
                   <ion-card-content >
                   
-                    <ion-item *ngFor='let nome of names '>
+                    <ion-item *ngFor='let item of associated'>
                         <ion-icon name="person"></ion-icon>
-                      <ion-label padding >{{nome}}</ion-label>
+                      <ion-label padding >{{item.nome}}</ion-label>
                     </ion-item>
                   </ion-card-content>
   </ion-card>
@@ -56,9 +56,9 @@
                   <ion-item style="align-items: center;">
                       <ion-searchbar></ion-searchbar>
                   </ion-item>
-                  <ion-item *ngFor='let nome of names '>
+                  <ion-item *ngFor='let item of nonAssociated'>
                       <ion-icon name="person"></ion-icon>
-                    <ion-label padding >{{nome}}</ion-label>
+                    <ion-label padding >{{item.nome}}</ion-label>
                     <ion-checkbox color="primary" slot="end"  >
                     
                        

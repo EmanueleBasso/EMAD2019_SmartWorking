@@ -13,7 +13,7 @@
 <ion-content  padding>
 
   <div style="margin-top:5%">
-  <ion-card padding *ngIf="inserisci">
+  <ion-card padding>
   <ion-card-header>
               <ion-card-title>
                   <ion-item lines="none" style=" font-size: 50px; " text-center>
@@ -27,54 +27,25 @@
               <ion-list >
                
                 <ion-item  class="input-item">
-                
-                
                    
                   <ion-input color=primary placeholder="Enter Name..." name="name" type="name" required
                   ngModel></ion-input>
                   
                 </ion-item>
+
                 <ion-item  class="input-item">
               
                     <ion-input color=primary placeholder="Enter Description..." name="description" type="description" required
                     ngModel></ion-input>
                   
                 </ion-item>
-               <!-- <ion-item  class="input-item">
-                  
-                    <ion-input color=primary placeholder="Enter Manager..." name="manager" type="manager" required
-                    ngModel ></ion-input>
-
-                  
-                </ion-item>
-              
-              <ion-list>
-  <ion-list-header>Objects as Values (compareWith)</ion-list-header>
-
-  <ion-item>
-    <ion-label>Users</ion-label>
-    <ion-select [compareWith]="compareWith">
-      <ion-select-option *ngFor="let user of users">{{user.first + ' ' + user.last}}</ion-select-option>
-    </ion-select>
-  </ion-item>
-</ion-list>
-              -->
-                <ion-list>
-                  
                 
-                  <ion-item>
-                    <ion-label>Manager</ion-label>
-                    <ion-select  interface="alert" style="width: 1000px !important;">
-                      <ion-select-option  *ngFor="let item of list"  style="width: 500px !important; max-width: unset;">{{item.name}} {{item.surname}}
-                       {{item.email}}</ion-select-option>
-                    </ion-select>
-                  </ion-item>
-                </ion-list>
-               
-                 <ion-item>
-                    <ion-label>State</ion-label>
-                    <ion-toggle slot="start"  checked name="state" required
-                    ngModel=false></ion-toggle>
+                <ion-item>
+                  <ion-label>Manager</ion-label>
+                  <ion-select interface="action-sheet" style="width: 1000px !important;" (ionChange)="onChange($event)">
+                    <ion-select-option *ngFor="let item of list" [value]="item.id">{{item.nome}} {{item.cognome + ","}}
+                      {{item.email}}</ion-select-option>
+                  </ion-select>
                 </ion-item>
                 
               </ion-list>

@@ -20,9 +20,9 @@
           <ion-item style="align-items: center;">
               <ion-searchbar></ion-searchbar>
           </ion-item>
-          <ion-item *ngFor='let nome of names '>
+          <ion-item *ngFor='let item of projects'>
               <ion-icon name="albums"></ion-icon>
-              <ion-label padding (click)=goGestioneProgetto() name="progettoX">{{nome}}</ion-label>
+              <ion-label padding (click)=goGestioneProgetto(item.id) name="progettoX">{{item.nome}}</ion-label>
           </ion-item>
           </ion-card-content>
           </ion-card>

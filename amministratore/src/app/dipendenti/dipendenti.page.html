@@ -20,9 +20,9 @@
         <ion-item style="align-items: center;">
             <ion-searchbar></ion-searchbar>
         </ion-item>
-        <ion-item *ngFor='let nome of names '>
+        <ion-item *ngFor='let employee of employees'>
             <ion-icon name="person"></ion-icon>
-          <ion-label padding>{{nome}}</ion-label>
+          <ion-label padding>{{employee.nome}}</ion-label>
        
                     <ion-toggle slot="end"  name="manager"  required ngModel=false ></ion-toggle>
                     Manager

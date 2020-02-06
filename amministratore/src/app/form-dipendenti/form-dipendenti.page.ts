@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import LoadingService from '../providers/loading.service';
 import { NgForm } from '@angular/forms';
 import { AlertController, NavController } from '@ionic/angular';
-import { isString, isNumber } from 'util';
+import { HttpClient} from '@angular/common/http';
 
 
 @Component({
@@ -13,12 +13,13 @@ import { isString, isNumber } from 'util';
 export class FormDipendentiPage implements OnInit {
   ngOnInit() {
   }
-  
-  constructor(private loadingService: LoadingService,private alertController: AlertController, private navCtrl: NavController) { }
-  
+
+  constructor(private loadingService: LoadingService, private alertController: AlertController, private navCtrl: NavController,
+    private http: HttpClient) { }
+
   async presentAlertUnknown() {
     const alert = await this.alertController.create({
-      header: 'Credenziali non valide!',
+      header: 'Credenziali non valide',
       message: 'Inserire credenziali valide',
       cssClass: 'alertClass2',
       buttons: [{
@@ -30,7 +31,7 @@ export class FormDipendentiPage implements OnInit {
 
   async presentAlertEmail() {
     const alert = await this.alertController.create({
-      header: 'Credenziali non valide!',
+      header: 'Credenziali non valide',
       message: 'Inserire email correttamente',
       cssClass: 'alertClass2',
       buttons: [{
@@ -42,7 +43,7 @@ export class FormDipendentiPage implements OnInit {
 
   async presentAlertNameError() {
     const alert = await this.alertController.create({
-      header: 'Credenziali non valide!',
+      header: 'Credenziali non valide',
       message: 'Inserire nome e cognome correttamente',
       cssClass: 'alertClass2',
       buttons: [{
@@ -52,10 +53,10 @@ export class FormDipendentiPage implements OnInit {
     await alert.present();
   }
 
-  async presentAlertPassError() {
+  async presentAlertInsertError(message: string) {
     const alert = await this.alertController.create({
-      header: 'Credenziali non valide!',
-      message: 'Inserire password con massimo 8 caratteri',
+      header: 'Errore',
+      message,
       cssClass: 'alertClass2',
       buttons: [{
         text: 'OK',
@@ -64,55 +65,45 @@ export class FormDipendentiPage implements OnInit {
     await alert.present();
   }
 
+  async presentAlertSuccessInsert() {
+    const alert = await this.alertController.create({
+      header: 'Successo',
+      message: 'Dipendente inserito con successo!',
+      cssClass: 'alertClass2',
+      buttons: [{
+        text: 'OK',
+      }]
+    });
+
+    await alert.present();
+  }
+
   onSubmit(form: NgForm) {
 
-      
-      let yourEmail: string = '';
-      const name= form.value.name;
-      const surname= form.value.surname;
+      const name = form.value.name;
+      const surname = form.value.surname;
       const email = form.value.email;
-      const password = form.value.password;
+      const regexEmail = new RegExp('^([a-zA-Z0-9\.]+)@capgemini.com$');
       const manager = form.value.manager;
 
-      
-      if (!password || !email || !name || !surname ) {
-        // email o password non inserita
+      if ( !email || !name || !surname ) {
+        // credenziali non inseriti
         this.presentAlertUnknown();
         return;
       }
 
-      console.log(name, surname, email, password, manager );
-      console.log(name.length );
-
-      //controllo che non superi size 8 
-      if(password.length >8 ){
-        this.presentAlertPassError();
-        return;
-       }
-
-      //controllo che sono stringhe
-      if(parseFloat(name) || parseFloat(surname)){
+      // controllo che sono stringhe
+      if (parseFloat(name) || parseFloat(surname)) {
           this.presentAlertNameError();
           return;
-         }
+      }
 
+      // aggiungo automaticamente la parte destra della email
+      if (!(regexEmail.test(email))) {
+        this.presentAlertEmail();
+        return;
+      }
 
-        // aggiungo automaticamente la parte destra della email
-      if (!email.includes('@')) {
-            yourEmail = email.concat('@capgemini.com');
-          }
-        console.log(yourEmail);
-
-      if (!(email.includes('@capgemini.com') || yourEmail.includes('@capgemini.com')) && !email.startsWith('@')) {
-          
-          this.presentAlertEmail();
-        }
-        
-      if(parseFloat(email.charAt(0))) {
-          this.presentAlertEmail();
-        }
-      
-       
       if (manager === 'false' || manager === false) {
         console.log('dip');
         // dipendente
@@ -121,24 +112,30 @@ export class FormDipendentiPage implements OnInit {
         console.log('man');
       }
 
-      console.log(manager );
-
       this.loadingService.presentLoading('Loading...').then(() => {
+        const url = 'https://europe-west1-smart-working-5f3ea.cloudfunctions.net/insertEmployee';
 
-      
-        this.loadingService.dismissLoading();
+        this.http.get(url + '?name=' + name + '&surname=' + surname + '&email=' + email + '&manager=' + manager )
+        .subscribe(response => {
 
-        if (true) {
-          this.navCtrl.navigateRoot('/home');
-        } else {
-          this.presentAlertUnknown();
-        };
-    });
+          if (response['hasError']) {
 
-     // this.navCtrl.navigateRoot('/dipendenti');
-   
+            this.loadingService.dismissLoading();
+
+            this.presentAlertInsertError(response['error']);
+
+          } else {
+
+            this.loadingService.dismissLoading();
+
+            this.presentAlertSuccessInsert();
+
+          }
+
+        })
+
+      });
+
   }
-  
-  
 
 }

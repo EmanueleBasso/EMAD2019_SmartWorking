@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import LoadingService from '../providers/loading.service';
 import { NgForm } from '@angular/forms';
-import { AlertController, NavController, NavParams } from '@ionic/angular';
-import { isString, isNumber } from 'util';
-import { Router, ActivatedRoute } from '@angular/router';
+import { AlertController } from '@ionic/angular';
+import { HttpClient} from '@angular/common/http';
 
 @Component({
   selector: 'app-form-progetti',
@@ -11,98 +10,105 @@ import { Router, ActivatedRoute } from '@angular/router';
   styleUrls: ['./form-progetti.page.scss'],
 })
 export class FormProgettiPage implements OnInit {
-  names: string[];
-  inserisci = true;
-  associa = false;
-  public list=[];
 
-  constructor(private loadingService: LoadingService, private alertController: AlertController, private navCtrl: NavController, private route: ActivatedRoute) {
-    this.names = ['Dipendente1', 'Dipendente2', 'Dipendente3'];
-    this.list.push({
-      name:'Clara',
-      surname:'Monaco',
-      email:'clara@capgemnini.com'
-    });
+  public list = [];
+  manager = '';
+
+  constructor(private http: HttpClient, private loadingService: LoadingService, private alertController: AlertController) {
+    this.list.push();
   }
 
-
-
-  async presentAlertUnknown() {
+  async presentAlertError(message: string) {
     const alert = await this.alertController.create({
-      header: 'Credenziali non valide!',
-      message: 'Inserire credenziali valide',
+      header: 'Errore',
+      message,
       cssClass: 'alertClass2',
       buttons: [{
         text: 'OK',
       }]
     });
+
     await alert.present();
   }
 
-
-  async presentAlertEmail() {
+  async presentAlertSuccessInsert() {
     const alert = await this.alertController.create({
-      header: 'Credenziali non valide!',
-      message: 'Inserire email menager correttamente',
+      header: 'Successo',
+      message: 'Progetto inserito con successo!',
       cssClass: 'alertClass2',
       buttons: [{
         text: 'OK',
       }]
     });
+
     await alert.present();
   }
 
   ngOnInit() {
-    /*let data = this.navPar.get('data');
-    if (data != undefined) {
-      this.inserisci = (/true/i).test(data);
-    }*/
+    const url = 'https://europe-west1-smart-working-5f3ea.cloudfunctions.net/getManagers';
+
+    this.http.get(url).subscribe(response => {
+
+      if (response['hasError']) {
+
+        this.presentAlertError(response['error']);
+
+      } else {
+
+        this.list = response['managers'];
+
+      }
+
+    });
+  }
+
+  onChange(event) {
+
+    this.manager = event.target.value;
+
   }
 
   onSubmit(form: NgForm) {
-    let manager1: string = "";
+
     const name = form.value.name;
     const description = form.value.description;
-    const manager = form.value.manager;
-    const state = form.value.state;
-    console.log(name, description, manager, state);
 
-
-    if (!name || !description || !manager) {
-      // email o password non inserita
-      this.presentAlertUnknown();
+    if (!name) {
+      this.presentAlertError('Inserire un nome per il progetto');
       return;
     }
 
-    if (state === 'false' || state === false) {
-      console.log('non attivo');
-      // progetto attivo
-    } else {
-      // progetto chiuso
-      console.log('attivo');
+    if (!description) {
+      this.presentAlertError('Inserire una descrizione per il progetto');
+      return;
     }
 
-    if (!manager.includes('@')) {
-      manager1 = manager.concat('@capgemini.com');
+    if (!this.manager) {
+      this.presentAlertError('Scegliere un manager per il progetto');
+      return;
     }
-    console.log(manager1);
-
-    if (!(manager.includes('@capgemini.com') || manager1.includes('@capgemini.com')) && !manager.startsWith('@')) {
-
-      this.presentAlertEmail();
-    }
-
-    if (parseFloat(manager.charAt(0))) {
-      this.presentAlertEmail();
-    }
-
-    console.log(state);
 
     this.loadingService.presentLoading('Loading...').then(() => {
+      const url = 'https://europe-west1-smart-working-5f3ea.cloudfunctions.net/insertProject';
 
+      this.http.get(url + '?name=' + name + '&description=' + description + '&manager=' + this.manager)
+      .subscribe(response => {
 
-      this.loadingService.dismissLoading();
-      this.associa = true;
+        if (response['hasError']) {
+
+          this.loadingService.dismissLoading();
+
+          this.presentAlertError(response['error']);
+
+        } else {
+
+          this.loadingService.dismissLoading();
+
+          this.presentAlertSuccessInsert();
+
+        }
+
+      });
 
     });
 
