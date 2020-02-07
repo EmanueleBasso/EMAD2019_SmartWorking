@@ -14,15 +14,14 @@
 <ion-col>
     <ion-card>
         <ion-card-header>
-        <ion-card-title style=" text-align: center;"> <ion-label color="primary" padding >Cerca dipendenti </ion-label></ion-card-title>
         </ion-card-header>
         <ion-card-content >
         <!--ion-item style="align-items: center;"-->
-            <ion-searchbar showCancelButtom (ionInput)="filterList($event)"></ion-searchbar>
+            <ion-searchbar showCancelButton (ionInput)="filterList($event)"></ion-searchbar>
       <ion-list>
-        <ion-item *ngFor='let employee of employees' >
+        <ion-item *ngFor='let employee of goalList' >
             <ion-icon name="person"></ion-icon>
-          <ion-label padding>{{employee.nome}}</ion-label>
+          <ion-label padding>{{employee.nome}} {{employee.cognome}}</ion-label>
         </ion-item>
       </ion-list>
         </ion-card-content>

@@ -15,6 +15,7 @@ export class AssociaDipendentiPage implements OnInit {
 
   public associated = [];
   public nonAssociated = [];
+  public goalList = [];
   public id = '';
 
   constructor(private route: ActivatedRoute, private loadingService: LoadingService, private alertController: AlertController, private navCtrl: NavController,
@@ -64,7 +65,7 @@ export class AssociaDipendentiPage implements OnInit {
 
           this.associated = response['associati'];
 
-          // this.presentAlertSuccessInsert();
+          this.goalList = this.nonAssociated;
 
         }
 
@@ -73,21 +74,17 @@ export class AssociaDipendentiPage implements OnInit {
     });
 
   }
-  filterList(evt) {
+
+  filterList(evt: any) {
+
     const searchTerm = evt.srcElement.value;
-    if (!searchTerm) {
-      return;
-    }
-    this.nonAssociated = this.nonAssociated.filter(element => {
-      if (element.nome.toLowerCase && searchTerm) {
-        if (element.nome.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1) {
-           return true;
-        }
-      }
-      return false;
+
+    this.goalList = this.nonAssociated.filter(element => {
+  
+      return element.nome.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1
+
     })
+
   }
-
-
 
 }

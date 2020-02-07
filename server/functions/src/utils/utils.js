@@ -1,9 +1,11 @@
 const firebase = require("firebase/app");
-require("firebase/firestore")
+require("firebase/firestore");
+require("firebase/auth");
 const nodemailer = require('nodemailer');
 const cors = require('cors')({origin: true});
 
 const db = firebase.firestore();
+const auth = firebase.auth();
 
 let transporter = nodemailer.createTransport({
     service: 'gmail',
@@ -213,6 +215,41 @@ module.exports = {
 
     },
 
+    'sendCredentialsEmail': function sendSmartWorkingCalendar(nome, cognome, email, password, request, response) {
+            
+        cors(request, response, () => {
+    
+            const mailOptions = {
+                from: 'Amministratore Smart Working<smartworking.unisa@gmail.com>',
+                to: 'antonio.basileo92@gmail.com',
+                subject: 'Credenziali di accesso',
+                html: "<p style=\"font-size: 16px;\">Ciao " + nome + " " + cognome + ",</p>" 
+                + "<p style=\"font-size: 16px;\">ecco le tue credenziali di accesso:</p>"  
+                + "<p style=\"font-size: 16px;\">USER: " + email + "</p>"  
+                + "<p style=\"font-size: 16px;\">PASSWORD: " + password + "</p>" 
+                + "<br /> "
+                + "<p style=\"font-size: 16px;\">Cordiali saluti,</p>"
+                + "<p style=\"font-size: 16px;\">il team Smart Working</p>"
+
+            };
+                                
+            return transporter.sendMail(mailOptions, (error, info) => {
+
+                if (error){
+
+                    return response.send({hasError: true, error: error.message});
+
+                } else {
+
+                    return response.send({hasError: false});
+                }
+
+            });
+
+        });
+
+    },
+
     'saveSW': async function(request, response, uid, dates, batch) {
 
         await db.collection('SmartWorking').where('dipendente', '==', uid).get().then(async snapshot => {
@@ -325,6 +362,8 @@ module.exports = {
 
     },
 
-    'db': db
+    'db': db,
+
+    'auth': auth
 
 }

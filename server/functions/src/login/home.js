@@ -9,6 +9,12 @@ module.exports = async (request, response) => {
     var dates = []
 
     response.append('Access-Control-Allow-Origin', ['*'])
+
+    if (extremes === undefined || uid === undefined) {
+
+        return response.send({hasError: true, error: "Data undefined"})
+
+    }
         
     await db.collection('SmartWorking').where('dipendente', '==', uid).get().then(async snapshot => {
 

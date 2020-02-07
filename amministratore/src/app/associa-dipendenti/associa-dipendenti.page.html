@@ -31,7 +31,7 @@
                   
                     <ion-item *ngFor='let item of associated'>
                         <ion-icon name="person"></ion-icon>
-                      <ion-label padding >{{item.nome}}</ion-label>
+                      <ion-label padding >{{item.nome}} {{item.cognome}}</ion-label>
                     </ion-item>
                   </ion-card-content>
   </ion-card>
@@ -50,16 +50,15 @@
        
                 <ion-card>
                   <ion-card-header>
-                  <ion-card-title style=" text-align: center;"> <ion-label color="primary" padding >Cerca dipendenti </ion-label></ion-card-title>
                   </ion-card-header>
                   <ion-card-content >
                 
-                      <ion-searchbar showCancelButtom (ionInput)="filterList($event)"></ion-searchbar>
+                      <ion-searchbar showCancelButton (ionInput)="filterList($event)"></ion-searchbar>
                   
                   <ion-list>
-                  <ion-item *ngFor='let item of nonAssociated'>
+                  <ion-item *ngFor='let item of goalList'>
                       <ion-icon name="person"></ion-icon>
-                    <ion-label padding >{{item.nome}}</ion-label>
+                    <ion-label padding >{{item.nome}} {{item.cognome}}</ion-label>
                     <ion-checkbox color="primary" slot="end"  >
                     
                        

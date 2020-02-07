@@ -18,8 +18,8 @@ export class DipendentiPage implements OnInit {
   constructor(public navCtrl: NavController, private alertController: AlertController, 
     private http: HttpClient, private loadingService: LoadingService) {}
 
-  public employees: string[];
-  public goalList: string[];
+  public employees = [];
+  public goalList = [];
 
   async presentAlertError(message: string) {
     const alert = await this.alertController.create({
@@ -57,6 +57,8 @@ export class DipendentiPage implements OnInit {
           this.loadingService.dismissLoading();
 
           this.employees = response['dipendenti'];
+          
+          this.goalList = this.employees;
 
 
         }
@@ -66,24 +68,16 @@ export class DipendentiPage implements OnInit {
     });
   }
 
-  initializeItem(): void {
-    this.goalList = this.employees;
-   
-  }
-  filterList(evt) {
-    const searchTerm = evt.srcElement.value;
-    if (!searchTerm) {
-      return;
-    }
-    this.employees = this.employees.filter(element =>{
-      if (element.nome.toLowerCase && searchTerm){
-        if (element.nome.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1) {
-           return true;
-        }
-      }
-      return false;
-    })
-  }
+  filterList(evt: any) {
 
+    const searchTerm = evt.srcElement.value;
+
+    this.goalList = this.employees.filter(element => {
+  
+      return element.nome.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1
+
+    })
+
+  }
 
 }
