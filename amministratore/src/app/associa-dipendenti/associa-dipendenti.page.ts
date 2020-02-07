@@ -73,5 +73,21 @@ export class AssociaDipendentiPage implements OnInit {
     });
 
   }
+  filterList(evt) {
+    const searchTerm = evt.srcElement.value;
+    if (!searchTerm) {
+      return;
+    }
+    this.nonAssociated = this.nonAssociated.filter(element => {
+      if (element.nome.toLowerCase && searchTerm) {
+        if (element.nome.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1) {
+           return true;
+        }
+      }
+      return false;
+    })
+  }
+
+
 
 }

@@ -79,4 +79,20 @@ export class ProgettiPage implements OnInit {
     this.navCtrl.navigateForward('/associa-dipendenti', navigationExtras);
 
   }
+
+  filterList(evt) {
+    const searchTerm = evt.srcElement.value;
+    if (!searchTerm) {
+      return;
+    }
+    this.projects = this.projects.filter(element =>{
+      if (element.nome.toLowerCase && searchTerm){
+        if (element.nome.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1) {
+           return true;
+        }
+      }
+      return false;
+    })
+  }
+
 }

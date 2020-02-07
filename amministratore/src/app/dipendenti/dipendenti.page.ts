@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { AlertController, NavController } from '@ionic/angular';
 import LoadingService from '../providers/loading.service';
+import { currentId } from 'async_hooks';
+import { element } from 'protractor';
+
 
 
 @Component({
@@ -16,6 +19,7 @@ export class DipendentiPage implements OnInit {
     private http: HttpClient, private loadingService: LoadingService) {}
 
   public employees: string[];
+  public goalList: string[];
 
   async presentAlertError(message: string) {
     const alert = await this.alertController.create({
@@ -54,11 +58,32 @@ export class DipendentiPage implements OnInit {
 
           this.employees = response['dipendenti'];
 
+
         }
 
       });
 
     });
   }
+
+  initializeItem(): void {
+    this.goalList = this.employees;
+   
+  }
+  filterList(evt) {
+    const searchTerm = evt.srcElement.value;
+    if (!searchTerm) {
+      return;
+    }
+    this.employees = this.employees.filter(element =>{
+      if (element.nome.toLowerCase && searchTerm){
+        if (element.nome.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1) {
+           return true;
+        }
+      }
+      return false;
+    })
+  }
+
 
 }
