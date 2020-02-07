@@ -65,10 +65,9 @@ export class SwPage implements OnInit {
 
           break;
       }
-
-      dataTo.setDate(giorno);
-      dataTo.setMonth(dataTo.getMonth() + 1);
       dataTo.setFullYear(dataTo.getFullYear());
+      dataTo.setMonth(dataTo.getMonth() + 1);
+      dataTo.setDate(giorno);
       console.log("FROM giorno: " + dataFrom.getDate(), ", mese: " + dataFrom.getMonth() + ", anno: " + dataFrom.getFullYear());
       console.log("TO giorno: " + dataTo.getDate(), ", mese: " + dataTo.getMonth() + ", anno: " + dataTo.getFullYear());
     }
