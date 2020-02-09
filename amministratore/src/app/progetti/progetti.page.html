@@ -4,7 +4,7 @@
         <ion-menu-button></ion-menu-button>
       </ion-buttons>
       <ion-title>
-        Gestione Progetti
+        <ion-icon name="albums" ></ion-icon> Gestione Progetti
       </ion-title>
     </ion-toolbar>
   </ion-header>
@@ -19,7 +19,7 @@
           <ion-card-content >
               <ion-searchbar showCancelButtom (ionInput)="filterList($event)"> </ion-searchbar>          
           <ion-list>
-          <ion-item *ngFor='let item of projects'>
+          <ion-item *ngFor='let item of projects' style="cursor: pointer;">
               <ion-icon name="albums"></ion-icon>
               <ion-label padding (click)=goGestioneProgetto(item.id) name="progettoX">{{item.nome}}</ion-label>
           </ion-item>

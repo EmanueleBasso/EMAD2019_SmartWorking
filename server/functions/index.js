@@ -41,6 +41,7 @@ const getAllEmployees = require('./src/admin/getAllEmployees');
 const insertProject = require('./src/admin/insertProject');
 const getAllProjects = require('./src/admin/getAllProjects');
 const getAssociatedUsers = require('./src/admin/getAssociatedUsers');
+const associateEmployees = require('./src/admin/associateEmployees');
 
 module.exports = {
   //'isManager': functions.region('europe-west1').https.onRequest(isManagerModule),
@@ -65,9 +66,10 @@ module.exports = {
   //'getTodaySmartWorkers': functions.region('europe-west1').https.onRequest(getTodaySmartWorkers),
   //'adminHome': functions.region('europe-west1').https.onRequest(adminHome),
   //'getManagers': functions.region('europe-west1').https.onRequest(getManagers),
-  'insertEmployee': functions.region('europe-west1').https.onRequest(insertEmployee),
+  //'insertEmployee': functions.region('europe-west1').https.onRequest(insertEmployee),
   //'getAllEmployees': functions.region('europe-west1').https.onRequest(getAllEmployees),
   //'insertProject': functions.region('europe-west1').https.onRequest(insertProject),
   //'getAllProjects': functions.region('europe-west1').https.onRequest(getAllProjects),
-  //'getAssociatedUsers': functions.region('europe-west1').https.onRequest(getAssociatedUsers)
+  //'getAssociatedUsers': functions.region('europe-west1').https.onRequest(getAssociatedUsers),
+  'associateEmployees': functions.region('europe-west1').https.onRequest(associateEmployees)
 };

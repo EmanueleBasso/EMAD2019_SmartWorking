@@ -4,7 +4,7 @@
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
     <ion-title >
-      Gestione Progetti
+      <ion-icon name="albums" ></ion-icon> Gestione Progetti
     </ion-title>
   
   </ion-toolbar>
@@ -47,7 +47,7 @@
                   </ion-card-title> 
                     </ion-card-header>
         
-       
+       <form #f="ngForm" (ngSubmit)="onSubmit(f)">
                 <ion-card>
                   <ion-card-header>
                   </ion-card-header>
@@ -59,9 +59,7 @@
                   <ion-item *ngFor='let item of goalList'>
                       <ion-icon name="person"></ion-icon>
                     <ion-label padding >{{item.nome}} {{item.cognome}}</ion-label>
-                    <ion-checkbox color="primary" slot="end"  >
-                    
-                       
+                    <ion-checkbox color="primary" slot="end" name="{{item.id}}" [ngModel] >
                     </ion-checkbox>
                     
                   </ion-item>
@@ -69,13 +67,8 @@
                   </ion-card-content>
                   </ion-card>
           
-          
-         
-                      
-     
-    
-          
-       
+                  <ion-button  type="submit"  expand="block" class="ion-margin col-sm" margin-horizontal style="margin-left: 30%; margin-right: 30%;">  Invia </ion-button>        
+                </form>
           </ion-card>
   </div>
 

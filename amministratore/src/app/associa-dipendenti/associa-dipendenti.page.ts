@@ -4,6 +4,7 @@ import { NavController } from '@ionic/angular';
 import { AlertController } from '@ionic/angular';
 import { HttpClient} from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-associa-dipendenti',
@@ -30,6 +31,19 @@ export class AssociaDipendentiPage implements OnInit {
         text: 'OK',
       }]
     });
+    await alert.present();
+  }
+
+  async presentAlertSuccessInsert() {
+    const alert = await this.alertController.create({
+      header: 'Successo',
+      message: 'Dipendenti associati con successo!',
+      cssClass: 'alertClass2',
+      buttons: [{
+        text: 'OK',
+      }]
+    });
+
     await alert.present();
   }
 
@@ -84,6 +98,61 @@ export class AssociaDipendentiPage implements OnInit {
       return element.nome.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1
 
     })
+
+  }
+
+  onSubmit(form: NgForm) {
+    let allUnchecked = true;
+    let dipendentiDaAssociare = [];
+
+    for(let p in form.value){
+      if((form.value[p] != null) && (form.value[p] == true)){
+        dipendentiDaAssociare.push(p);
+        allUnchecked = false;
+      }
+    }
+
+    if(allUnchecked){
+      this.presentAlertInsertError("Non hai selezionato nessun dipendente.");
+      return;
+    }
+
+    this.loadingService.presentLoading('Loading...').then(() => {
+      const url = 'https://europe-west1-smart-working-5f3ea.cloudfunctions.net/associateEmployees';
+
+      this.http.get(url + '?lista=' + dipendentiDaAssociare + '&progetto=' + this.id )
+      .subscribe(response => {
+
+        if (response['hasError']) {
+
+          this.loadingService.dismissLoading();
+
+          this.presentAlertInsertError(response['error']);
+
+        } else {
+          for(let i = 0; i < this.nonAssociated.length; i = i + 1){
+            for(let j = 0; j < dipendentiDaAssociare.length; j = j +1){
+              if(this.nonAssociated[i]['id'] === dipendentiDaAssociare[j]){
+                const item = this.nonAssociated.splice(i, 1);
+      
+                this.associated.push(item[0]);
+      
+                i = i - 1
+                
+                break;
+              }
+            }
+          }
+
+          this.loadingService.dismissLoading();
+
+          this.presentAlertSuccessInsert();
+
+        }
+
+      })
+
+    });
 
   }
 
