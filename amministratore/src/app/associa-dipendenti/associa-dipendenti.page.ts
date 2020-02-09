@@ -110,18 +110,24 @@ export class AssociaDipendentiPage implements OnInit {
   }
 
   onSubmit(form: NgForm) {
+
     let allUnchecked = true;
     let dipendentiDaAssociare = [];
 
-    for(let p in form.value){
-      if((form.value[p] != null) && (form.value[p] == true)){
+    for(let p in form.value) {
+
+      if((form.value[p] != null) && (form.value[p] == true)) {
+
         dipendentiDaAssociare.push(p);
         allUnchecked = false;
+        
       }
     }
 
-    if(allUnchecked){
+    if(allUnchecked) {
+
       this.presentAlertInsertError("Non hai selezionato nessun dipendente.");
+
       return;
     }
 
@@ -138,9 +144,11 @@ export class AssociaDipendentiPage implements OnInit {
           this.presentAlertInsertError(response['error']);
 
         } else {
-          for(let i = 0; i < this.nonAssociated.length; i = i + 1){
-            for(let j = 0; j < dipendentiDaAssociare.length; j = j +1){
-              if(this.nonAssociated[i]['id'] === dipendentiDaAssociare[j]){
+          for(let i = 0; i < this.nonAssociated.length; i = i + 1) {
+
+            for(let j = 0; j < dipendentiDaAssociare.length; j = j +1) {
+
+              if(this.nonAssociated[i]['id'] === dipendentiDaAssociare[j]) {
                 const item = this.nonAssociated.splice(i, 1);
       
                 this.associated.push(item[0]);
