@@ -17,7 +17,7 @@
   <ion-card-header>
               <ion-card-title>
                   <ion-item lines="none" style=" font-size: 50px; " text-center>
-                       <ion-icon name="document" color="primary"  style=" font-size: 50px; "></ion-icon>  <ion-label color="primary" padding>Inserisci un nuovo progetto</ion-label>
+                       <!--ion-icon name="document" color="primary"  style=" font-size: 50px; "></ion-icon-->  <ion-label color="primary" padding>Inserisci un nuovo progetto</ion-label>
                     </ion-item>
               </ion-card-title> 
                 </ion-card-header>
@@ -41,8 +41,7 @@
                 </ion-item>
                 
                 <ion-item>
-                  <ion-label>Manager</ion-label>
-                  <ion-select interface="action-sheet" style="width: 1000px !important;" (ionChange)="onChange($event)">
+                  <ion-select  interface="action-sheet"   color="primary" text-center placeholder= "Select manager..."  (ionChange)="onChange($event)">
                     <ion-select-option *ngFor="let item of list" [value]="item.id">{{item.nome}} {{item.cognome + ","}}
                       {{item.email}}</ion-select-option>
                   </ion-select>

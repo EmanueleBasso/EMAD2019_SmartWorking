@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import LoadingService from '../providers/loading.service';
-import { NavController } from '@ionic/angular';
+import { NavController, NavParams } from '@ionic/angular';
 import { AlertController } from '@ionic/angular';
 import { HttpClient} from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router';
@@ -18,6 +18,9 @@ export class AssociaDipendentiPage implements OnInit {
   public nonAssociated = [];
   public goalList = [];
   public id = '';
+  public nome='';
+  public descrizione='';
+  public manager='';
 
   constructor(private route: ActivatedRoute, private loadingService: LoadingService, private alertController: AlertController, private navCtrl: NavController,
     private http: HttpClient) { }
@@ -48,10 +51,15 @@ export class AssociaDipendentiPage implements OnInit {
   }
 
   ngOnInit() {
-
+    
     this.route.queryParams.subscribe(params => {
 
       this.id = params.id;
+      this.nome=params.nome;
+      this.descrizione=params.descrizione;
+      this.manager=params.manager;
+
+      console.log("vediamo : "+ this.nome);
       
 
     })

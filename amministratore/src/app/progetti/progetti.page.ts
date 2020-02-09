@@ -13,7 +13,8 @@ import { HttpClient} from '@angular/common/http';
 })
 
 export class ProgettiPage implements OnInit {
-  projects = [];
+  public projects = [];
+  public goalList =[];
 
   constructor(private http: HttpClient, private loadingService: LoadingService, 
     private alertController: AlertController, public navCtrl: NavController) {}
@@ -37,6 +38,9 @@ export class ProgettiPage implements OnInit {
 
           this.projects = response['progetti'];
 
+          this.goalList = this.projects;
+
+
         }
 
       });
@@ -59,24 +63,38 @@ export class ProgettiPage implements OnInit {
   }
 
   goAnOtherPage() {
-
+    
     this.navCtrl.navigateRoot('/form-progetti');
 
   }
 
-  goGestioneProgetto(id: string) {
+  goGestioneProgetto(id: string, nome: string, descrizione: string) {
 
     let navigationExtras: NavigationExtras = {
 
       queryParams: {
 
-        id
+        id,
+        nome,
+        descrizione,
 
       }
 
     }
 
     this.navCtrl.navigateForward('/associa-dipendenti', navigationExtras);
+
+  }
+
+  filterList11(evt: any) {
+    
+    const searchTerm = evt.srcElement.value;
+
+    this.goalList = this.projects.filter(element => {
+  
+      return element.nome.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1;
+
+    })
 
   }
 
@@ -94,5 +112,6 @@ export class ProgettiPage implements OnInit {
       return false;
     })
   }
+
 
 }

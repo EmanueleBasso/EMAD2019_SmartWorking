@@ -59,6 +59,7 @@ export class DipendentiPage implements OnInit {
           this.employees = response['dipendenti'];
           
           this.goalList = this.employees;
+       
 
 
         }

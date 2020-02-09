@@ -9,19 +9,38 @@
   
   </ion-toolbar>
 </ion-header>
-<body>
-<ion-content  padding>
+<body >
 
-  
+
+<ion-content  padding >
+  <div>
+    <ion-card padding style="background-color: #1c39bb;; margin-top: 5%;">
+      <ion-card-header>
+                  <ion-card-title>
+                      <ion-item lines="none" style=" font-size: 50px;  " text-center >
+                             <ion-label color="primary" padding>Nome Progetto: {{nome}} </ion-label>
+                      </ion-item>
+                  </ion-card-title> 
+      </ion-card-header>
+      <ion-card>
       
-   
-     
+                  <ion-card-content >
+                  
+                  
+                    <ion-item >
+                   
+                    <ion-label padding  color="primary" text-center >Descrizione Progetto: <b >{{descrizione}}</b></ion-label>
+                  </ion-item>
+                  </ion-card-content>
+  </ion-card>
+    </ion-card>
+  </div>
   <div>
     <ion-card padding>
       <ion-card-header>
                   <ion-card-title>
-                      <ion-item lines="none" style=" font-size: 50px; " text-center>
-                           <ion-icon name="document" color="primary"  style=" font-size: 50px; "></ion-icon>  <ion-label color="primary" padding>Dipendenti associati</ion-label>
+                      <ion-item lines="none" style=" font-size: 50px; " >
+                           <ion-icon name="document" color="primary"  style=" font-size: 50px; "></ion-icon>  <ion-label color="primary" padding>Dipendenti associati </ion-label>
                       </ion-item>
                   </ion-card-title> 
       </ion-card-header>
@@ -41,8 +60,8 @@
     <ion-card padding >
       <ion-card-header>
                   <ion-card-title>
-                      <ion-item lines="none" style=" font-size: 50px; " text-center>
-                           <ion-icon name="document" color="primary"  style=" font-size: 50px; "></ion-icon>  <ion-label color="primary" padding>Associa dipendenti</ion-label>
+                      <ion-item lines="none" style=" font-size: 50px; ">
+                           <ion-icon name="document" color="primary"  style=" font-size: 50px; "></ion-icon>  <ion-label color="primary" padding>Associa dipendenti </ion-label>
                         </ion-item>
                   </ion-card-title> 
                     </ion-card-header>
@@ -67,7 +86,7 @@
                   </ion-card-content>
                   </ion-card>
           
-                  <ion-button  type="submit"  expand="block" class="ion-margin col-sm" margin-horizontal style="margin-left: 30%; margin-right: 30%;">  Invia </ion-button>        
+                  <ion-button  type="submit"  expand="block" class="ion-margin col-sm" margin-horizontal style="margin-left: 30%; margin-right: 30%; font-size: large;">  Invia </ion-button>        
                 </form>
           </ion-card>
   </div>
