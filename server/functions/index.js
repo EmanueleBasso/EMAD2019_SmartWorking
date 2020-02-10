@@ -70,6 +70,6 @@ module.exports = {
   //'getAllEmployees': functions.region('europe-west1').https.onRequest(getAllEmployees),
   //'insertProject': functions.region('europe-west1').https.onRequest(insertProject),
   //'getAllProjects': functions.region('europe-west1').https.onRequest(getAllProjects),
-  //'getAssociatedUsers': functions.region('europe-west1').https.onRequest(getAssociatedUsers),
-  'associateEmployees': functions.region('europe-west1').https.onRequest(associateEmployees)
+  'getAssociatedUsers': functions.region('europe-west1').https.onRequest(getAssociatedUsers),
+  //'associateEmployees': functions.region('europe-west1').https.onRequest(associateEmployees)
 };
