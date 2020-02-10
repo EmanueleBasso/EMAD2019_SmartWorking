@@ -68,7 +68,9 @@ export class ProgettiPage implements OnInit {
 
   }
 
-  goGestioneProgetto(id: string, nome: string, descrizione: string) {
+  goGestioneProgetto(id: string, nome: string, descrizione: string, manager: any) {
+    const managerStr = manager['nome'] + ' ' + manager['cognome'];
+    const managerId = manager['id'];
 
     let navigationExtras: NavigationExtras = {
 
@@ -77,6 +79,8 @@ export class ProgettiPage implements OnInit {
         id,
         nome,
         descrizione,
+        managerId,
+        managerStr
 
       }
 

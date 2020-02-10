@@ -22,7 +22,6 @@ module.exports = async (request, response) => {
         })
 
         await db.collection('AssociazioneDipendenteProgetto').where("progetto", "==", project).get().then(projects => {
-
             projects.forEach(element => {
 
                 ids.push({id: element.data().dipendente})
@@ -30,10 +29,11 @@ module.exports = async (request, response) => {
             })
 
             for (i = 0; i < all.length; i++) {
+                found = false
 
                 for ( j = 0; j < ids.length; j++) {
 
-                    if (all[i].id == ids[j]. id) {
+                    if (all[i].id == ids[j].id) {
 
                         found = true
 

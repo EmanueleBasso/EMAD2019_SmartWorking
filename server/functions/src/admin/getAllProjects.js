@@ -14,7 +14,7 @@ module.exports = async (request, response) => {
 
             await db.collection('Dipendente').doc(elem.data().manager).get().then(doc => {
 
-                projects.push({nome: elem.data().nome, descrizione: elem.data().descrizione, id: elem.id, manager: {nome: doc.data().nome, cognome: doc.data().cognome, email: doc.data().email}})
+                projects.push({nome: elem.data().nome, descrizione: elem.data().descrizione, id: elem.id, manager: {nome: doc.data().nome, cognome: doc.data().cognome, email: doc.data().email, id:elem.data().manager}})
 
                 if (flag == snapshot.size - 1) {
 

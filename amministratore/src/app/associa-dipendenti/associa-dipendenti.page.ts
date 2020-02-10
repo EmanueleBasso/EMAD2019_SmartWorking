@@ -20,7 +20,8 @@ export class AssociaDipendentiPage implements OnInit {
   public id = '';
   public nome='';
   public descrizione='';
-  public manager='';
+  public managerId='';
+  public managerStr='';
 
   constructor(private route: ActivatedRoute, private loadingService: LoadingService, private alertController: AlertController, private navCtrl: NavController,
     private http: HttpClient) { }
@@ -55,19 +56,14 @@ export class AssociaDipendentiPage implements OnInit {
     this.route.queryParams.subscribe(params => {
 
       this.id = params.id;
-      this.nome=params.nome;
-      this.descrizione=params.descrizione;
-      this.manager=params.manager;
-
-      console.log("vediamo : "+ this.nome);
-      
-
+      this.nome = params.nome;
+      this.descrizione = params.descrizione;
+      this.managerId = params.managerId;
+      this.managerStr = params.managerStr;
     })
 
     this.loadingService.presentLoading('Loading...').then(() => {
       const url = 'https://europe-west1-smart-working-5f3ea.cloudfunctions.net/getAssociatedUsers';
-
-      console.log('PROGETTO: ' + this.id);
 
       this.http.get(url + '?project=' + this.id)
 
@@ -85,7 +81,21 @@ export class AssociaDipendentiPage implements OnInit {
 
           this.nonAssociated = response['daAssociare'];
 
+          for(let i = 0; i < this.nonAssociated.length; i = i + 1) {
+            if(this.nonAssociated[i]['id'] === this.managerId) {
+              this.nonAssociated.splice(i, 1);
+              break;
+            }
+          }
+
           this.associated = response['associati'];
+
+          for(let i = 0; i < this.associated.length; i = i + 1) {
+            if(this.associated[i]['id'] === this.managerId) {
+              this.associated.splice(i, 1);
+              break;
+            }
+          }
 
           this.goalList = this.nonAssociated;
 
