@@ -2,10 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { AlertController, NavController } from '@ionic/angular';
 import LoadingService from '../providers/loading.service';
-import { currentId } from 'async_hooks';
-import { element } from 'protractor';
-
-
 
 @Component({
   selector: 'app-dipendenti',

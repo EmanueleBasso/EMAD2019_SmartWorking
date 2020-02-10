@@ -86,32 +86,16 @@ export class ProgettiPage implements OnInit {
 
   }
 
-  filterList11(evt: any) {
-    
+  filterList(evt: any) {
+
     const searchTerm = evt.srcElement.value;
 
     this.goalList = this.projects.filter(element => {
   
-      return element.nome.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1;
+      return element.nome.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1
 
     })
 
   }
-
-  filterList(evt) {
-    const searchTerm = evt.srcElement.value;
-    if (!searchTerm) {
-      return;
-    }
-    this.projects = this.projects.filter(element =>{
-      if (element.nome.toLowerCase && searchTerm){
-        if (element.nome.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1) {
-           return true;
-        }
-      }
-      return false;
-    })
-  }
-
 
 }
