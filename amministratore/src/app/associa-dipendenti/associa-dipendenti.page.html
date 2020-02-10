@@ -3,93 +3,78 @@
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
-    <ion-title >
-      <ion-icon name="albums" ></ion-icon> Gestione Progetti
+    <ion-title>
+      <ion-icon name="albums"></ion-icon> Gestione Progetti
     </ion-title>
-  
+
   </ion-toolbar>
 </ion-header>
-<body >
 
-
-<ion-content  padding >
+<ion-content>
   <div>
-    <ion-card padding style="background-color: #1c39bb;; margin-top: 5%;">
-      <ion-card-header>
-                  <ion-card-title>
-                      <ion-item lines="none" style=" font-size: 50px;  " text-center >
-                             <ion-label color="primary" padding>{{nome}}</ion-label>
-                      </ion-item>
-                  </ion-card-title> 
+    <ion-card>
+      <ion-card-header style="padding-bottom: 0;">
+        <ion-card-title>
+          <ion-item lines="none" style=" font-size: 50px;">
+            <ion-label color="primary" padding>{{nome}}</ion-label>
+          </ion-item>
+        </ion-card-title>
       </ion-card-header>
-      <ion-card>
-      
-                  <ion-card-content >
-                  
-                  
-                    <ion-item >
-                   
-                    <ion-label padding  color="primary" text-center >Descrizione: {{descrizione}}</ion-label>
-                  </ion-item>
-                  </ion-card-content>
-  </ion-card>
+      <ion-list>
+        <ion-item lines="none">
+          <div style="color: var(--ion-color-primary); font-weight: bold; padding-right: 5px;">Descrizione: </div>
+          <ion-label> {{descrizione}}</ion-label>
+        </ion-item>
+        <ion-item lines="none">
+          <div style="color: var(--ion-color-primary); font-weight: bold; padding-right: 5px">Manager: </div>
+          <ion-label> {{managerStr}} </ion-label>
+        </ion-item>
+      </ion-list>
     </ion-card>
   </div>
+
   <div>
     <ion-card padding>
       <ion-card-header>
-                  <ion-card-title>
-                      <ion-item lines="none" style=" font-size: 50px; " >
-                           <ion-icon name="document" color="primary"  style=" font-size: 50px; "></ion-icon>  <ion-label color="primary" padding>Dipendenti associati </ion-label>
-                      </ion-item>
-                  </ion-card-title> 
+        <ion-card-title>
+          <ion-item lines="none" style=" font-size: 50px; ">
+            <ion-icon name="document" color="primary" style=" font-size: 50px; "></ion-icon>
+            <ion-label color="primary" padding>Dipendenti associati </ion-label>
+          </ion-item>
+        </ion-card-title>
       </ion-card-header>
-      <ion-card>
-      
-                  <ion-card-content >
-                  
-                    <ion-item *ngFor='let item of associated'>
-                        <ion-icon name="person"></ion-icon>
-                      <ion-label padding >{{item.nome}} {{item.cognome}}</ion-label>
-                    </ion-item>
-                  </ion-card-content>
-  </ion-card>
+
+      <ion-item *ngFor='let item of associated'>
+        <ion-icon name="person"></ion-icon>
+        <ion-label padding>{{item.nome}} {{item.cognome}}</ion-label>
+      </ion-item>
     </ion-card>
   </div>
-  <div>
-    <ion-card padding >
-      <ion-card-header>
-                  <ion-card-title>
-                      <ion-item lines="none" style=" font-size: 50px; ">
-                           <ion-icon name="document" color="primary"  style=" font-size: 50px; "></ion-icon>  <ion-label color="primary" padding>Associa dipendenti </ion-label>
-                        </ion-item>
-                  </ion-card-title> 
-                    </ion-card-header>
-        
-       <form #f="ngForm" (ngSubmit)="onSubmit(f)">
-                <ion-card>
-                  <ion-card-header>
-                  </ion-card-header>
-                  <ion-card-content >
-                
-                      <ion-searchbar showCancelButton (ionInput)="filterList($event)"></ion-searchbar>
-                  
-                  <ion-list>
-                  <ion-item *ngFor='let item of goalList'>
-                      <ion-icon name="person"></ion-icon>
-                    <ion-label padding >{{item.nome}} {{item.cognome}}</ion-label>
-                    <ion-checkbox color="primary" slot="end" name="{{item.id}}" [ngModel] >
-                    </ion-checkbox>
-                    
-                  </ion-item>
-                </ion-list>
-                  </ion-card-content>
-                  </ion-card>
-          
-                  <ion-button  type="submit"  expand="block" class="ion-margin col-sm" margin-horizontal style="margin-left: 30%; margin-right: 30%; font-size: large;">  Invia </ion-button>        
-                </form>
-          </ion-card>
-  </div>
 
+  <div>
+    <ion-card padding>
+      <ion-card-header>
+        <ion-card-title>
+          <ion-item lines="none" style=" font-size: 50px; ">
+            <ion-icon name="document" color="primary" style=" font-size: 50px; "></ion-icon>
+            <ion-label color="primary" padding>Associa dipendenti </ion-label>
+          </ion-item>
+        </ion-card-title>
+      </ion-card-header>
+
+      <form #f="ngForm" (ngSubmit)="onSubmit(f)">
+        <ion-searchbar showCancelButton (ionInput)="filterList($event)"></ion-searchbar>
+        <ion-list>
+          <ion-item *ngFor='let item of goalList'>
+            <ion-icon name="person"></ion-icon>
+            <ion-label padding>{{item.nome}} {{item.cognome}}</ion-label>
+            <ion-checkbox color="primary" slot="end" name="{{item.id}}" [ngModel]>
+            </ion-checkbox>
+          </ion-item>
+        </ion-list>
+        <ion-button type="submit" expand="block" class="ion-margin col-sm" margin-horizontal
+          style="margin-left: 30%; margin-right: 30%; font-size: large;"> Invia </ion-button>
+      </form>
+    </ion-card>
+  </div>
 </ion-content>
-</body>

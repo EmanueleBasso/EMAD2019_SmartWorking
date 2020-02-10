@@ -1,35 +1,38 @@
 <ion-header>
-    <ion-toolbar color="primary">
-      <ion-buttons slot="start">
-        <ion-menu-button></ion-menu-button>
-      </ion-buttons>
-      <ion-title>
-        <ion-icon name="albums" ></ion-icon> Gestione Progetti
-      </ion-title>
-    </ion-toolbar>
-  </ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>
+      <ion-icon name="albums"></ion-icon> Gestione Progetti
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
 
 <ion-content>
- <div class = "row center">
-  <ion-col>
+  <div class="row center">
+    <ion-col>
       <ion-card>
-          <ion-card-header>
-          <ion-card-title style=" text-align: center;"> <ion-label color="primary" padding >Cerca progetto </ion-label></ion-card-title>
-          </ion-card-header>
-          <ion-card-content >
-              <ion-searchbar showCancelButton (ionInput)="filterList($event)"> </ion-searchbar>          
+        <ion-card-header>
+          <ion-card-title style=" text-align: center;">
+            <ion-label color="primary" padding>Cerca progetto </ion-label>
+          </ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          <ion-searchbar showCancelButton (ionInput)="filterList($event)"> </ion-searchbar>
           <ion-list>
-          <ion-item *ngFor='let item of goalList' style="cursor: pointer;">
+            <ion-item *ngFor='let item of goalList' style="cursor: pointer;">
               <ion-icon name="albums"></ion-icon>
-              <ion-label padding (click)=goGestioneProgetto(item.id,item.nome,item.descrizione,item.manager) name="progettoX">{{item.nome}}</ion-label>
-          </ion-item>
-        </ion-list>
-      </ion-card-content>
-     </ion-card>
-  
-  </ion-col>
+              <ion-label padding (click)=goGestioneProgetto(item.id,item.nome,item.descrizione,item.manager)
+                name="progettoX">
+                {{item.nome}}</ion-label>
+            </ion-item>
+          </ion-list>
+          <ion-button expand="block" (click)="goAnOtherPage()" name="bottoneInsert" #InserisciDip
+            style="margin: 2% 30% 1% 30%">Inserisci un nuovo progetto
+          </ion-button>
+        </ion-card-content>
+      </ion-card>
+    </ion-col>
   </div>
-  <ion-button expand="block"  (click)="goAnOtherPage()"  name="bottoneInsert" #InserisciDip style="margin-left: 30%; margin-right: 30%;">Inserisci un nuovo progetto
-
-  </ion-button>
 </ion-content>

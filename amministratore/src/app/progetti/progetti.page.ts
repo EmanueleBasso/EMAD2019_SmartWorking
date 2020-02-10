@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import LoadingService from '../providers/loading.service';
 import { NavController } from '@ionic/angular';
-import {NavigationExtras} from '@angular/router';
+import { NavigationExtras } from '@angular/router';
 import { AlertController } from '@ionic/angular';
-import { HttpClient} from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 
 
 @Component({
@@ -14,10 +14,10 @@ import { HttpClient} from '@angular/common/http';
 
 export class ProgettiPage implements OnInit {
   public projects = [];
-  public goalList =[];
+  public goalList = [];
 
-  constructor(private http: HttpClient, private loadingService: LoadingService, 
-    private alertController: AlertController, public navCtrl: NavController) {}
+  constructor(private http: HttpClient, private loadingService: LoadingService,
+    private alertController: AlertController, public navCtrl: NavController) { }
 
   ngOnInit() {
     this.loadingService.presentLoading('Loading...').then(() => {
@@ -63,7 +63,7 @@ export class ProgettiPage implements OnInit {
   }
 
   goAnOtherPage() {
-    
+
     this.navCtrl.navigateRoot('/form-progetti');
 
   }
@@ -95,7 +95,7 @@ export class ProgettiPage implements OnInit {
     const searchTerm = evt.srcElement.value;
 
     this.goalList = this.projects.filter(element => {
-  
+
       return element.nome.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1
 
     })
