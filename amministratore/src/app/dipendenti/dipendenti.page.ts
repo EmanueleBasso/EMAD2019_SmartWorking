@@ -71,7 +71,7 @@ export class DipendentiPage implements OnInit {
 
     this.goalList = this.employees.filter(element => {
   
-      return element.nome.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1
+      return element.nome.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1;
 
     })
 
