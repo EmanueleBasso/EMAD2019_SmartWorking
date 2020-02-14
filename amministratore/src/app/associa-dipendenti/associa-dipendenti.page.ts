@@ -41,7 +41,7 @@ export class AssociaDipendentiPage implements OnInit {
     const alert = await this.alertController.create({
       header: 'Successo',
       message: 'Dipendenti associati con successo!',
-      cssClass: 'alertClass2',
+      cssClass: 'alertClass4',
       buttons: [{
         text: 'OK',
       }]

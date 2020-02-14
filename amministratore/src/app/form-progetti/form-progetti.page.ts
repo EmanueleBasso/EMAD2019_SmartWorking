@@ -37,7 +37,7 @@ export class FormProgettiPage implements OnInit {
     const alert = await this.alertController.create({
       header: 'Successo',
       message: 'Progetto inserito con successo!',
-      cssClass: 'alertClass2',
+      cssClass: 'alertClass4',
       buttons: [{
         text: 'OK',
       }]
