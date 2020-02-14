@@ -130,6 +130,7 @@ export class FormDipendentiPage implements OnInit {
 
             this.presentAlertSuccessInsert();
 
+            this.navCtrl.navigateRoot('/dipendenti');
           }
 
         })

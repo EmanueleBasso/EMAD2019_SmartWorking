@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import LoadingService from '../providers/loading.service';
+import { NavController } from '@ionic/angular';
 import { NgForm } from '@angular/forms';
 import { AlertController } from '@ionic/angular';
 import { HttpClient} from '@angular/common/http';
@@ -14,7 +15,8 @@ export class FormProgettiPage implements OnInit {
   public list = [];
   manager = '';
 
-  constructor(private http: HttpClient, private loadingService: LoadingService, private alertController: AlertController) {
+  constructor(private http: HttpClient, private loadingService: LoadingService,
+    private alertController: AlertController, public navCtrl: NavController) {
     this.list.push();
   }
 
@@ -106,14 +108,13 @@ export class FormProgettiPage implements OnInit {
 
           this.presentAlertSuccessInsert();
 
+          this.navCtrl.navigateRoot('/progetti');
+
         }
 
       });
 
     });
-
-    // this.navCtrl.navigateRoot('/progetti');
-
 
   }
 

@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import LoadingService from '../providers/loading.service';
-import { NavController, NavParams } from '@ionic/angular';
 import { AlertController } from '@ionic/angular';
 import { HttpClient} from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router';
@@ -23,7 +22,7 @@ export class AssociaDipendentiPage implements OnInit {
   public managerId='';
   public managerStr='';
 
-  constructor(private route: ActivatedRoute, private loadingService: LoadingService, private alertController: AlertController, private navCtrl: NavController,
+  constructor(private route: ActivatedRoute, private loadingService: LoadingService, private alertController: AlertController,
     private http: HttpClient) { }
 
   async presentAlertInsertError(message: string) {
