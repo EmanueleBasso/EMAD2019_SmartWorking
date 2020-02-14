@@ -118,10 +118,6 @@ export class CalendarioDipendentiPage implements OnInit {
     });
 
     await alert.present();
-    // timeout di 5 secondi per l'alert
-    setTimeout(() => {
-      alert.dismiss();
-    }, 5000);
   }
 
   async mostraProgetti() {
