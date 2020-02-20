@@ -1,80 +1,57 @@
 # EMAD2019_SmartWorking
-Progetto per la gestione dello Smart Working nell'ambito del corso Enterprise Mobile Application Development.
+Progetto per la gestione dello Smart Working nell'ambito del corso universitario Enterprise Mobile Application Development.
 
 ## Guida per l'installazione
 
-Per cominciare a sperimentare dobbiamo:
-
-- scaricare il progetto in locale.
-- recarsi nella cartella "files_di_configurazione"
-- esegui le seguenti configurazioni 
+Per installare l'App bisogna:
+- scaricare il progetto in locale
+- recarsi nella cartella *files_di_configurazione*
+- eseguire le seguenti configurazioni:
     1. Sostituire in *app/node_modules*:
-       - config.js e config.metadata.json in *ion2-calendar/dist*
-       - calendar.service.js in *ion2-calendar/dist/services*
-       - calendar.component.js in *ion2-calendar/dist/components*
+       - *config.js* e *config.metadata.json* in *ion2-calendar/dist*
+       - *calendar.service.js* in *ion2-calendar/dist/services*
+       - *calendar.component.js* in *ion2-calendar/dist/components*
     2. Aggiungere in  *platforms/android/app*:
-       -   google-services.json
-
-- aprire l'interfaccia della nostra command-line.
-- spostarci sulla cartella del progetto nello specifico entrare nella cartella app
-
-Digitare:
-
+       -   *google-services.json*
+- aprire la CLI
+- spostarsi nella cartella *app* del progetto e installare tutte le dipendenze col comando:
 ```
 npm install
 ```
-
-Questo comando installa tutte le dipendenze.
-
-Digitare:
+- per eseguire la WebApp digitare:
 ```
 ionic serve
 ```
-
-Questo comando eseguirà il codice e permetterà la visualizzazione della webapp 
-
-Per installare l'applicazione sul device lanciare:
+- per installare l'applicazione sul device digitare invece:
 ```
 ionic cordova run android --device
 ```
 
 
-## Funzionalità presenti
 
-- Login
-- Logout
-- Prenotazione Smart Working per ogni dipendente
-- Notifica giornaliera per ricordare all'utente il giorno seguente se è in Smart working  o no
-- Visualizza proprio Smart Working pianificato
-- Visualizza piano Smart Working di ogni dipendente associato al progetto supervisionato dal menager
-- Blocca giorno Smart Working per il manager
+Per eseguire l'amministratore bisogna:
 
+- aprire la CLI
+- spostarsi nella cartella *amministratore* del progetto e installare tutte le dipendenze col comando:
+```
+npm install
+```
+- Eseguire la WebApp digitando:
+```
+ionic serve
+```
+## Struttura Progetto
 
+- Nella cartella *amministratore* è presente il progetto amministratore
+- Nella cartella *app* è presente il progetto dell'App
+- Nella cartella *server* è presente il progetto back-end per Firebase
 
-## Funzionalità in programma
+## Documenti
 
-- Prenota postazione
+Nella cartella *documenti* sono presenti:
 
+- Brochure del progetto
+- Slides di presentazione per l'App Challenge e per l'azienda
 
-
-Aggiungeremo L'amministratore come nuovo attore della nostra applicazione. L'amministratore dovrà occuparsi della gestione organizzativa del DB sottostante, dovrà quindi:
-
-- Inserire Dipendenti
-- Modificare Status ai dipendenti se diventano Manager
-- Inserire Progetti associando dipendenti e Menager 
-
-
-
-
-
-Nella cartella documenti sono presenti:
-
-- Problem starment versione 1 (prima stesura documento)
-- Problem statment versione 2 (raffinamento del documento)
-- Prototype report versione 1 (use case, class diagram, prototipi)
-- Slide di presentazione prototipazione
-
-Tale cartella verrà aggiornata ogni qual volta saranno introdotte delle modifiche.
-
-
-
+- Problem Statement
+- Prototype Report
