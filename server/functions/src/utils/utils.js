@@ -183,7 +183,7 @@ module.exports = {
         
                 const mailOptions = {
                     from: 'Amministratore Smart Working<smartworking.unisa@gmail.com>',
-                    to: 'antonio.basileo92@gmail.com',
+                    to: document.data().email,
                     subject: 'Piano di Smart Working',
                     html: "<p style=\"font-size: 16px;\">Ciao " + document.data().nome + " " + document.data().cognome + ",</p>" 
                     + "<p style=\"font-size: 16px;\">ecco il tuo piano di Smart Working per il prossimo mese:</p>" 
@@ -221,7 +221,7 @@ module.exports = {
     
             const mailOptions = {
                 from: 'Amministratore Smart Working<smartworking.unisa@gmail.com>',
-                to: 'antonio.basileo92@gmail.com',
+                to: email,
                 subject: 'Credenziali di accesso',
                 html: "<p style=\"font-size: 16px;\">Ciao " + nome + " " + cognome + ",</p>" 
                 + "<p style=\"font-size: 16px;\">ecco le tue credenziali di accesso:</p>"  
